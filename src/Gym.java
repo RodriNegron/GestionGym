@@ -10,7 +10,6 @@ public final class Gym {
     private List<Shift> shiftList;
     private List<Customer> customers_list;
 
-
     //region setter & getters
 
     public String getName() { return name; }
@@ -76,7 +75,7 @@ public final class Gym {
             }
         }
     }
-    
+
 
 
 
