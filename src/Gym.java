@@ -1,7 +1,7 @@
-import java.util.Collections;
-import java.util.HashMap;
+import Classes.Customer;
+import Classes.Shift;
+
 import java.util.List;
-import java.util.Map;
 
 public final class Gym {
     private String name;

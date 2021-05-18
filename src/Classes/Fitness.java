@@ -1,3 +1,7 @@
+package Classes;
+
+import Classes.Abstract.Activity;
+
 public class Fitness extends Activity {
 
 

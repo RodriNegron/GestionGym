@@ -1,3 +1,5 @@
+package Classes.Abstract;
+
 public abstract class Activity{
 
     public int slots = 10;

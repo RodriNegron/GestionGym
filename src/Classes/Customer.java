@@ -1,4 +1,9 @@
-public class Customer extends Person{
+package Classes;
+
+import Classes.Abstract.Person;
+import Collections.Shift_list;
+
+public class Customer extends Person {
     private int training_Plan;
     private Shift_list shifts;
     private Wallet wallet;
@@ -50,7 +55,7 @@ public class Customer extends Person{
     //use stringbuilder over void functions
     @Override
     public String toString() {
-        return "Customer{" +
+        return "Class.Customer{" +
                 "training_Plan=" + training_Plan +
                 ", shifts=" + consultShiftList() +
                 ", wallet=" +  consultShiftList()  +

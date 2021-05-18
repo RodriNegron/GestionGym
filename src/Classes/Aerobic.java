@@ -1,4 +1,8 @@
-public class Aerobic extends Activity{
+package Classes;
+
+import Classes.Abstract.Activity;
+
+public class Aerobic extends Activity {
 
 
     //region CONSTRUCTORS

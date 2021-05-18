@@ -1,3 +1,5 @@
+package Classes.Abstract;
+
 import java.time.LocalDate;
 
 public abstract class training_plan {

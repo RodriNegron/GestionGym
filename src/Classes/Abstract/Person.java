@@ -1,3 +1,5 @@
+package Classes.Abstract;
+
 public abstract class Person {
     private static int count = 0;
     private int id;

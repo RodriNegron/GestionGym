@@ -1,3 +1,5 @@
+package Classes;
+
 public class Wallet {
     private int id;
     private double total_Amount = 0;
@@ -42,7 +44,7 @@ public class Wallet {
 
     @Override
     public String toString() {
-        return "Wallet{" +
+        return "Class.Wallet{" +
                 "id=" + id +
                 ", total_Amount=" + total_Amount +
                 '}';
