@@ -2,6 +2,8 @@ package Classes;
 
 import Classes.Abstract.Activity;
 
+import java.util.List;
+
 public class Aerobic extends Activity {
 
 
