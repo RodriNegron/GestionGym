@@ -83,7 +83,7 @@ public final class Gym {
     }
 
     public void hardcodeUsers(){
-        Customer admin = new Customer("000", "admin", "admin", "admin@outlook.com.ar", "admin");
+        Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
 
         addToCustomerList(admin);
     }
