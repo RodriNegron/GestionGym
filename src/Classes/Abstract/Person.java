@@ -14,8 +14,9 @@ public abstract class Person {
         incrementalId();
     }
 
-    public Person(String firstName, String lastName, String email, String password) {
+    public Person(String firstName, String dni, String lastName, String email, String password) {
         incrementalId();
+        this.dni = dni;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

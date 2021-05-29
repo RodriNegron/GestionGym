@@ -1,12 +1,17 @@
 package Classes.Abstract;
 
+import Classes.Instructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Activity{
 
-    public int slots = 10;
+    //public int slots = 10; //TODO conversar con los chicos, no es necesario por qe se setea al crear el mapa
     private static int count  = 0;
     private  int idActivity = 0;  //autoincremental
     private String name ;
-    private List <Instructor> instructors;
+    private List<Instructor> instructors;
 
     //region CONSTRUCTORS
     public Activity (){ incrementalId ();}
@@ -19,9 +24,9 @@ public abstract class Activity{
     //endregion
 
     //region GETTERS  SETTERS
-   public int getIdActivity() { return id; }
+   public int getIdActivity() { return idActivity; }
 
-    public void setIdActivity(int id) { this.id = id; }
+    public void setIdActivity(int id) { this.idActivity = id; }
 
     public String getName() { return name; }
 

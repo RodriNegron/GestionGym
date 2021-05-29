@@ -11,14 +11,14 @@ public class Customer extends Person {
     //region constructor
 
     public Customer() {
-        this.shifts = new Shit_list();
+        this.shifts = new Shift_list();
         this.wallet =  new Wallet(this.getId());
     }
 
-    public Customer(String firstName, String lasName, String email, String password, int training_Plan) {
-        super(firstName, lasName, email, password);
+    public Customer(String dni, String firstName, String lasName, String email, String password, int training_Plan) {
+        super(dni,firstName, lasName, email, password);
         this.training_Plan = training_Plan;
-        this.shifts = new Shit_list();
+        this.shifts = new Shift_list();
         this.wallet =  new Wallet(this.getId());
     }
     //endregion
@@ -42,9 +42,9 @@ public class Customer extends Person {
 
     //endregion
 
-    public void consultShiftList()
+    public String consultShiftList()
     {
-        shits.consultShiftList();
+        return shifts.listAllSfhits();
     }
 
     public void consultWalletStatus()
@@ -55,10 +55,11 @@ public class Customer extends Person {
     //use stringbuilder over void functions
     @Override
     public String toString() {
-        return "Class.Customer{" +
+        return super.toString() + "\n" +
+                "Class.Customer{" +
                 "training_Plan=" + training_Plan +
                 ", shifts=" + consultShiftList() +
-                ", wallet=" +  consultShiftList()  +
+               // ", wallet=" +  consultShiftList()  +
                 '}';
     }
 }
