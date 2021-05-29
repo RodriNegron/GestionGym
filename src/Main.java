@@ -1,3 +1,5 @@
+import Classes.Abstract.Activity;
+import Classes.Aerobic;
 import Classes.Crossfit;
 import Classes.Customer;
 import Classes.Shift;
@@ -22,6 +24,7 @@ public class Main {
         //gym.consultShifts();
 
         loggin();
+
     }
 
 
@@ -31,6 +34,7 @@ public class Main {
 
         Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
         gym.harcodeShifts();
+        gym.hardcodeUsers();
 
         int number;
         char var = 's';

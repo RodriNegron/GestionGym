@@ -7,25 +7,36 @@ import java.util.List;
 
 public class Instructor_list {
 
-    private List<Instructor> instructors = new ArrayList<>();
+    private List<Instructor> instructors;
 
-    public  Instructor_list (){}
-
-    public Instructor_list(List<Instructor> instructors) { this.instructors = instructors; }
-
-    public void agregar (Instructor instructor){
-        instructors.add(instructor);
+    public  Instructor_list (){
+        instructors =  new ArrayList<>();
     }
-    public void mostrarLista (){
 
-        for (Instructor inst : instructors) {
-            System.out.println(inst.getName());
+    public List<Instructor> getInstructors() { return instructors; }
+
+
+    //we can only add 2 instructors for activity
+    public void addInstructor(Instructor instructor){
+
+        boolean found = false;
+
+        if(instructors.size() <= 0) instructors.add(instructor);
+        else
+        {
+            for (Instructor ins: instructors) {
+                if (ins.equals(instructor))
+                {
+                    found = true;
+                }
+            }
+            if((found == false ) && (instructors.size() < 2)) instructors.add(instructor);
         }
     }
 
-    //region GETTERS AND SETTERS
-    public List<Instructor> getInstructors() { return instructors; }
-
-    public void setInstructors(List<Instructor> instructors) { this.instructors = instructors; }
-    //endregion
+    public void consultAllInstructors(){
+        for (Instructor inst : instructors) {
+            System.out.println(inst);
+        }
+    }
 }

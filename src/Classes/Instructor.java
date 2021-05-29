@@ -1,15 +1,16 @@
 package Classes;
 
-public class Instructor {
-    private String name;
+import Classes.Abstract.Person;
 
-    public Instructor(String name) { this.name = name; }
+public class Instructor extends Person {
 
-    public String getName() {
-        return name;
+    public Instructor() {
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Instructor(String firstName, String dni, String lastName, String email, String password) {
+        super(firstName, dni, lastName, email, password);
     }
+
+
+
 }

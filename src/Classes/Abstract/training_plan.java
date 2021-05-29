@@ -7,7 +7,7 @@ public abstract class training_plan {
 
     protected int id;
     protected LocalDate startDate;
-    protected String typePlan;
+    protected LocalDate finalDate;
     protected double price;
 
 
@@ -15,13 +15,11 @@ public abstract class training_plan {
 
     }
 
-
-    public training_plan(int id, LocalDate startDate, String typePlan, double price) {
+    public training_plan(int id) {
         this.id = id;
         this.startDate = LocalDate.now();
-        this.typePlan = typePlan;
-        this.price = price;
-    }
+        this.finalDate = startDate.plusDays(30);
+   }
 
     public int getId() {
         return id;
@@ -31,9 +29,6 @@ public abstract class training_plan {
         return startDate;
     }
 
-    public String getTypePlan() {
-        return typePlan;
-    }
 
     public double getPrice() {
         return price;
@@ -47,9 +42,6 @@ public abstract class training_plan {
         this.startDate = startDate;
     }
 
-    public void setTypePlan(String typePlan) {
-        this.typePlan = typePlan;
-    }
 
     public void setPrice(double price) {
         this.price = price;
@@ -60,7 +52,6 @@ public abstract class training_plan {
         return "Plan {" +
                 "id: " + id +
                 ", Fecha de Inicio: " + startDate +
-                ", Tipo de Plan: " + typePlan + '\'' +
                 ", Precio: " + price +
                 '}';
     }
