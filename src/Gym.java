@@ -1,5 +1,8 @@
+import Classes.Customer;
 import Collections.Customer_list;
 import Collections.Shifts_map;
+
+import java.util.Scanner;
 
 public final class Gym {
     private String name;
@@ -38,6 +41,27 @@ public final class Gym {
 
     //endregion
 
+    public Customer register(Scanner scann){
+
+        String dni, firstname , lastname, email, password;
+
+        System.out.println("DNI: ");
+        dni = scann.nextLine();
+        System.out.println("FirstName: ");
+        firstname = scann.nextLine();
+        System.out.println("LastName: ");
+        lastname = scann.nextLine();
+        System.out.println("Email: ");
+        email = scann.nextLine();
+        System.out.println("Password: ");
+        password = scann.nextLine();
+
+        Customer cust = new Customer(dni, firstname, lastname, email, password);
+
+        return cust;
+
+    }
+
     public void harcodeShifts()
     {
         shifts_map.hardcodeShifts();
@@ -46,6 +70,16 @@ public final class Gym {
     public void consultShifts()
     {
         shifts_map.checkWeeklyShifts();
+    }
+
+    public void addToCustomerList(Customer customer)
+    {
+        customers_list.customerRegister(customer);
+    }
+
+    public void consultClients()
+    {
+        customers_list.listAllCostumers();
     }
 
 }

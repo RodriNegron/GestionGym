@@ -15,9 +15,8 @@ public class Customer extends Person {
         this.wallet =  new Wallet(this.getId());
     }
 
-    public Customer(String dni, String firstName, String lasName, String email, String password, int training_Plan) {
-        super(dni,firstName, lasName, email, password);
-        this.training_Plan = training_Plan;
+    public Customer(String dni, String firstName, String lastName, String email, String password) {
+        super(dni,firstName, lastName, email, password);
         this.shifts = new Shift_list();
         this.wallet =  new Wallet(this.getId());
     }

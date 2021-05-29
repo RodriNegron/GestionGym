@@ -7,7 +7,6 @@ import java.util.List;
 
 public abstract class Activity{
 
-    //public int slots = 10; //TODO conversar con los chicos, no es necesario por qe se setea al crear el mapa
     private static int count  = 0;
     private  int idActivity = 0;  //autoincremental
     private String name ;
