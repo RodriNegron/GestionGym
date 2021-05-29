@@ -53,10 +53,10 @@ public class Shifts_map {
             int sunday = aux.getTime().getDate();
             int dayToAdd = sunday - day;
 
-            // guardamos los dias de la semana, desde el actual al sabado inclusive
+            //we keep the days of the week, from current to Saturday inclusive
             for (int i = 0; i < dayToAdd ; i++) {
 
-                c.add(Calendar.DATE, 1);  //amount es un incremental para movernos entre las fechas a agregar en el mapa
+                c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
 
                 String dayToPut = df.format(c.getTimeInMillis());
                 days.put(dayToPut, availableShifts);
@@ -64,7 +64,7 @@ public class Shifts_map {
 
         }
 
-        public void consultShifts() // deberiamos recibir un cliente
+        public void checkWeeklyShifts() // we should recieve a custommer
         {
             int number = 0;
             int time;
@@ -105,14 +105,14 @@ public class Shifts_map {
                         v.forEach(
                                 (hora , slot) -> {
 
-                                    for (int aux = 0; aux < 6; aux++) {  //debemos mostrar los slot de la hora seleccionada por cada dia
-                                        if (hora[6] == activity ) {      //estamos parados dentro de la activity consultada
+                                    for (int aux = 0; aux < 6; aux++) {  //we must show the slots of the time selected for each day
+                                        if (hora[6] == activity ) {      //we are stopped within the queried activity
                                             if(hora[aux] == hour) {
                                                 System.out.println("Class: " + hora[aux]);
                                                 System.out.println("slot :" + slot.toString());
-                                                //aqui deberiamos consultar si el cliente tiene dinero en su billetera
-                                                //en el caso de que pueda efectuar el pago, restar en uno al slot y crear el objeto
-                                                //turno con los datos seleccionados, y restar el correspondiente slot
+                                                //here we should check if the client has money in his wallet
+                                                //In the event that you can make the payment, subtract the slot by one and create the object
+                                                //turn with the selected data, and subtract the corresponding slot
                                             }
                                         }
                                     }

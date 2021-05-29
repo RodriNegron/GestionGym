@@ -45,7 +45,7 @@ public final class Gym {
 
     public void consultShifts()
     {
-        shifts_map.consultShifts();
+        shifts_map.checkWeeklyShifts();
     }
 
 }
