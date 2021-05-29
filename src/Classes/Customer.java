@@ -47,9 +47,9 @@ public class Customer extends Person {
         return shifts.listAllSfhits();
     }
 
-    public void consultWalletStatus()
+    public String consultWalletStatus()
     {
-        wallet.toString();
+        return wallet.toString();
     }
 
     //use stringbuilder over void functions
@@ -59,7 +59,7 @@ public class Customer extends Person {
                 "Class.Customer{" +
                 "training_Plan=" + training_Plan +
                 ", shifts=" + consultShiftList() +
-               // ", wallet=" +  consultShiftList()  +
+                ", wallet=" + consultWalletStatus()  +
                 '}';
     }
 }
