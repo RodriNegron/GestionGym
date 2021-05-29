@@ -57,7 +57,6 @@ public final class Gym {
         password = scann.nextLine();
 
         return new Customer(dni, firstname, lastname, email, password);
-
     }
 
     public void harcodeShifts()

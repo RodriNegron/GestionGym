@@ -41,10 +41,10 @@ public class Main {
         String string;
 
 
-        System.out.println("Welcome to the gym: " + gym.getName());
+        System.out.println("Bienvenido a " + gym.getName() +" gym:");
         do {
-            System.out.println("1- Logg-In");
-            System.out.println("2- Register");
+            System.out.println("1- Ingresar");
+            System.out.println("2- Registrarse");
 
             number = scann.nextInt();
             scann.nextLine();
@@ -53,19 +53,17 @@ public class Main {
                 case 1:
                     menu(gym);
                     break;
-
                 case 2:
                     scann.reset();
                     cust = gym.register(scann);
                     gym.addToCustomerList(cust);
                     gym.consultClients();
                     break;
-
                 default:
-                    System.out.println("Wrong data!");
+                    System.out.println("Datos incorrectos!");
             }
 
-            System.out.println("Do you want to continue s/n");
+            System.out.println("¿Desea continuar? | Opciones:s/n");
             var = scann.nextLine().charAt(0);
 
         } while (var == 's');
@@ -81,74 +79,75 @@ public class Main {
         client = gym.checkClient();
 
         if (client != null) {
-            if (client.getFirstName() != "admin") {
+            if (client.getFirstName().compareTo("admin")!=0 ) {
                 do {
                     System.out.println("Bienvenido " + client.getFirstName() + "!:D");
                     System.out.println("1-Inscribirse");
                     System.out.println("2-Consutlar turnos disponibles");
                     System.out.println("3-Ingresar dinero a su billetera");
-                    System.out.println("4-Consultar monto");
+                    System.out.println("4-Consultar saldo");
                     System.out.println("5-Consultar estado de cuenta");
 
                     number = scann.nextInt();
 
-                    /*switch (number) {
+                    switch (number) {
                         case 1:
-                            gym.alquilarPelicula(client);
+                            ;
                             break;
                         case 2:
-                            gym.devolverPelicula(client);
+                            gym.consultShifts();
                             break;
                         case 3:
-                            ListadoBoletas auxiliar = gym.consultaPeliculasAlquiladas(client);
-                            if (client.getTickets().retornarCantEnAlquilerCliente() == 0)
-                                System.out.println("No se encontraron peliculas en alquiler");
-                            else
-                                client.getTickets().consultarListadoBoletas();
+                            System.out.println("Ingrese monto a depositar");
+                            int cash =scann.nextInt();
+                            client.getWallet().deposit(cash);
+                            break;
+                        case 4:
+                            System.out.println(client.getWallet().getTotal_Amount());
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
                     }
-                    System.out.println("Desea continuar operando? " + client.getFirstName() + "?" + "s/n");
+                    System.out.println("¿Desea continuar operando? | Usuario: " + client.getFirstName() + " | Opciones: s/n");
                     scann.nextLine();
                     var = scann.nextLine().charAt(0);
                 } while (var == 's');
             }
             else {
                 do {
-                    System.out.println("Bienvenido " + client.getNombre() + "!:D");
-                    System.out.println("1-Consultar alquileres vigentes");
-                    System.out.println("2-Devoluciones del dia");
-                    System.out.println("3-Consultar ultimos alquileres de un cliente");
-                    System.out.println("4-Titulos mas alquilados");
-                    System.out.println("5-Mostrar clientes registrados");
+                    System.out.println("Bienvenido " + client.getFirstName() + "!:D");
+                    System.out.println("1-admin menu");
+                    System.out.println("2-admin menu");
+                    System.out.println("3-admin menu");
+                    System.out.println("4-admin menu");
+                    System.out.println("5-admin menu");
                     System.out.println("Elija una opcion: ");
                     number = scann.nextInt();
                     switch (number) {
-                        case 1:
-                            System.out.println(VS.consultarAlquileresVigentes());
+                        /*case 1:
+                            System.out.println(gym);
                             break;
                         case 2:
-                            System.out.println(VS.consultarDevolucionesDiaDeHoy());
+                            System.out.println(gym.);
                             break;
                         case 3:
-                            System.out.println(VS.consultarUltimosDiezAlq());
+                            System.out.println(gym.);
                             break;
                         case 4:
-                            VS.consultarPeliculaMasPopular();
+                            gym.;
                             break;
                         case 5:
-                            VS.consultarClientesRegistrados();
-                            break;
+                            gym.;
+                            break;*/
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
-                    }*/
-                    System.out.println("Desea continuar operando? " + client.getFirstName() + "?" + "s/n");
+                    }
+                    System.out.println("¿Desea continuar operando? | Usuario: " + client.getFirstName() + " | Opciones: s/n");
                     scann.nextLine();
                     var = scann.nextLine().charAt(0);
                 } while (var == 's');
             }
-        }else   System.out.println("Cliente no registrado!");
+        }else   System.out.println("Credenciales invalidas");
     }
 
 }
