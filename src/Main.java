@@ -51,11 +51,11 @@ public class Main {
 
             switch (number) {
                 case 1:
-                   // menu(VS);
-
+                    menu(gym);
                     break;
 
                 case 2:
+                    scann.reset();
                     cust = gym.register(scann);
                     gym.addToCustomerList(cust);
                     gym.consultClients();
@@ -72,58 +72,58 @@ public class Main {
 
     }
 
-
-    /*
-    public static void menu(VideoStore VS) {
+    public static void menu(Gym gym) {
+        Scanner scann = new Scanner(System.in);
         int number;
         char var = 's';
 
-        Cliente cli;
-        cli = VS.consultaYRetornaCliente();
+        Customer client;
+        client = gym.checkClient();
 
-        if (cli != null) {
-            if (cli.getNombre() != "admin") {
+        if (client != null) {
+            if (client.getFirstName() != "admin") {
                 do {
-                    System.out.println("Bienvenido " + cli.getNombre() + "!:D");
-                    System.out.println("1-Alquilar pelicula");
-                    System.out.println("2-Devolver pelicula");
-                    System.out.println("3-Consultar peliculas alquiladas");
-                    System.out.println("4-Consultar por titulo/genero"); //TODO
+                    System.out.println("Bienvenido " + client.getFirstName() + "!:D");
+                    System.out.println("1-Inscribirse");
+                    System.out.println("2-Consutlar turnos disponibles");
+                    System.out.println("3-Ingresar dinero a su billetera");
+                    System.out.println("4-Consultar monto");
+                    System.out.println("5-Consultar estado de cuenta");
 
-                    number = globalScann.nextInt();
+                    number = scann.nextInt();
 
-                    switch (number) {
+                    /*switch (number) {
                         case 1:
-                            VS.alquilarPelicula(cli);
+                            gym.alquilarPelicula(client);
                             break;
                         case 2:
-                            VS.devolverPelicula(cli);
+                            gym.devolverPelicula(client);
                             break;
                         case 3:
-                            ListadoBoletas auxiliar = VS.consultaPeliculasAlquiladas(cli);
-                            if (cli.getTickets().retornarCantEnAlquilerCliente() == 0)
+                            ListadoBoletas auxiliar = gym.consultaPeliculasAlquiladas(client);
+                            if (client.getTickets().retornarCantEnAlquilerCliente() == 0)
                                 System.out.println("No se encontraron peliculas en alquiler");
                             else
-                                cli.getTickets().consultarListadoBoletas();
+                                client.getTickets().consultarListadoBoletas();
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
                     }
-                    System.out.println("Desea continuar operando? " + cli.getNombre() + "?" + "s/n");
-                    globalScann.nextLine();
-                    var = globalScann.nextLine().charAt(0);
+                    System.out.println("Desea continuar operando? " + client.getFirstName() + "?" + "s/n");
+                    scann.nextLine();
+                    var = scann.nextLine().charAt(0);
                 } while (var == 's');
             }
             else {
                 do {
-                    System.out.println("Bienvenido " + cli.getNombre() + "!:D");
+                    System.out.println("Bienvenido " + client.getNombre() + "!:D");
                     System.out.println("1-Consultar alquileres vigentes");
                     System.out.println("2-Devoluciones del dia");
                     System.out.println("3-Consultar ultimos alquileres de un cliente");
                     System.out.println("4-Titulos mas alquilados");
                     System.out.println("5-Mostrar clientes registrados");
                     System.out.println("Elija una opcion: ");
-                    number = globalScann.nextInt();
+                    number = scann.nextInt();
                     switch (number) {
                         case 1:
                             System.out.println(VS.consultarAlquileresVigentes());
@@ -142,14 +142,14 @@ public class Main {
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
-                    }
-                    System.out.println("Desea continuar operando? " + cli.getNombre() + "?" + "s/n");
-                    globalScann.nextLine();
-                    var = globalScann.nextLine().charAt(0);
+                    }*/
+                    System.out.println("Desea continuar operando? " + client.getFirstName() + "?" + "s/n");
+                    scann.nextLine();
+                    var = scann.nextLine().charAt(0);
                 } while (var == 's');
             }
         }else   System.out.println("Cliente no registrado!");
     }
-      */
+
 }
 

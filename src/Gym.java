@@ -47,18 +47,16 @@ public final class Gym {
 
         System.out.println("DNI: ");
         dni = scann.nextLine();
-        System.out.println("FirstName: ");
+        System.out.println("Nombre: ");
         firstname = scann.nextLine();
-        System.out.println("LastName: ");
+        System.out.println("Apellido: ");
         lastname = scann.nextLine();
         System.out.println("Email: ");
         email = scann.nextLine();
-        System.out.println("Password: ");
+        System.out.println("Contraseña: ");
         password = scann.nextLine();
 
-        Customer cust = new Customer(dni, firstname, lastname, email, password);
-
-        return cust;
+        return new Customer(dni, firstname, lastname, email, password);
 
     }
 
@@ -86,6 +84,19 @@ public final class Gym {
         Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
 
         addToCustomerList(admin);
+    }
+
+    public Customer checkClient(){
+        Scanner scanner = new Scanner(System.in);
+        String str,pw;
+        Customer customer;
+        System.out.println("Escriba su email");
+        str = scanner.nextLine();
+        scanner.reset();
+        System.out.println("Escriba su contraseña");
+        pw = scanner.nextLine();
+
+        return customer = customers_list.findCustomer(str,pw);
     }
 
 }
