@@ -15,7 +15,6 @@ public abstract class training_plan {
 
     }
 
-
     public training_plan(int id, LocalDate startDate, String typePlan, double price) {
         this.id = id;
         this.startDate = LocalDate.now();
