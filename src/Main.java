@@ -88,7 +88,7 @@ public class Main {
                     System.out.println("1-Alquilar pelicula");
                     System.out.println("2-Devolver pelicula");
                     System.out.println("3-Consultar peliculas alquiladas");
-                    System.out.println("4-Consultar por titulo/genero"); //TODO
+                    System.out.println("4-Consultar por titulo/genero");
 
                     number = globalScann.nextInt();
 
