@@ -76,4 +76,5 @@ public class Shift {
                 ", Activity=" + activity +
                 '}';
     }
+
 }

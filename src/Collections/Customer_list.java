@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Customer_list {
 
-    List<Customer> customers_list;
+    private List<Customer> customers_list;
 
 
     public Customer_list() {
@@ -32,7 +32,7 @@ public class Customer_list {
                 break;
             }
         }
-        if ((!createdUser)) {
+        if (!createdUser) {
             customers_list.add(customer);
         } else {
             System.out.println("This user already exists");
