@@ -25,11 +25,9 @@ public class Shifts_map {
         Calendar c = Calendar.getInstance();
         List<String[]> activityList = new ArrayList<>();
 
-
         String[] musc = {"8-9:30", "10-11:30", "12-13:30", "14-15:30", "16-17:30", "18-19:30", "musculacion"};
         String[] cross = {"8-9:30", "10-11:30", "12-13:30", "14-15:30", "16-17:30", "18-19:30", "crossfit"};
         String[] func = {"8-9:30", "10-11:30", "12-13:30", "14-15:30", "16-17:30", "18-19:30", "funcional"};
-
 
         activityList.add(musc);
         activityList.add(cross);
@@ -50,7 +48,6 @@ public class Shifts_map {
         aux.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
         c.set(Calendar.DATE, day-1);
-
 
         int sunday = aux.getTime().getDate();
         int dayToAdd = sunday - day;

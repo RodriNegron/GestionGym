@@ -9,7 +9,6 @@ public abstract class Person {
     private String email;
     private String password;
 
-
     //region constructor
     public Person() {
         incrementalId();

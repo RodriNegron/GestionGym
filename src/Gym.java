@@ -49,6 +49,7 @@ public final class Gym {
     }
     //endregion
 
+    //crear excepcion para no permitir crear nombre admin
     public Customer register(Scanner scann, String salt){
 
         String dni, firstname , lastname, email, password;

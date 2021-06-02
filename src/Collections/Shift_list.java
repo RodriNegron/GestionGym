@@ -9,11 +9,9 @@ public class Shift_list {
 
     List<Shift> shift_list;
 
-
     public Shift_list() {
         this.shift_list = new ArrayList<>();
     }
-
 
     public void addShiftToClient(Shift shift)
     {
@@ -28,7 +26,6 @@ public class Shift_list {
         }
     }
 
-
     public String listAllSfhits() {
         StringBuilder builder = new StringBuilder();
         for (Shift c : shift_list) {
@@ -37,6 +34,5 @@ public class Shift_list {
         }
         return builder.toString();
     }
-
 
 }

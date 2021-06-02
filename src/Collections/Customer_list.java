@@ -10,12 +10,9 @@ public class Customer_list {
 
     private List<Customer> customers_list;
 
-
     public Customer_list() {
         this.customers_list = new ArrayList<>();
     }
-
-
 
     public void listAllCostumers() {
         for (Customer c : customers_list) {

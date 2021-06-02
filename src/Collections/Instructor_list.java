@@ -9,11 +9,9 @@ public class Instructor_list {
 
     private List<Instructor> instructors_list;
 
-
     public  Instructor_list (){ instructors_list =  new ArrayList<>(); }
 
     public List<Instructor> getInstructors() { return instructors_list; }
-
 
     //we can only add 2 instructors for activity
     public void addInstructor(Instructor instructor){
