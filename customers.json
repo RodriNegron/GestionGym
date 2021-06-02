@@ -9,28 +9,13 @@
         "id": 0,
         "total_Amount": 0.0
       },
+      "salt": "WyEKw2oyYaOJMiXeRSyhT2rMuNHbGX",
       "id": 0,
-      "dni": "000",
-      "firstName": "admin",
-      "lastName": "admin",
-      "email": "admin@admin",
-      "password": "admin"
-    },
-    {
-      "training_Plan": 0,
-      "shifts": {
-        "shift_list": []
-      },
-      "wallet": {
-        "id": 2,
-        "total_Amount": 200.0
-      },
-      "id": 2,
       "dni": "36",
       "firstName": "rod",
       "lastName": "neg",
       "email": "ema",
-      "password": "pas"
+      "password": "xDvLvPjbejHxQrcHVSr7UI0b7O3HoWf6tARMJZLecxc\u003d"
     }
   ]
 }

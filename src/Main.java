@@ -5,6 +5,7 @@ import Classes.Customer;
 import Classes.Shift;
 import Collections.Customer_list;
 import Collections.Shifts_map;
+import Utils.Password;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,24 +26,29 @@ public class Main {
 
         //gym.consultShifts();
 
+        String salt = Password.getSalt(30);
+
+        //salt nuevo al ejecutar el programa, imprimo el salt para verificar
+        //System.out.println(salt);
+
         Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
         Customer_list persistedList = new Customer_list();
         persistedList = Files.readCustomerFile();
         gym.setCustomers_list(persistedList);
 
-        loggin(gym);
+        loggin(gym, salt);
 
         Files.writeCustomersFile(gym.getCustomers_list());
 
     }
 
 
-    public static void loggin(Gym gym){
+    public static void loggin(Gym gym, String salt){
         Scanner scann = new Scanner(System.in);
         Customer cust;
 
         gym.harcodeShifts();
-        gym.hardcodeUsers();
+        //gym.hardcodeUsers();
 
         int number;
         char var = 's';
@@ -62,7 +68,7 @@ public class Main {
                     break;
                 case 2:
                     scann.reset();
-                    cust = gym.register(scann);
+                    cust = gym.register(scann, salt);
                     gym.addToCustomerList(cust);
                     gym.consultClients();
                     break;

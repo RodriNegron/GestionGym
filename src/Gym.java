@@ -1,6 +1,7 @@
 import Classes.Customer;
 import Collections.Customer_list;
 import Collections.Shifts_map;
+import Utils.Password;
 
 import java.util.Scanner;
 
@@ -48,7 +49,7 @@ public final class Gym {
     }
     //endregion
 
-    public Customer register(Scanner scann){
+    public Customer register(Scanner scann, String salt){
 
         String dni, firstname , lastname, email, password;
 
@@ -62,8 +63,9 @@ public final class Gym {
         email = scann.nextLine();
         System.out.println("Contraseña: ");
         password = scann.nextLine();
+        password = Password.generateSecurePassword(password,salt);
 
-        return new Customer(dni, firstname, lastname, email, password);
+        return new Customer(dni, firstname, lastname, email, password, salt);
     }
 
     public void harcodeShifts()
@@ -87,7 +89,7 @@ public final class Gym {
     }
 
     public void hardcodeUsers(){
-        Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
+        Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin", "asd");
 
         addToCustomerList(admin);
     }

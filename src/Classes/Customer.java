@@ -7,6 +7,7 @@ public class Customer extends Person {
     private int training_Plan;
     private Shift_list shifts;
     private Wallet wallet;
+    private String salt;
 
     //region constructor
 
@@ -15,10 +16,11 @@ public class Customer extends Person {
         this.wallet =  new Wallet(this.getId());
     }
 
-    public Customer(String dni, String firstName, String lastName, String email, String password) {
+    public Customer(String dni, String firstName, String lastName, String email, String password, String salt) {
         super(dni,firstName, lastName, email, password);
         this.shifts = new Shift_list();
         this.wallet =  new Wallet(this.getId());
+        this.salt = salt;
     }
     //endregion
 
@@ -38,6 +40,8 @@ public class Customer extends Person {
     public Wallet getWallet() {
         return wallet;
     }
+
+    public String getSalt() { return salt; }
 
     //endregion
 

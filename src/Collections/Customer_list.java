@@ -1,6 +1,7 @@
 package Collections;
 
 import Classes.Customer;
+import Utils.Password;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +38,16 @@ public class Customer_list {
             System.out.println("This user already exists");
         }
     }
+    public boolean passwordMatch(String passwordProvided, String securePassword, String salt){
+        return Password.verifyUserPassword(passwordProvided,securePassword, salt);
+    }
 
     public Customer findCustomer(String email, String password) {
         Customer customer = null;
         if (customers_list.size() > 0){
             for (Customer c : customers_list) {
                 if (c.getEmail().equals(email)) {
-                    if(c.getPassword().equals(password))
+                    if(passwordMatch(password,c.getPassword(),c.getSalt()))
                         customer = c;
                     break;
                 }
@@ -52,14 +56,14 @@ public class Customer_list {
         return customer;
     }
 
-    public void deleteUser(String email, String password){
+   /* public void deleteUser(String email, String password){
         Customer destroyUser = findCustomer(email,password);
         if (destroyUser!=null){
             customers_list.remove(destroyUser);
         }else{
             System.out.println("User not found");
         }
-    }
+    }*/
 
     public void getUsersByPlan(int trainingPlanId){
         for (Customer c : customers_list) {
