@@ -1,5 +1,6 @@
 
 import Classes.Customer;
+import Collections.Customer_list;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -18,15 +19,15 @@ public class Files {
         return gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
-    public ArrayList<Customer> readCustomerFile () {
-        ArrayList<Customer> customers = null;
+    public static Customer_list readCustomerFile () {
+        Customer_list customers = null;
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new BufferedReader(new FileReader(Customer_file)));
-            customers = getGson().fromJson(reader, (new TypeToken<ArrayList<Customer>>() {
+            customers = getGson().fromJson(reader, (new TypeToken<Customer_list>() {
             }.getType()));
         } catch (IOException e) {
-            customers = new ArrayList<>();
+            customers = new Customer_list();
         } finally {
             try {
                 if (reader != null) {
@@ -39,7 +40,7 @@ public class Files {
         return customers;
     }
 
-    public void writeCustomersFile( ArrayList<Customer> customers){
+    public static void writeCustomersFile( Customer_list customers){
         BufferedWriter writer = null;
         try{
             writer = new BufferedWriter(new FileWriter(Customer_file));

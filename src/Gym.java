@@ -39,6 +39,13 @@ public final class Gym {
 
     public void setCuit(String cuit) { this.cuit = cuit; }
 
+    public void setCustomers_list(Customer_list customers_list) {
+        this.customers_list = customers_list;
+    }
+
+    public Customer_list getCustomers_list() {
+        return customers_list;
+    }
     //endregion
 
     public Customer register(Scanner scann){

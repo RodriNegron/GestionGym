@@ -3,8 +3,10 @@ import Classes.Aerobic;
 import Classes.Crossfit;
 import Classes.Customer;
 import Classes.Shift;
+import Collections.Customer_list;
 import Collections.Shifts_map;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -23,23 +25,28 @@ public class Main {
 
         //gym.consultShifts();
 
-        loggin();
+        Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
+        Customer_list persistedList = new Customer_list();
+        persistedList = Files.readCustomerFile();
+        gym.setCustomers_list(persistedList);
+
+        loggin(gym);
+
+        Files.writeCustomersFile(gym.getCustomers_list());
 
     }
 
 
-    public static void loggin(){
+    public static void loggin(Gym gym){
         Scanner scann = new Scanner(System.in);
         Customer cust;
 
-        Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
         gym.harcodeShifts();
         gym.hardcodeUsers();
 
         int number;
         char var = 's';
         String string;
-
 
         System.out.println("Bienvenido a " + gym.getName() +" gym:");
         do {
