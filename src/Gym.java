@@ -1,5 +1,6 @@
 import Classes.Abstract.Training_plan;
 import Classes.Customer;
+import Classes.basicPlan;
 import Collections.Customer_list;
 import Collections.Shifts_map;
 import Collections.TrainingPlan_list;
@@ -64,10 +65,6 @@ public final class Gym {
         return new Customer(dni, firstname, lastname, email, password);
     }
 
-    public void harcodeShifts()
-    {
-        shifts_map.hardcodeShifts();
-    }
 
     public void consultShifts()
     {
@@ -88,6 +85,30 @@ public final class Gym {
         Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
 
         addToCustomerList(admin);
+    }
+
+    public void hardcodeTrainingPlans(){
+
+        Training_plan basicPlan = new basicPlan(1, "Basic Plan", 2500 );
+        Training_plan premiumPan = new basicPlan(2, "Premium Plan", 3000 );
+
+        addToTrainingPlanList(basicPlan);
+        addToTrainingPlanList(premiumPan);
+    }
+
+    public void harcodeShifts()
+    {
+        shifts_map.hardcodeShifts();
+    }
+
+    public void consultTrainingPlanList()
+    {
+        training_plan_list.consultTrainingPlan();
+    }
+
+    public void consultStatusOfUser(Customer cust)
+    {
+        cust.consultStatus();
     }
 
     public void addToTrainingPlanList(Training_plan tp)

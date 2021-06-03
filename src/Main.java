@@ -1,10 +1,5 @@
 import Classes.*;
-import Classes.Abstract.Activity;
-import Classes.Abstract.Training_plan;
-import Collections.Shifts_map;
-import Collections.TrainingPlan_list;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -19,7 +14,11 @@ public class Main {
 
         cust1.getShifts().addShiftToClient(shift1);
 
+        cust1.setTraining_Plan(2);
+        cust1.setDatesTrainingPlan();
+
         System.out.println(cust1);
+
         */
 
        loggin();
@@ -92,15 +91,6 @@ public class Main {
 
                     switch (number) {
                         case 1:
-                            Training_plan basicPlan = new basicPlan(1, "Basic Plan", 2500 );
-                            Training_plan premiumPan = new basicPlan(2, "Premium Plan", 3000 );
-
-                            TrainingPlan_list training_plan_list = new TrainingPlan_list();
-                            training_plan_list.addTrainingPlan(basicPlan);
-                            training_plan_list.addTrainingPlan(premiumPan);
-
-                            training_plan_list.consultTrainingPlan();
-
                             break;
                         case 2:
                             gym.consultShifts();
@@ -112,6 +102,9 @@ public class Main {
                             break;
                         case 4:
                             System.out.println(client.getWallet().getTotal_Amount());
+                            break;
+                        case 5:
+                            client.consultStatus();
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");

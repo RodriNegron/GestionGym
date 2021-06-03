@@ -4,6 +4,7 @@ import Classes.Abstract.Person;
 import Collections.Shift_list;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Customer extends Person {
     private int training_Plan;
@@ -11,20 +12,6 @@ public class Customer extends Person {
     protected LocalDate planFinalDate;
     private Shift_list shifts;
     private Wallet wallet;
-
-    /*
-            this.startDate = LocalDate.now();
-        this.finalDate = startDate.plusDays(30);
-
-            public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-     */
 
     //region constructor
 
@@ -57,7 +44,37 @@ public class Customer extends Person {
         return wallet;
     }
 
+    public LocalDate getStartDate() {
+        return planStartDate;
+    }
+
+    public LocalDate getPlanFinalDate() {
+        return planFinalDate;
+    }
+
     //endregion
+
+
+    public void setDatesTrainingPlan()
+    {
+
+        this.planStartDate = LocalDate.now();
+        this.planFinalDate = planStartDate.plusDays(30);
+    }
+
+    public String consultDatesTrainingPlan()
+    {
+        StringBuilder builder = new StringBuilder();
+
+        if ((planStartDate != null ) & ( planFinalDate != null))
+        {
+            builder.append(planStartDate.format(DateTimeFormatter.ofPattern("d/M/u")));
+            builder.append("\n");
+            builder.append(planFinalDate.format(DateTimeFormatter.ofPattern("d/M/u")));
+        }
+
+        return builder.toString();
+    }
 
     public String consultShiftList()
     {
@@ -69,12 +86,20 @@ public class Customer extends Person {
         return wallet.toString();
     }
 
+    public void consultStatus(){
+        if(training_Plan == 0) System.out.println("You are not yet registered with any plan");
+        else if(training_Plan == 1) System.out.println("You are a basic plan user");
+        else if(training_Plan == 2) System.out.println("You are a premiun plan user");
+
+    }
+
     //use stringbuilder over void functions
     @Override
     public String toString() {
         return super.toString() + "\n" +
                 "Class.Customer{" +
                 "training_Plan=" + training_Plan +
+                "stard && final date plan=" + consultDatesTrainingPlan() +
                 ", shifts=" + consultShiftList() +
                 ", wallet=" + consultWalletStatus()  +
                 '}';
