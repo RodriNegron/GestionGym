@@ -1,6 +1,7 @@
 package Collections;
 
 import Classes.Abstract.Training_plan;
+import Classes.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,35 @@ public class TrainingPlan_list{
         for (Training_plan tp : plan_list) {
             System.out.println(tp);
         }
+    }
+
+    public Training_plan findTrainingPlanById(int trainingPlan)
+    {
+        Training_plan aux = null;
+
+        for (Training_plan tp : plan_list) {
+            if(tp.getId() == trainingPlan)
+            {
+                aux = tp;
+            }
+        }
+
+        return aux;
+    }
+
+    public void buyTrainingPlan(Customer customer, int trainingPlan)
+    {
+        Training_plan tp = findTrainingPlanById(trainingPlan);
+
+        if(customer.getTraining_Plan() == 0) {
+            if (customer.getWallet().getTotal_Amount() >= tp.getPrice()) {
+                customer.setTraining_Plan(tp.getId());
+                customer.setDatesTrainingPlan();
+                System.out.println("sign up complete");
+            } else System.out.println("Insufficient balance");
+        }
+        else System.out.println("You are already signed");
+
     }
 
 }

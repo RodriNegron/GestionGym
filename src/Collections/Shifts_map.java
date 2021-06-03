@@ -142,10 +142,6 @@ public class Shifts_map {
     //we need to create the shift, with the day the time and the date, subtract 1 slot <- the user if it is basic
     //it could have 3 turns, then it would be subtracted in a static variable
 
-    public void buyTrainingPlan(Customer customer)
-    {
-
-    }
 
 
 

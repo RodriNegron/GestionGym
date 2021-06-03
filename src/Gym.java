@@ -5,7 +5,6 @@ import Collections.Customer_list;
 import Collections.Shifts_map;
 import Collections.TrainingPlan_list;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public final class Gym {
@@ -83,8 +82,10 @@ public final class Gym {
 
     public void hardcodeUsers(){
         Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
+        Customer user = new Customer("111", "user", "user", "user@user", "user");
 
         addToCustomerList(admin);
+        addToCustomerList(user);
     }
 
     public void hardcodeTrainingPlans(){
@@ -129,4 +130,10 @@ public final class Gym {
         return customer = customers_list.findCustomer(str,pw);
     }
 
+    public void signUp(Customer cust, int trainingPlan)
+    {
+        training_plan_list.buyTrainingPlan(cust, trainingPlan);
+    }
+
 }
+

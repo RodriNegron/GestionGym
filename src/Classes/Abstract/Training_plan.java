@@ -3,7 +3,7 @@ package Classes.Abstract;
 import java.time.LocalDate;
 
 public abstract class Training_plan {
-    protected int id = 0;
+    protected int id = 0; //1 for basic plan - 2 for premium plan
     private String name;
     protected double price;
 
@@ -39,10 +39,8 @@ public abstract class Training_plan {
 
     @Override
     public String toString() {
-        return "Training_plan{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+        return  id + " " + "Training_plan->" +
+                "name='" + name + '\'' +
+                ", price=" + price ;
     }
 }

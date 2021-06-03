@@ -1,4 +1,4 @@
-import Classes.*;
+import Classes.Customer;
 
 import java.util.Scanner;
 
@@ -21,17 +21,17 @@ public class Main {
 
         */
 
-       loggin();
-
+        loggin();
 
     }
 
 
     public static void loggin(){
 
-        Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
+        Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
         gym.harcodeShifts();
         gym.hardcodeUsers();
+        gym.hardcodeTrainingPlans();
 
         Scanner scann = new Scanner(System.in);
         Customer cust;
@@ -82,29 +82,37 @@ public class Main {
                 do {
                     System.out.println("Bienvenido " + client.getFirstName() + "!:D");
                     System.out.println("1-Inscribirse");
-                    System.out.println("2-Consultar turnos disponibles");
-                    System.out.println("3-Ingresar dinero a su billetera");
-                    System.out.println("4-Consultar saldo");
-                    System.out.println("5-Consultar estado de cuenta");
+                    System.out.println("2-Reservar turno");
+                    System.out.println("3-Consultar turnos disponibles");
+                    System.out.println("4-Ingresar dinero a su billetera");
+                    System.out.println("5-Consultar saldo");
+                    System.out.println("6-Consultar estado de cuenta");
 
                     number = scann.nextInt();
 
                     switch (number) {
                         case 1:
+                            gym.consultTrainingPlanList();
+                            System.out.println("A que plan desea inscribirse?");
+                            int aux = scann.nextInt();
+                            gym.signUp(client, aux);
+
                             break;
                         case 2:
-                            gym.consultShifts();
                             break;
                         case 3:
+                            gym.consultShifts();
+                            break;
+                        case 4:
                             System.out.println("Ingrese monto a depositar");
                             int cash =scann.nextInt();
                             client.getWallet().deposit(cash);
                             break;
-                        case 4:
+                        case 5:
                             System.out.println(client.getWallet().getTotal_Amount());
                             break;
-                        case 5:
-                            client.consultStatus();
+                        case 6:
+                            gym.consultStatusOfUser(client);
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
@@ -124,6 +132,7 @@ public class Main {
                     System.out.println("5-admin menu");
                     System.out.println("Elija una opcion: ");
                     number = scann.nextInt();
+
                     switch (number) {
                         /*case 1:
                             System.out.println(gym);
