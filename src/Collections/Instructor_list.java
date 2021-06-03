@@ -34,6 +34,7 @@ public class Instructor_list {
         }
     }
 
+
     public void consultAllInstructors(){
         for (Instructor inst : instructors) {
             System.out.println(inst);

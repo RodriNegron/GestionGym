@@ -3,10 +3,28 @@ package Classes;
 import Classes.Abstract.Person;
 import Collections.Shift_list;
 
+import java.time.LocalDate;
+
 public class Customer extends Person {
     private int training_Plan;
+    protected LocalDate planStartDate;
+    protected LocalDate planFinalDate;
     private Shift_list shifts;
     private Wallet wallet;
+
+    /*
+            this.startDate = LocalDate.now();
+        this.finalDate = startDate.plusDays(30);
+
+            public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+     */
 
     //region constructor
 

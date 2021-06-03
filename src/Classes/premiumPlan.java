@@ -1,13 +1,11 @@
 package Classes;
 
-import Classes.Abstract.training_plan;
+import Classes.Abstract.Training_plan;
 
-import java.time.LocalDate;
+public class premiumPlan extends Training_plan {
 
-public class premiumPlan extends training_plan {
-
-    public premiumPlan(int id){
-        super(id);
+    public premiumPlan(int id, String name, double price){
+        super(id, name, price);
     }
 
 }

@@ -1,7 +1,10 @@
+import Classes.Abstract.Training_plan;
 import Classes.Customer;
 import Collections.Customer_list;
 import Collections.Shifts_map;
+import Collections.TrainingPlan_list;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public final class Gym {
@@ -10,11 +13,12 @@ public final class Gym {
     private String cuit;
     private Shifts_map shifts_map;
     private Customer_list customers_list;
-
+    private TrainingPlan_list training_plan_list;
 
     public Gym() {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
+        this.training_plan_list = new TrainingPlan_list();
     }
 
     public Gym(String name, String location, String cuit) {
@@ -23,6 +27,7 @@ public final class Gym {
         this.cuit = cuit;
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
+        this.training_plan_list = new TrainingPlan_list();
     }
 
     //region setter & getters
@@ -47,19 +52,16 @@ public final class Gym {
 
         System.out.println("DNI: ");
         dni = scann.nextLine();
-        System.out.println("FirstName: ");
+        System.out.println("Nombre: ");
         firstname = scann.nextLine();
-        System.out.println("LastName: ");
+        System.out.println("Apellido: ");
         lastname = scann.nextLine();
         System.out.println("Email: ");
         email = scann.nextLine();
-        System.out.println("Password: ");
+        System.out.println("Contraseña: ");
         password = scann.nextLine();
 
-        Customer cust = new Customer(dni, firstname, lastname, email, password);
-
-        return cust;
-
+        return new Customer(dni, firstname, lastname, email, password);
     }
 
     public void harcodeShifts()
@@ -86,6 +88,24 @@ public final class Gym {
         Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
 
         addToCustomerList(admin);
+    }
+
+    public void addToTrainingPlanList(Training_plan tp)
+    {
+        training_plan_list.addTrainingPlan(tp);
+    }
+
+    public Customer checkClient(){
+        Scanner scanner = new Scanner(System.in);
+        String str,pw;
+        Customer customer;
+        System.out.println("Escriba su email");
+        str = scanner.nextLine();
+        scanner.reset();
+        System.out.println("Escriba su contraseña");
+        pw = scanner.nextLine();
+
+        return customer = customers_list.findCustomer(str,pw);
     }
 
 }

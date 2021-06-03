@@ -1,14 +1,15 @@
+import Classes.*;
 import Classes.Abstract.Activity;
-import Classes.Aerobic;
-import Classes.Crossfit;
-import Classes.Customer;
-import Classes.Shift;
+import Classes.Abstract.Training_plan;
 import Collections.Shifts_map;
+import Collections.TrainingPlan_list;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         /*
         Customer cust1 = new Customer("38606789", "Alessandro", "Casella", "javi_casella95@outlook.com.ar", "Qwer1379");
 
@@ -21,135 +22,141 @@ public class Main {
         System.out.println(cust1);
         */
 
-        //gym.consultShifts();
+       loggin();
 
-        loggin();
 
     }
 
 
     public static void loggin(){
-        Scanner scann = new Scanner(System.in);
-        Customer cust;
 
         Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
         gym.harcodeShifts();
         gym.hardcodeUsers();
+
+        Scanner scann = new Scanner(System.in);
+        Customer cust;
 
         int number;
         char var = 's';
         String string;
 
 
-        System.out.println("Welcome to the gym: " + gym.getName());
+        System.out.println("Bienvenido a " + gym.getName() +" gym:");
         do {
-            System.out.println("1- Logg-In");
-            System.out.println("2- Register");
+            System.out.println("1- Ingresar");
+            System.out.println("2- Registrarse");
 
             number = scann.nextInt();
             scann.nextLine();
 
             switch (number) {
                 case 1:
-                   // menu(VS);
-
+                    menu(gym);
                     break;
-
                 case 2:
+                    scann.reset();
                     cust = gym.register(scann);
                     gym.addToCustomerList(cust);
-                    gym.consultClients();
                     break;
-
                 default:
-                    System.out.println("Wrong data!");
+                    System.out.println("Datos incorrectos!");
             }
 
-            System.out.println("Do you want to continue s/n");
+            System.out.println("¿Desea continuar? | Opciones:s/n");
             var = scann.nextLine().charAt(0);
 
         } while (var == 's');
 
     }
 
-
-    /*
-    public static void menu(VideoStore VS) {
+    public static void menu(Gym gym) {
+        Scanner scann = new Scanner(System.in);
         int number;
         char var = 's';
 
-        Cliente cli;
-        cli = VS.consultaYRetornaCliente();
+        Customer client;
+        client = gym.checkClient();
 
-        if (cli != null) {
-            if (cli.getNombre() != "admin") {
+        if (client != null) {
+            if (client.getFirstName().compareTo("admin")!=0 ) {
                 do {
-                    System.out.println("Bienvenido " + cli.getNombre() + "!:D");
-                    System.out.println("1-Alquilar pelicula");
-                    System.out.println("2-Devolver pelicula");
-                    System.out.println("3-Consultar peliculas alquiladas");
-                    System.out.println("4-Consultar por titulo/genero");
+                    System.out.println("Bienvenido " + client.getFirstName() + "!:D");
+                    System.out.println("1-Inscribirse");
+                    System.out.println("2-Consultar turnos disponibles");
+                    System.out.println("3-Ingresar dinero a su billetera");
+                    System.out.println("4-Consultar saldo");
+                    System.out.println("5-Consultar estado de cuenta");
 
-                    number = globalScann.nextInt();
+                    number = scann.nextInt();
 
                     switch (number) {
                         case 1:
-                            VS.alquilarPelicula(cli);
+                            Training_plan basicPlan = new basicPlan(1, "Basic Plan", 2500 );
+                            Training_plan premiumPan = new basicPlan(2, "Premium Plan", 3000 );
+
+                            TrainingPlan_list training_plan_list = new TrainingPlan_list();
+                            training_plan_list.addTrainingPlan(basicPlan);
+                            training_plan_list.addTrainingPlan(premiumPan);
+
+                            training_plan_list.consultTrainingPlan();
+
                             break;
                         case 2:
-                            VS.devolverPelicula(cli);
+                            gym.consultShifts();
                             break;
                         case 3:
-                            ListadoBoletas auxiliar = VS.consultaPeliculasAlquiladas(cli);
-                            if (cli.getTickets().retornarCantEnAlquilerCliente() == 0)
-                                System.out.println("No se encontraron peliculas en alquiler");
-                            else
-                                cli.getTickets().consultarListadoBoletas();
+                            System.out.println("Ingrese monto a depositar");
+                            int cash =scann.nextInt();
+                            client.getWallet().deposit(cash);
+                            break;
+                        case 4:
+                            System.out.println(client.getWallet().getTotal_Amount());
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
                     }
-                    System.out.println("Desea continuar operando? " + cli.getNombre() + "?" + "s/n");
-                    globalScann.nextLine();
-                    var = globalScann.nextLine().charAt(0);
+                    System.out.println("¿Desea continuar operando? | Usuario: " + client.getFirstName() + " | Opciones: s/n");
+                    scann.nextLine();
+                    var = scann.nextLine().charAt(0);
                 } while (var == 's');
             }
             else {
                 do {
-                    System.out.println("Bienvenido " + cli.getNombre() + "!:D");
-                    System.out.println("1-Consultar alquileres vigentes");
-                    System.out.println("2-Devoluciones del dia");
-                    System.out.println("3-Consultar ultimos alquileres de un cliente");
-                    System.out.println("4-Titulos mas alquilados");
-                    System.out.println("5-Mostrar clientes registrados");
+                    System.out.println("Bienvenido " + client.getFirstName() + "!:D");
+                    System.out.println("1-admin menu");
+                    System.out.println("2-admin menu");
+                    System.out.println("3-admin menu");
+                    System.out.println("4-admin menu");
+                    System.out.println("5-admin menu");
                     System.out.println("Elija una opcion: ");
-                    number = globalScann.nextInt();
+                    number = scann.nextInt();
                     switch (number) {
-                        case 1:
-                            System.out.println(VS.consultarAlquileresVigentes());
+                        /*case 1:
+                            System.out.println(gym);
                             break;
                         case 2:
-                            System.out.println(VS.consultarDevolucionesDiaDeHoy());
+                            System.out.println(gym.);
                             break;
                         case 3:
-                            System.out.println(VS.consultarUltimosDiezAlq());
+                            System.out.println(gym.);
                             break;
                         case 4:
-                            VS.consultarPeliculaMasPopular();
+                            gym.;
                             break;
                         case 5:
-                            VS.consultarClientesRegistrados();
-                            break;
+                            gym.;
+                            break;*/
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
                     }
-                    System.out.println("Desea continuar operando? " + cli.getNombre() + "?" + "s/n");
-                    globalScann.nextLine();
-                    var = globalScann.nextLine().charAt(0);
+                    System.out.println("¿Desea continuar operando? | Usuario: " + client.getFirstName() + " | Opciones: s/n");
+                    scann.nextLine();
+                    var = scann.nextLine().charAt(0);
                 } while (var == 's');
             }
-        }else   System.out.println("Cliente no registrado!");
+        }else   System.out.println("Credenciales invalidas");
     }
-      */
+
 }
 

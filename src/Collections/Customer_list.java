@@ -26,8 +26,9 @@ public class Customer_list {
     public void customerRegister(Customer customer) {
         boolean createdUser = false;
         for (Customer c : customers_list) {
-            if (customer.getEmail()==c.getEmail()) {
+            if (customer.getEmail().compareTo(c.getEmail())==0) {
                 createdUser=true;
+                break;
             }
         }
         if ((!createdUser)) {
@@ -37,12 +38,13 @@ public class Customer_list {
         }
     }
 
-    public Customer findByEmail(String email) {
+    public Customer findCustomer(String email, String password) {
         Customer customer = null;
         if (customers_list.size() > 0){
             for (Customer c : customers_list) {
-                if (c.getEmail().equals(email)) {   ///override funcion equals
-                    customer = c;
+                if (c.getEmail().equals(email)) {
+                    if(c.getPassword().equals(password))
+                        customer = c;
                     break;
                 }
             }
@@ -50,8 +52,10 @@ public class Customer_list {
         return customer;
     }
 
-    public void deleteUser(String email){
-        Customer destroyUser = findByEmail(email);
+
+
+    public void deleteUser(String email, String password){
+        Customer destroyUser = findCustomer(email,password);
         if (destroyUser!=null){
             customers_list.remove(destroyUser);
         }else{

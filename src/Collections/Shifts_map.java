@@ -47,18 +47,28 @@ public class Shifts_map {
         DateFormat df = new SimpleDateFormat("EEE dd/MM/yyyy");
 
         Calendar aux = Calendar.getInstance();
-        aux.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
         c.set(Calendar.DATE, day-1);
 
+        int dia = 0;
 
-        int sunday = aux.getTime().getDate();
-        int dayToAdd = sunday - day;
+        if(aux.get(Calendar.DAY_OF_WEEK) == 2) dia = 1;
+        else if(aux.get(Calendar.DAY_OF_WEEK) == 3) dia = 2;
+        else if(aux.get(Calendar.DAY_OF_WEEK) == 4) dia = 3;
+        else if(aux.get(Calendar.DAY_OF_WEEK) == 5) dia = 4;
+        else if(aux.get(Calendar.DAY_OF_WEEK) == 6) dia = 5;
+        else if(aux.get(Calendar.DAY_OF_WEEK) == 7) dia = 6;
+        else if (aux.get(Calendar.DAY_OF_WEEK) == 1) dia = 1; //en caso de que sea domingo, muestra toda la semana siguiente
+
+        int dayToAdd = 7 - dia;
+
+        // dias habiles. le deberiamos restar los dias que ya pasaron de la semana TODO
 
         //we keep the days of the week, from current to Saturday inclusive
         for (int i = 0; i < dayToAdd ; i++) {
 
             c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
+
 
             String dayToPut = df.format(c.getTimeInMillis());
             days.put(dayToPut, availableShifts);
@@ -83,6 +93,7 @@ public class Shifts_map {
         else if(number == 2)  activity = "musculacion";
         else activity = "crossfit";
 
+
         System.out.println("What time do you want to consult?");
         System.out.println("1 - 8-9:30");
         System.out.println("2 - 10-11:30");
@@ -92,6 +103,7 @@ public class Shifts_map {
         System.out.println("6 - 18-19:30");
         time = scann.nextInt();
 
+
         if(time == 1) hour = "8-9:30";
         else if(time == 2) hour = "10-11:30";
         else if(time == 3) hour = "12-13:30";
@@ -99,7 +111,8 @@ public class Shifts_map {
         else if(time == 5) hour = "16-17:30";
         else hour = "18-19:30";
 
-        days.forEach(
+
+        this.days.forEach(
                 (k,v) ->
                 {
                     System.out.println(k);
@@ -109,7 +122,8 @@ public class Shifts_map {
 
                                 for (int aux = 0; aux < 6; aux++) {  //we must show the slots of the time selected for each day
                                     if (hora[6] == activity ) {      //we are stopped within the queried activity
-                                        if(hora[aux] == hour) {
+
+                                        if(hora[aux]== hour) {
                                             System.out.println("Class: " + hora[aux]);
                                             System.out.println("slot :" + slot.toString());
                                             //here we should check if the client has money in his wallet
@@ -128,7 +142,12 @@ public class Shifts_map {
     //we need to create the shift, with the day the time and the date, subtract 1 slot <- the user if it is basic
     //it could have 3 turns, then it would be subtracted in a static variable
 
-    public void reserveShift(Customer customer){}
+    public void buyTrainingPlan(Customer customer)
+    {
+
+    }
+
+
 
 }
 
