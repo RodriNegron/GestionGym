@@ -35,6 +35,8 @@ public class Shift_list {
             builder.append(c);
             builder.append("\n");
         }
+        if (builder.length() ==  0) builder.append("Empty list");
+
         return builder.toString();
     }
 

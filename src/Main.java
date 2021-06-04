@@ -83,10 +83,12 @@ public class Main {
                     System.out.println("Bienvenido " + client.getFirstName() + "!:D");
                     System.out.println("1-Inscribirse");
                     System.out.println("2-Reservar turno");
-                    System.out.println("3-Consultar turnos disponibles");
-                    System.out.println("4-Ingresar dinero a su billetera");
-                    System.out.println("5-Consultar saldo");
+                    System.out.println("3-Ingresar dinero a su billetera");
+                    System.out.println("4-Consultar saldo");
+                    System.out.println("5-Consultar turnos reservados");
                     System.out.println("6-Consultar estado de cuenta");
+                    System.out.println("7-Consultar turnos disponibles");
+
 
                     number = scann.nextInt();
 
@@ -96,23 +98,67 @@ public class Main {
                             System.out.println("A que plan desea inscribirse?");
                             int aux = scann.nextInt();
                             gym.signUp(client, aux);
-
                             break;
                         case 2:
+                            int num = 0;
+                            int time;
+                            String hour;
+                            String activity;
+                            String day;
+
+                            if(client.getTraining_Plan() !=0 ) {
+                                day = gym.chooseDay();
+
+                                System.out.println("En que actividad desea anotarse?");
+                                System.out.println("1- Funcional");
+                                System.out.println("2- Musculacion");
+                                System.out.println("3- Crossfit");
+
+                                num = scann.nextInt();
+
+                                if (num == 1) activity = "funcional";
+                                else if (num == 2) activity = "musculacion";
+                                else activity = "crossfit";
+
+
+                                System.out.println("Dentro de que rango horario?");
+                                System.out.println("1 - 8-9:30");
+                                System.out.println("2 - 10-11:30");
+                                System.out.println("3 - 12-13:30");
+                                System.out.println("4 - 14-15:30");
+                                System.out.println("5 - 16-17:30");
+                                System.out.println("6 - 18-19:30");
+                                time = scann.nextInt();
+
+
+                                if (time == 1) hour = "8-9:30";
+                                else if (time == 2) hour = "10-11:30";
+                                else if (time == 3) hour = "12-13:30";
+                                else if (time == 4) hour = "14-15:30";
+                                else if (time == 5) hour = "16-17:30";
+                                else hour = "18-19:30";
+
+                                gym.reserveShift(client, day, activity, hour);
+                            }
+                            else System.out.println("Usted no se encuentra en ningun plan de entrenamiento por el momento");
                             break;
+
                         case 3:
-                            gym.consultShifts();
-                            break;
-                        case 4:
                             System.out.println("Ingrese monto a depositar");
                             int cash =scann.nextInt();
                             client.getWallet().deposit(cash);
                             break;
-                        case 5:
+                        case 4:
                             System.out.println(client.getWallet().getTotal_Amount());
+                            break;
+                        case 5:
+                            System.out.println(gym.consultShiftsOnClient(client));
                             break;
                         case 6:
                             gym.consultStatusOfUser(client);
+                            break;
+                        case 7:
+                            gym.checkAvailableShifts();
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");

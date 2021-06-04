@@ -58,14 +58,16 @@ public class TrainingPlan_list{
     {
         Training_plan tp = findTrainingPlanById(trainingPlan);
 
-        if(customer.getTraining_Plan() == 0) {
-            if (customer.getWallet().getTotal_Amount() >= tp.getPrice()) {
-                customer.setTraining_Plan(tp.getId());
-                customer.setDatesTrainingPlan();
-                System.out.println("sign up complete");
-            } else System.out.println("Insufficient balance");
+        if (tp != null) {
+            if (customer.getTraining_Plan() == 0) {
+                if (customer.getWallet().getTotal_Amount() >= tp.getPrice()) {
+                    customer.setTraining_Plan(tp.getId());
+                    customer.setDatesTrainingPlan();
+                    System.out.println("sign up complete");
+                } else System.out.println("Insufficient balance");
+            } else System.out.println("You are already signed");
         }
-        else System.out.println("You are already signed");
+        else System.out.println("Wrong case!");
 
     }
 

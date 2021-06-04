@@ -64,10 +64,14 @@ public final class Gym {
         return new Customer(dni, firstname, lastname, email, password);
     }
 
-
-    public void consultShifts()
+    public String consultShiftsOnClient(Customer cust)
     {
-        shifts_map.checkWeeklyShifts();
+        return cust.getShifts().listAllSfhits();
+    }
+
+    public void reserveShift(Customer cust, String day , String activity, String hour)
+    {
+        shifts_map.reserveShift(cust, day, activity, hour);
     }
 
     public void addToCustomerList(Customer customer)
@@ -135,5 +139,8 @@ public final class Gym {
         training_plan_list.buyTrainingPlan(cust, trainingPlan);
     }
 
+    public String chooseDay(){return shifts_map.chooseDay();}
+
+    public void checkAvailableShifts(){shifts_map.consultAvailableShifts();}
 }
 

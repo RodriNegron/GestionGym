@@ -1,11 +1,14 @@
 package Collections;
 
 import Classes.Customer;
+import Classes.Shift;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Shifts_map {
 
@@ -16,12 +19,11 @@ public class Shifts_map {
     Map<String, Map<String[], Integer>> days;
 
     public Shifts_map() {
-        availableShifts = new HashMap<>();
-        days = new HashMap<>();
+        availableShifts = new HashMap<String[], Integer>();
+        days = new HashMap<String, Map<String[], Integer>>();
     }
 
-    public void hardcodeShifts()
-    {
+    public void hardcodeShifts() {
         Calendar c = Calendar.getInstance();
         List<String[]> activityList = new ArrayList<>();
 
@@ -30,16 +32,15 @@ public class Shifts_map {
         String[] cross = {"8-9:30", "10-11:30", "12-13:30", "14-15:30", "16-17:30", "18-19:30", "crossfit"};
         String[] func = {"8-9:30", "10-11:30", "12-13:30", "14-15:30", "16-17:30", "18-19:30", "funcional"};
 
-
         activityList.add(musc);
         activityList.add(cross);
         activityList.add(func);
 
-        for (int i = 0; i < 7; i++) {
-            availableShifts.put(activityList.get(0), 10);
-            availableShifts.put(activityList.get(1), 10);
-            availableShifts.put(activityList.get(2), 10);
-        }
+        availableShifts.put(activityList.get(0), 10);
+        availableShifts.put(activityList.get(1), 10);
+        availableShifts.put(activityList.get(2), 10);
+
+
 
         // Set the calendar to monday of the current week
 
@@ -48,24 +49,23 @@ public class Shifts_map {
 
         Calendar aux = Calendar.getInstance();
 
-        c.set(Calendar.DATE, day-1);
+        c.set(Calendar.DATE, day - 1);
 
         int dia = 0;
 
-        if(aux.get(Calendar.DAY_OF_WEEK) == 2) dia = 1;
-        else if(aux.get(Calendar.DAY_OF_WEEK) == 3) dia = 2;
-        else if(aux.get(Calendar.DAY_OF_WEEK) == 4) dia = 3;
-        else if(aux.get(Calendar.DAY_OF_WEEK) == 5) dia = 4;
-        else if(aux.get(Calendar.DAY_OF_WEEK) == 6) dia = 5;
-        else if(aux.get(Calendar.DAY_OF_WEEK) == 7) dia = 6;
-        else if (aux.get(Calendar.DAY_OF_WEEK) == 1) dia = 1; //en caso de que sea domingo, muestra toda la semana siguiente
+        if (aux.get(Calendar.DAY_OF_WEEK) == 2) dia = 1;
+        else if (aux.get(Calendar.DAY_OF_WEEK) == 3) dia = 2;
+        else if (aux.get(Calendar.DAY_OF_WEEK) == 4) dia = 3;
+        else if (aux.get(Calendar.DAY_OF_WEEK) == 5) dia = 4;
+        else if (aux.get(Calendar.DAY_OF_WEEK) == 6) dia = 5;
+        else if (aux.get(Calendar.DAY_OF_WEEK) == 7) dia = 6;
+        else if (aux.get(Calendar.DAY_OF_WEEK) == 1)
+            dia = 1; //en caso de que sea domingo, muestra toda la semana siguiente
 
         int dayToAdd = 7 - dia;
 
-        // dias habiles. le deberiamos restar los dias que ya pasaron de la semana TODO
-
         //we keep the days of the week, from current to Saturday inclusive
-        for (int i = 0; i < dayToAdd ; i++) {
+        for (int i = 0; i < dayToAdd; i++) {
 
             c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
 
@@ -76,41 +76,76 @@ public class Shifts_map {
 
     }
 
-    public void checkWeeklyShifts()
-    {
-        int number = 0;
-        int time;
-        String hour;
+    public String chooseDay() {
+        AtomicInteger i = new AtomicInteger();
+        int day;
 
-        System.out.println("1- Func");
-        System.out.println("2- Musc");
-        System.out.println("3- Cross");
-
-        number = scann.nextInt();
-        String activity;
-
-        if(number == 1)  activity = "funcional";
-        else if(number == 2)  activity = "musculacion";
-        else activity = "crossfit";
+        String[] aux = new String[7];
 
 
-        System.out.println("What time do you want to consult?");
-        System.out.println("1 - 8-9:30");
-        System.out.println("2 - 10-11:30");
-        System.out.println("3 - 12-13:30");
-        System.out.println("4 - 14-15:30");
-        System.out.println("5 - 16-17:30");
-        System.out.println("6 - 18-19:30");
-        time = scann.nextInt();
+        this.days.forEach(
+                (k, v) ->
+                {
+                    System.out.println(i + " " + k);
+                    aux[i.get()] = k;
+                    i.getAndIncrement();
+                });
+        System.out.println("En que dia de la corriente semana desea anotarse?");
+        day = scann.nextInt();
+
+        return aux[day];
+    }
+
+    public void reserveShift(Customer cust, String day, String activity, String hour) {
+
+        this.days.forEach(
+                (k, v) ->
+                {
+                     if (k.equals(day)) {
+                         v.forEach(
+                                 (hora, slot) -> {
+                                     for (int i = 0 ; i < hora.length ; i++) {
+                                         if (hora[i].equals(activity)) {
+
+                                             String[] auxiliar = hora;
+
+                                             for (int j = 0 ; j < auxiliar.length; j++) {
+                                                 if(auxiliar[j].equals(hour))
+                                                 {
+                                                     if (slot != 0) {
+
+                                                         Shift shift = new Shift(day, hour, activity);
+                                                         if ((cust.getTraining_Plan() == 1) && (cust.getShifts().shift_list.size() < 3)) {
+                                                             cust.getShifts().addShiftToClient(shift);
+                                                             slot = slot -1;
+                                                             System.out.println("Sucess");
+                                                             System.out.println(shift);
+                                                         } else if (cust.getTraining_Plan() == 2) {
+
+                                                             cust.getShifts().addShiftToClient(shift);
+                                                             slot = slot -1;
+                                                             System.out.println("Sucess");
+                                                             System.out.println(shift);
+                                                         } else System.out.println("Wrong case");
+                                                     } else System.out.println("All shifts are reserved");
+
+                                                 }
+                                             }
+
+                                         }
+                                     }
+                                 });
+                     }
+                });
+    }
 
 
-        if(time == 1) hour = "8-9:30";
-        else if(time == 2) hour = "10-11:30";
-        else if(time == 3) hour = "12-13:30";
-        else if(time == 4) hour = "14-15:30";
-        else if(time == 5) hour = "16-17:30";
-        else hour = "18-19:30";
+    //for each day of the week we need 6 shifts with 10 slots each 1 - 3 act
+    //we need to create the shift, with the day the time and the date, subtract 1 slot <- the user if it is basic
+    //it could have 3 turns, then it would be subtracted in a static variable
 
+
+    public void consultAvailableShifts() {
 
         this.days.forEach(
                 (k,v) ->
@@ -118,33 +153,54 @@ public class Shifts_map {
                     System.out.println(k);
 
                     v.forEach(
-                            (hora , slot) -> {
 
-                                for (int aux = 0; aux < 6; aux++) {  //we must show the slots of the time selected for each day
-                                    if (hora[6] == activity ) {      //we are stopped within the queried activity
+                        (activity, slot) ->
+                        {
+                                if(activity[6].equals("musculacion")){
+                                    String[] auxiliar = activity;
 
-                                        if(hora[aux]== hour) {
-                                            System.out.println("Class: " + hora[aux]);
-                                            System.out.println("slot :" + slot.toString());
-                                            //here we should check if the client has money in his wallet
-                                            //In the event that you can make the payment, subtract the slot by one and create the object
-                                            //turn with the selected data, and subtract the corresponding slot
+                                    System.out.println("Musculacion");
+                                    for (int j = 0 ; j < auxiliar.length ; j++)
+                                    {
+                                        if ((j != 6)) {
+                                            System.out.println(auxiliar[j]);
+                                            System.out.println(slot);
+                                        }
+                                    }
+
+                                }
+                                else if (activity[6].equals("crossfit"))
+                                {
+                                    String[] auxiliar = activity;
+
+                                    System.out.println("Crossfit");
+
+                                    for (int j = 0 ; j < auxiliar.length ; j++)
+                                    {
+                                        if ((j != 6)) {
+                                            System.out.println(auxiliar[j]);
+                                            System.out.println(slot);
                                         }
                                     }
                                 }
+                                else {
+                                    String[] auxiliar = activity;
 
-                            });
+                                    System.out.println("Funcional");
 
-                });
+                                    for (int j = 0; j < auxiliar.length; j++) {
+                                        if ((j != 6)) {
+                                            System.out.println(auxiliar[j]);
+                                            System.out.println(slot);
+
+                                        }
+                                    }
+                                }
+                        }
+
+                    );
+                }
+        );
     }
-
-    //for each day of the week we need 6 shifts with 10 slots each 1 - 3 act
-    //we need to create the shift, with the day the time and the date, subtract 1 slot <- the user if it is basic
-    //it could have 3 turns, then it would be subtracted in a static variable
-
-
-
-
 }
-
 
