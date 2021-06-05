@@ -85,6 +85,7 @@ public class Shifts_map {
 
         for (Map.Entry<String, Activity_list> e : this.days.entrySet()) {
             String today = e.getKey();
+
             Activity_list activity_list = e.getValue();
             List<Activity> al = activity_list.getActivity_list();
 

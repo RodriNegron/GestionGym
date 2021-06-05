@@ -20,6 +20,7 @@ public final class Gym {
     private TrainingPlan_list training_plan_list;
     private Activity_list activities;
 
+
     public Gym() {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
@@ -160,16 +161,11 @@ public final class Gym {
         Activity funcional = new Funcional("Funcional");
         Activity aerobic = new Crossfit("Aerobic");
 
-        crossfit.hardcodeAvailableShifts();
-        funcional.hardcodeAvailableShifts();
-        aerobic.hardcodeAvailableShifts();
 
         activities.add(crossfit);
         activities.add(funcional);
         activities.add(aerobic);
     }
-
-
 
 
 }

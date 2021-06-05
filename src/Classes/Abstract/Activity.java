@@ -21,6 +21,7 @@ public abstract class Activity{
         incrementalId ();
         this.instructors = new Instructor_list();
         this.availableShifts = new HashMap<>();
+        hardcodeAvailableShifts();
     }
 
     public Activity(String name) {
@@ -28,6 +29,7 @@ public abstract class Activity{
         this.name = name;
         this.instructors = new Instructor_list();
         this.availableShifts = new HashMap<>();
+        hardcodeAvailableShifts();
     }
     //endregion
 

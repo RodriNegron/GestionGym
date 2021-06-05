@@ -1,27 +1,9 @@
 import Classes.Customer;
-import Collections.Activity_list;
-import Collections.Customer_list;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-        /*
-        Customer cust1 = new Customer("38606789", "Alessandro", "Casella", "javi_casella95@outlook.com.ar", "Qwer1379");
-
-        Shift shift1 = new Shift("24/02/71995", "15:30", "Musculacion");
-
-        cust1.getWallet().deposit(500);
-
-        cust1.getShifts().addShiftToClient(shift1);
-
-        cust1.setTraining_Plan(2);
-        cust1.setDatesTrainingPlan();
-
-        System.out.println(cust1);
-
-        */
 
         Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
         gym.harcodeShifts();
@@ -177,11 +159,11 @@ public class Main {
             else {
                 do {
                     System.out.println("Bienvenido " + client.getFirstName() + "!:D");
-                    System.out.println("1-admin menu");
-                    System.out.println("2-admin menu");
-                    System.out.println("3-admin menu");
-                    System.out.println("4-admin menu");
-                    System.out.println("5-admin menu");
+                    System.out.println("1-admin menu"); //agregar actividad
+                    System.out.println("2-admin menu"); //total ganancias
+                    System.out.println("3-admin menu"); //consultar actividades
+                    System.out.println("4-admin menu"); //consultar clientes
+                    System.out.println("5-admin menu"); //modificar y consultar plan entrenamiento
                     System.out.println("Elija una opcion: ");
                     number = scann.nextInt();
 

@@ -83,4 +83,5 @@ public class Activity_list implements Controller {
             }
         }
     }
+
 }
