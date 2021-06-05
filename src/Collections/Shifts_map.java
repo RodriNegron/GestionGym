@@ -36,6 +36,7 @@ public class Shifts_map {
         activityList.add(cross);
         activityList.add(func);
 
+
         availableShifts.put(activityList.get(0), 10);
         availableShifts.put(activityList.get(1), 10);
         availableShifts.put(activityList.get(2), 10);
@@ -106,24 +107,39 @@ public class Shifts_map {
                                  (hora, slot) -> {
                                      for (int i = 0 ; i < hora.length ; i++) {
                                          if (hora[i].equals(activity)) {
-
                                              String[] auxiliar = hora;
 
-                                             for (int j = 0 ; j < auxiliar.length; j++) {
-                                                 if(auxiliar[j].equals(hour))
-                                                 {
+                                             for (int j = 0; j < auxiliar.length; j++) {
+                                                 if (auxiliar[j].equals(hour)) {
                                                      if (slot != 0) {
 
                                                          Shift shift = new Shift(day, hour, activity);
                                                          if ((cust.getTraining_Plan() == 1) && (cust.getShifts().shift_list.size() < 3)) {
                                                              cust.getShifts().addShiftToClient(shift);
-                                                             slot = slot -1;
+
+
+                                                             /*Map<0, Integer> copy = days.get(day);
+
+                                                             int newSlot = slot -1;
+                                                             copy.put(auxiliar, newSlot);
+
+                                                             days.put(day, copy);
+                                                             */
+
+                                                             System.out.println(slot);
                                                              System.out.println("Sucess");
                                                              System.out.println(shift);
                                                          } else if (cust.getTraining_Plan() == 2) {
 
                                                              cust.getShifts().addShiftToClient(shift);
-                                                             slot = slot -1;
+
+                                                             Map<String[], Integer> copy = days.get(day);
+
+                                                             int newSlot = slot -1;
+                                                             copy.put(auxiliar, newSlot);
+
+                                                             days.put(day, copy);
+
                                                              System.out.println("Sucess");
                                                              System.out.println(shift);
                                                          } else System.out.println("Wrong case");
@@ -131,13 +147,13 @@ public class Shifts_map {
 
                                                  }
                                              }
-
                                          }
                                      }
-                                 });
-                     }
-                });
-    }
+                            });
+                         }
+
+                    });
+        }
 
 
     //for each day of the week we need 6 shifts with 10 slots each 1 - 3 act

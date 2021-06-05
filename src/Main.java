@@ -21,17 +21,18 @@ public class Main {
 
         */
 
-        loggin();
-
-    }
-
-
-    public static void loggin(){
-
         Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
         gym.harcodeShifts();
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
+
+        loggin(gym);
+
+    }
+
+
+    public static void loggin(Gym gym){
+
 
         Scanner scann = new Scanner(System.in);
         Customer cust;

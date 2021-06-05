@@ -11,6 +11,7 @@ public abstract class Activity{
     private static int count  = 0;
     private  int idActivity = 0;  //autoincremental
     private String name ;
+
     private Instructor_list instructors; // < 2
 
     //region CONSTRUCTORS
