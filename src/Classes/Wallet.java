@@ -44,8 +44,7 @@ public class Wallet {
 
     @Override
     public String toString() {
-        return "Class.Wallet{" +
-                "id=" + id +
+        return "Wallet{" +
                 ", total_Amount=" + total_Amount +
                 '}';
     }

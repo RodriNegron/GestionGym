@@ -14,8 +14,9 @@ public abstract class Person {
         incrementalId();
     }
 
-    public Person(String firstName, String lastName, String email, String password) {
+    public Person(String dni, String firstName, String lastName, String email, String password) {
         incrementalId();
+        this.dni = dni;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -69,6 +70,7 @@ public abstract class Person {
         this.password = password;
     }
 
+
     //endregion
 
     private void incrementalId()
@@ -105,12 +107,12 @@ public abstract class Person {
     @Override
     public String toString() {
         return "Persona{" +
-                "id=" + id +
-                ", dni='" + dni + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lasName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                "id=" + this.id +
+                ", D.N.I='" + this.dni + '\'' +
+                ", Nombre='" + this.firstName + '\'' +
+                ", Apellido='" + this.lastName + '\'' +
+                ", Email='" + this.email + '\'' +
+                ", contraseña='" + this.password + '\'' +
                 '}';
     }
 }

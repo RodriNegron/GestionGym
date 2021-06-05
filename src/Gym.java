@@ -1,14 +1,46 @@
+import Classes.Abstract.Activity;
+import Classes.Abstract.Training_plan;
+import Classes.Crossfit;
 import Classes.Customer;
-import Classes.Shift;
+import Classes.Funcional;
+import Classes.basicPlan;
+import Collections.Activity_list;
+import Collections.Customer_list;
+import Collections.Shifts_map;
+import Collections.TrainingPlan_list;
+import Classes.Admin;
 
-import java.util.List;
+import java.sql.SQLOutput;
+import java.util.Scanner;
 
 public final class Gym {
     private String name;
     private String location;
     private String cuit;
-    private List<Shift> shiftList;
-    private List<Customer> customers_list;
+    private Shifts_map shifts_map;
+    private Customer_list customers_list;
+    private TrainingPlan_list training_plan_list;
+    private Activity_list activities;
+
+
+    public Gym() {
+        this.shifts_map = new Shifts_map();
+        this.customers_list = new Customer_list();
+        this.training_plan_list = new TrainingPlan_list();
+        this.activities = new Activity_list();
+
+    }
+
+    public Gym(String name, String location, String cuit) {
+        this.name = name;
+        this.location = location;
+        this.cuit = cuit;
+        this.shifts_map = new Shifts_map();
+        this.customers_list = new Customer_list();
+        this.training_plan_list = new TrainingPlan_list();
+        this.activities = new Activity_list();
+
+    }
 
     //region setter & getters
 
@@ -26,58 +58,137 @@ public final class Gym {
 
     //endregion
 
-    public Gym() {}
+    public Customer register(Scanner scann){
 
-    public static void listAllCostumers() {
-        for (Customer c : customers_list) {
-            System.out.println(c.toString() +
-                    "\n **** end ****");
-        }
+        String dni, firstname , lastname, email, password;
+
+        System.out.println("DNI: ");
+        dni = scann.nextLine();
+        System.out.println("Nombre: ");
+        firstname = scann.nextLine();
+        System.out.println("Apellido: ");
+        lastname = scann.nextLine();
+        System.out.println("Email: ");
+        email = scann.nextLine();
+        System.out.println("Contraseña: ");
+        password = scann.nextLine();
+
+        return new Customer(dni, firstname, lastname, email, password);
     }
 
-    public static void customerRegister(Customer customer) {
-        boolean createdUser = false;
-        for (Customer c : customer) {
-            if (customer.getEmail()==c.email) {
-                createdUser=true;
-            }
-        }
-        (!createdUser) ? customers_list.add(customer) : System.out.println("This user already exists");
+    public String consultShiftsOnClient(Customer cust)
+    {
+        return cust.getShifts().listAllSfhits();
     }
 
-    public static Customer findByEmail(String email) {
-        Customer customer = null;
-        if (customers_list.size() > 0){
-            for (Customer c : customers_list) {
-                if (c.getEmail().equal(email)) {   ///override funcion equals
-                    customer = c;
-                    break;
+    public void reserveShift(Customer cust, String day , String activity, String hour)
+    {
+        shifts_map.reserveShift(cust, day, activity, hour);
+    }
+
+
+    public void addToCustomerList(Customer customer)
+    {
+        customers_list.add(customer);
+    }
+
+    public void consultClients()
+    {
+        customers_list.consultList();
+    }
+
+    public void hardcodeUsers(){
+        Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
+        Customer user = new Customer("111", "user", "user", "user@user", "user");
+
+        addToCustomerList(admin);
+        addToCustomerList(user);
+    }
+
+    public void hardcodeTrainingPlans(){
+
+        Training_plan basicPlan = new basicPlan(1, "Basic Plan", 2500 );
+        Training_plan premiumPan = new basicPlan(2, "Premium Plan", 3000 );
+
+        addToTrainingPlanList(basicPlan);
+        addToTrainingPlanList(premiumPan);
+    }
+
+    public void harcodeShifts()
+    {
+        harcodeActivityList();
+        shifts_map.hardcodeShifts(activities);
+    }
+
+    public void consultTrainingPlanList()
+    {
+        training_plan_list.consultTrainingPlan();
+    }
+
+    public void consultStatusOfUser(Customer cust)
+    {
+        cust.consultStatus();
+    }
+
+    public void addToTrainingPlanList(Training_plan tp)
+    {
+        training_plan_list.addTrainingPlan(tp);
+    }
+
+    public Customer checkClient(){
+        Scanner scanner = new Scanner(System.in);
+        String str,pw;
+        Customer customer;
+        System.out.println("Escriba su email");
+        str = scanner.nextLine();
+        scanner.reset();
+        System.out.println("Escriba su contraseña");
+        pw = scanner.nextLine();
+
+        return customer = customers_list.findCustomer(str,pw);
+    }
+
+    public Admin checkAdmin (Admin administrator){
+        Scanner scanner = new Scanner(System.in);
+        String adm, pw;
+        Admin admin = null;
+        System.out.println("User Admin");
+        adm = scanner.nextLine();
+
+        scanner.reset();
+        System.out.println("Password Admin");
+        pw = scanner.nextLine();
+
+        if (administrator.getUser().equals(adm)){
+                if(administrator.getPassword().equals(pw)){
+                    admin = administrator;
                 }
             }
+
+        return admin;
         }
-        return customer;
+
+    public void signUp(Customer cust, int trainingPlan)
+    {
+        training_plan_list.buyTrainingPlan(cust, trainingPlan);
     }
 
-    public static void deleteUser(String email){
-        Customer destroyUser = findByEmail(email);
-        if (destroyUser!=null){
-            customers_list.remove(destroyUser);
-        }else{
-            System.out.println("User not found");
-        }
+    public String chooseDay(){return shifts_map.chooseDay();}
+
+    public void checkAvailableShifts(){shifts_map.consultAvailableShifts();}
+
+    public void harcodeActivityList()
+    {
+        Activity crossfit = new Crossfit("Crossfit");
+        Activity funcional = new Funcional("Funcional");
+        Activity aerobic = new Crossfit("Aerobic");
+
+
+        activities.add(crossfit);
+        activities.add(funcional);
+        activities.add(aerobic);
     }
-
-    public void getUsersByPlan(int trainingPlanId){
-        for (Customer c : customers_list) {
-            if (c.getTraining_Plan().compareTo(trainingPlanId)==0) {
-                System.out.println(c.toString());
-                break;
-            }
-        }
-    }
-
-
-
 
 
 }
+

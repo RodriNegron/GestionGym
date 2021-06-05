@@ -4,13 +4,13 @@ import Classes.Abstract.Activity;
 
 import java.util.List;
 
-public class Aerobic extends Activity {
+public class Funcional extends Activity {
 
 
     //region CONSTRUCTORS
-    public Aerobic() { }
+    public Funcional() { }
 
-    public Aerobic(String name) {
+    public Funcional(String name) {
         super(name);
     }
     //endregion
