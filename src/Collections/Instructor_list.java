@@ -32,6 +32,7 @@ public class Instructor_list {
         }
     }
 
+
     public void consultAllInstructors(){
         for (Instructor inst : instructors_list) {
             System.out.println(inst);

@@ -1,59 +1,30 @@
-import Classes.*;
-import Classes.Abstract.Activity;
-import Collections.Customer_list;
-import Collections.Shifts_map;
-import Utils.Password;
+import Classes.Customer;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        Customer cust1 = new Customer("38606789", "Alessandro", "Casella", "javi_casella95@outlook.com.ar", "Qwer1379");
 
-        Shift shift1 = new Shift("24/02/71995", "15:30", "Musculacion");
+        Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
+        gym.harcodeShifts();
+        gym.hardcodeUsers();
+        gym.hardcodeTrainingPlans();
 
-        cust1.getWallet().deposit(500);
-
-        cust1.getShifts().addShiftToClient(shift1);
-
-        System.out.println(cust1);
-        */
-
-        //gym.consultShifts();
-
-        String salt = Password.getSalt(30);
-
-        //salt nuevo al ejecutar el programa, imprimo el salt para verificar
-        //System.out.println(salt);
-
-        Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
-        Customer_list persistedList = new Customer_list();
-
-        String customerFile = "customer.json";
-        String shiftFile = "shift.json";
-
-        persistedList = Files.readFile(customerFile);
-        gym.setCustomers_list(persistedList);
-
-        loggin(gym, salt);
-
-        Files.writeFile(gym.getCustomers_list(), customerFile);
+        loggin(gym);
 
     }
 
 
-    public static void loggin(Gym gym, String salt){
+    public static void loggin(Gym gym){
+
+
         Scanner scann = new Scanner(System.in);
         Customer cust;
-
-        gym.harcodeShifts();
-        //gym.hardcodeUsers();
 
         int number;
         char var = 's';
         String string;
+
 
         System.out.println("Bienvenido a " + gym.getName() +" gym:");
         do {
@@ -69,9 +40,8 @@ public class Main {
                     break;
                 case 2:
                     scann.reset();
-                    cust = gym.register(scann, salt);
+                    cust = gym.register(scann);
                     gym.addToCustomerList(cust);
-                    gym.consultClients();
                     break;
                 default:
                     System.out.println("Datos incorrectos!");
@@ -89,8 +59,6 @@ public class Main {
         int number;
         char var = 's';
 
-        Admin admin = new Admin("00","admin", "admin", "admin","admin");
-
         Customer client;
         client = gym.checkClient();
 
@@ -99,20 +67,70 @@ public class Main {
                 do {
                     System.out.println("Bienvenido " + client.getFirstName() + "!:D");
                     System.out.println("1-Inscribirse");
-                    System.out.println("2-Consutlar turnos disponibles");
+                    System.out.println("2-Reservar turno");
                     System.out.println("3-Ingresar dinero a su billetera");
                     System.out.println("4-Consultar saldo");
-                    System.out.println("5-Consultar estado de cuenta");
+                    System.out.println("5-Consultar turnos reservados");
+                    System.out.println("6-Consultar estado de cuenta");
+                    System.out.println("7-Consultar turnos disponibles");
+
 
                     number = scann.nextInt();
 
                     switch (number) {
                         case 1:
-                            ;
+                            if(client.getTraining_Plan() == 0) {
+                                gym.consultTrainingPlanList();
+                                System.out.println("A que plan desea inscribirse?");
+                                int aux = scann.nextInt();
+                                gym.signUp(client, aux);
+                            }else System.out.println("Ya te encuentras inscripto al sistema!");
                             break;
                         case 2:
-                            gym.consultShifts();
+                            int num = 0;
+                            int time;
+                            String hour;
+                            String activity;
+                            String day;
+
+                            if(client.getTraining_Plan() !=0 ) {
+                                day = gym.chooseDay();
+
+                                System.out.println("En que actividad desea anotarse?");
+                                System.out.println("1- Funcional");
+                                System.out.println("2- Aerobic");
+                                System.out.println("3- Crossfit");
+
+                                num = scann.nextInt();
+
+                                if (num == 1) activity = "Funcional";
+                                else if (num == 2) activity = "Aerobic";
+                                else activity = "Crossfit";
+
+
+                                System.out.println("Dentro de que rango horario?");
+                                System.out.println("1 - 8-9:30");
+                                System.out.println("2 - 10-11:30");
+                                System.out.println("3 - 12-13:30");
+                                System.out.println("4 - 14-15:30");
+                                System.out.println("5 - 16-17:30");
+                                System.out.println("6 - 18-19:30");
+                                time = scann.nextInt();
+
+
+                                if (time == 1) hour = "8-9:30";
+                                else if (time == 2) hour = "10-11:30";
+                                else if (time == 3) hour = "12-13:30";
+                                else if (time == 4) hour = "14-15:30";
+                                else if (time == 5) hour = "16-17:30";
+                                else hour = "18-19:30";
+
+                               gym.reserveShift(client, day, activity, hour);
+                            }
+                            else System.out.println("Usted no se encuentra en ningun plan de entrenamiento por el momento");
+
                             break;
+
                         case 3:
                             System.out.println("Ingrese monto a depositar");
                             int cash =scann.nextInt();
@@ -120,6 +138,15 @@ public class Main {
                             break;
                         case 4:
                             System.out.println(client.getWallet().getTotal_Amount());
+                            break;
+                        case 5:
+                            System.out.println(gym.consultShiftsOnClient(client));
+                            break;
+                        case 6:
+                            gym.consultStatusOfUser(client);
+                            break;
+                        case 7:
+                            gym.checkAvailableShifts();
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
@@ -130,16 +157,16 @@ public class Main {
                 } while (var == 's');
             }
             else {
-
                 do {
                     System.out.println("Bienvenido " + client.getFirstName() + "!:D");
-                    System.out.println("1-admin menu");
-                    System.out.println("2-admin menu");
-                    System.out.println("3-admin menu");
-                    System.out.println("4-admin menu");
-                    System.out.println("5-admin menu");
+                    System.out.println("1-admin menu"); //agregar actividad
+                    System.out.println("2-admin menu"); //total ganancias
+                    System.out.println("3-admin menu"); //consultar actividades
+                    System.out.println("4-admin menu"); //consultar clientes
+                    System.out.println("5-admin menu"); //modificar y consultar plan entrenamiento
                     System.out.println("Elija una opcion: ");
                     number = scann.nextInt();
+
                     switch (number) {
                         /*case 1:
                             System.out.println(gym);
