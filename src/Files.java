@@ -4,24 +4,24 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.util.Collection;
 
 
 public class Files {
-    private static final String Customer_file = "customers.json";
-    private static Gson gson ;
 
     private Files(){
     }
 
     private static Gson getGson() {
+        Gson gson;
         return gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
-    public static Customer_list readCustomerFile () {
+    public static Customer_list readFile (String fileName) {
         Customer_list customers = null;
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new BufferedReader(new FileReader(Customer_file)));
+            reader = new BufferedReader(new BufferedReader(new FileReader(fileName)));
             customers = getGson().fromJson(reader, (new TypeToken<Customer_list>() {
             }.getType()));
         } catch (IOException e) {
@@ -38,11 +38,11 @@ public class Files {
         return customers;
     }
 
-    public static void writeCustomersFile( Customer_list customers){
+    public static void writeFile(Object name, String fileName){
         BufferedWriter writer = null;
         try{
-            writer = new BufferedWriter(new FileWriter(Customer_file));
-            getGson().toJson(customers, customers.getClass(), writer);
+            writer = new BufferedWriter(new FileWriter(fileName));
+            getGson().toJson(name, name.getClass(), writer);
         } catch (IOException e){
             e.printStackTrace();
         }finally {

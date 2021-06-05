@@ -1,8 +1,5 @@
+import Classes.*;
 import Classes.Abstract.Activity;
-import Classes.Aerobic;
-import Classes.Crossfit;
-import Classes.Customer;
-import Classes.Shift;
 import Collections.Customer_list;
 import Collections.Shifts_map;
 import Utils.Password;
@@ -33,12 +30,16 @@ public class Main {
 
         Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
         Customer_list persistedList = new Customer_list();
-        persistedList = Files.readCustomerFile();
+
+        String customerFile = "customer.json";
+        String shiftFile = "shift.json";
+
+        persistedList = Files.readFile(customerFile);
         gym.setCustomers_list(persistedList);
 
         loggin(gym, salt);
 
-        Files.writeCustomersFile(gym.getCustomers_list());
+        Files.writeFile(gym.getCustomers_list(), customerFile);
 
     }
 
