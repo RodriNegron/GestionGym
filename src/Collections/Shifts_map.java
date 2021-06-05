@@ -1,5 +1,6 @@
 package Collections;
 
+import Classes.Abstract.Activity;
 import Classes.Customer;
 import Classes.Shift;
 
@@ -7,41 +8,22 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Shifts_map {
 
     private final Scanner scann = new Scanner(System.in);
 
-    Map<String[], Integer> availableShifts;
+    Map<String, Activity_list> days;
 
-    Map<String, Map<String[], Integer>> days;
-
+    //region constructor
     public Shifts_map() {
-        availableShifts = new HashMap<String[], Integer>();
-        days = new HashMap<String, Map<String[], Integer>>();
+        days = new HashMap<String, Activity_list>();
     }
+    //endregion
 
-    public void hardcodeShifts() {
+    public void hardcodeShifts(Activity_list activities) {
         Calendar c = Calendar.getInstance();
-        List<String[]> activityList = new ArrayList<>();
-
-
-        String[] musc = {"8-9:30", "10-11:30", "12-13:30", "14-15:30", "16-17:30", "18-19:30", "musculacion"};
-        String[] cross = {"8-9:30", "10-11:30", "12-13:30", "14-15:30", "16-17:30", "18-19:30", "crossfit"};
-        String[] func = {"8-9:30", "10-11:30", "12-13:30", "14-15:30", "16-17:30", "18-19:30", "funcional"};
-
-        activityList.add(musc);
-        activityList.add(cross);
-        activityList.add(func);
-
-
-        availableShifts.put(activityList.get(0), 10);
-        availableShifts.put(activityList.get(1), 10);
-        availableShifts.put(activityList.get(2), 10);
-
-
 
         // Set the calendar to monday of the current week
 
@@ -71,18 +53,19 @@ public class Shifts_map {
             c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
 
 
-            String dayToPut = df.format(c.getTimeInMillis());
-            days.put(dayToPut, availableShifts);
+            String dayToPut= df.format(c.getTimeInMillis());
+            days.put(dayToPut , activities); //rest of the days in week to add
+
         }
 
     }
+
 
     public String chooseDay() {
         AtomicInteger i = new AtomicInteger();
         int day;
 
         String[] aux = new String[7];
-
 
         this.days.forEach(
                 (k, v) ->
@@ -91,132 +74,73 @@ public class Shifts_map {
                     aux[i.get()] = k;
                     i.getAndIncrement();
                 });
+
         System.out.println("En que dia de la corriente semana desea anotarse?");
         day = scann.nextInt();
 
         return aux[day];
     }
 
-    public void reserveShift(Customer cust, String day, String activity, String hour) {
+    public Activity_list reserveShift(Customer cust, String day, String activity, String hour) {
 
-        this.days.forEach(
-                (k, v) ->
-                {
-                     if (k.equals(day)) {
-                         v.forEach(
-                                 (hora, slot) -> {
-                                     for (int i = 0 ; i < hora.length ; i++) {
-                                         if (hora[i].equals(activity)) {
-                                             String[] auxiliar = hora;
+        for (Map.Entry<String, Activity_list> e : this.days.entrySet()) {
+            String today = e.getKey();
+            Activity_list activity_list = e.getValue();
+            List<Activity> al = activity_list.getActivity_list();
 
-                                             for (int j = 0; j < auxiliar.length; j++) {
-                                                 if (auxiliar[j].equals(hour)) {
-                                                     if (slot != 0) {
+            if (today.equals(day)) {
 
-                                                         Shift shift = new Shift(day, hour, activity);
-                                                         if ((cust.getTraining_Plan() == 1) && (cust.getShifts().shift_list.size() < 3)) {
-                                                             cust.getShifts().addShiftToClient(shift);
+                for (int i = 0; i < al.size(); i++) {
+                    if (al.get(i).getName().equals(activity)) {
 
+                        Map<String, Integer> activityMap = al.get(i).getAvailableShifts();
+                        for (Map.Entry<String, Integer> entry : activityMap.entrySet()) {
+                            String mapHour = entry.getKey();
+                            Integer slot = entry.getValue();
+                            Shift shift = new Shift(day, hour, activity);
+                            if (mapHour.equals(hour) && (slot != 0)) {
 
-                                                             /*Map<0, Integer> copy = days.get(day);
+                                if ((cust.getTraining_Plan() == 1) && (cust.getShifts().shift_list.size() < 3)) {
+                                    cust.getShifts().addShiftToClient(shift);
+                                    al.get(i).modifySlot(hour);
+                                    System.out.println(al.get(i).getAvailableShifts());
 
-                                                             int newSlot = slot -1;
-                                                             copy.put(auxiliar, newSlot);
+                                    System.out.println("Sucess");
+                                    System.out.println(shift);
 
-                                                             days.put(day, copy);
-                                                             */
-
-                                                             System.out.println(slot);
-                                                             System.out.println("Sucess");
-                                                             System.out.println(shift);
-                                                         } else if (cust.getTraining_Plan() == 2) {
-
-                                                             cust.getShifts().addShiftToClient(shift);
-
-                                                             Map<String[], Integer> copy = days.get(day);
-
-                                                             int newSlot = slot -1;
-                                                             copy.put(auxiliar, newSlot);
-
-                                                             days.put(day, copy);
-
-                                                             System.out.println("Sucess");
-                                                             System.out.println(shift);
-                                                         } else System.out.println("Wrong case");
-                                                     } else System.out.println("All shifts are reserved");
-
-                                                 }
-                                             }
-                                         }
-                                     }
-                            });
-                         }
-
-                    });
+                                } else if (cust.getTraining_Plan() == 2) {
+                                    cust.getShifts().addShiftToClient(shift);
+                                    al.get(i).modifySlot(hour);
+                                    System.out.println(al.get(i).getAvailableShifts());
+                                    System.out.println("Sucess");
+                                    System.out.println(shift);
+                                } else System.out.println("Wrong case");
+                            }
+                        }
+                    }
+                }
+                Activity_list aux = new Activity_list();
+                aux.setActivity_list(al);
+                return aux;
+            }
         }
+        return null;
+    }
 
 
     //for each day of the week we need 6 shifts with 10 slots each 1 - 3 act
     //we need to create the shift, with the day the time and the date, subtract 1 slot <- the user if it is basic
     //it could have 3 turns, then it would be subtracted in a static variable
 
-
     public void consultAvailableShifts() {
 
         this.days.forEach(
-                (k,v) ->
+                (day , activities) ->
                 {
-                    System.out.println(k);
+                    System.out.println(day);
 
-                    v.forEach(
+                   activities.consultAvailableShifts();
 
-                        (activity, slot) ->
-                        {
-                                if(activity[6].equals("musculacion")){
-                                    String[] auxiliar = activity;
-
-                                    System.out.println("Musculacion");
-                                    for (int j = 0 ; j < auxiliar.length ; j++)
-                                    {
-                                        if ((j != 6)) {
-                                            System.out.println(auxiliar[j]);
-                                            System.out.println(slot);
-                                        }
-                                    }
-
-                                }
-                                else if (activity[6].equals("crossfit"))
-                                {
-                                    String[] auxiliar = activity;
-
-                                    System.out.println("Crossfit");
-
-                                    for (int j = 0 ; j < auxiliar.length ; j++)
-                                    {
-                                        if ((j != 6)) {
-                                            System.out.println(auxiliar[j]);
-                                            System.out.println(slot);
-                                        }
-                                    }
-                                }
-                                else {
-                                    String[] auxiliar = activity;
-
-                                    System.out.println("Funcional");
-
-                                    for (int j = 0; j < auxiliar.length; j++) {
-                                        if ((j != 6)) {
-                                            System.out.println(auxiliar[j]);
-                                            System.out.println(slot);
-
-                                        }
-                                    }
-                                }
-                        }
-
-                    );
-                }
-        );
+                });
     }
 }
-

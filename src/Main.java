@@ -1,4 +1,6 @@
 import Classes.Customer;
+import Collections.Activity_list;
+import Collections.Customer_list;
 
 import java.util.Scanner;
 
@@ -117,9 +119,9 @@ public class Main {
 
                                 num = scann.nextInt();
 
-                                if (num == 1) activity = "funcional";
-                                else if (num == 2) activity = "musculacion";
-                                else activity = "crossfit";
+                                if (num == 1) activity = "Funcional";
+                                else if (num == 2) activity = "Musculacion";
+                                else activity = "Crossfit";
 
 
                                 System.out.println("Dentro de que rango horario?");
@@ -139,9 +141,10 @@ public class Main {
                                 else if (time == 5) hour = "16-17:30";
                                 else hour = "18-19:30";
 
-                                gym.reserveShift(client, day, activity, hour);
+                               gym.reserveShift(client, day, activity, hour);
                             }
                             else System.out.println("Usted no se encuentra en ningun plan de entrenamiento por el momento");
+
                             break;
 
                         case 3:

@@ -1,6 +1,10 @@
+import Classes.Abstract.Activity;
 import Classes.Abstract.Training_plan;
+import Classes.Crossfit;
 import Classes.Customer;
+import Classes.Funcional;
 import Classes.basicPlan;
+import Collections.Activity_list;
 import Collections.Customer_list;
 import Collections.Shifts_map;
 import Collections.TrainingPlan_list;
@@ -14,11 +18,14 @@ public final class Gym {
     private Shifts_map shifts_map;
     private Customer_list customers_list;
     private TrainingPlan_list training_plan_list;
+    private Activity_list activities;
 
     public Gym() {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
+        this.activities = new Activity_list();
+
     }
 
     public Gym(String name, String location, String cuit) {
@@ -28,6 +35,8 @@ public final class Gym {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
+        this.activities = new Activity_list();
+
     }
 
     //region setter & getters
@@ -71,8 +80,9 @@ public final class Gym {
 
     public void reserveShift(Customer cust, String day , String activity, String hour)
     {
-        shifts_map.reserveShift(cust, day, activity, hour);
+        activities = shifts_map.reserveShift(cust, day, activity, hour);
     }
+
 
     public void addToCustomerList(Customer customer)
     {
@@ -103,7 +113,8 @@ public final class Gym {
 
     public void harcodeShifts()
     {
-        shifts_map.hardcodeShifts();
+        harcodeActivityList();
+        shifts_map.hardcodeShifts(activities);
     }
 
     public void consultTrainingPlanList()
@@ -141,6 +152,25 @@ public final class Gym {
 
     public String chooseDay(){return shifts_map.chooseDay();}
 
-    public void checkAvailableShifts(){shifts_map.consultAvailableShifts();}
+    public void checkAvailableShifts(){activities.consultAvailableShifts();}
+
+    public void harcodeActivityList()
+    {
+        Activity crossfit = new Crossfit("Crossfit");
+        Activity funcional = new Funcional("Funcional");
+        Activity aerobic = new Crossfit("Aerobic");
+
+        crossfit.hardcodeAvailableShifts();
+        funcional.hardcodeAvailableShifts();
+        aerobic.hardcodeAvailableShifts();
+
+        activities.add(crossfit);
+        activities.add(funcional);
+        activities.add(aerobic);
+    }
+
+
+
+
 }
 

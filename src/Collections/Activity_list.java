@@ -1,7 +1,6 @@
 package Collections;
 
 import Classes.Abstract.Activity;
-import Classes.Customer;
 import Interfaces.Controller;
 
 import java.util.ArrayList;
@@ -13,7 +12,13 @@ public class Activity_list implements Controller {
 
     public Activity_list() { this.activity_list = new ArrayList<>(); }
 
+    public List<Activity> getActivity_list() {
+        return activity_list;
+    }
 
+    public void setActivity_list(List<Activity> activity_list) {
+        this.activity_list = activity_list;
+    }
 
     @Override
     public void add(Object name) {
@@ -64,4 +69,18 @@ public class Activity_list implements Controller {
         }
     }
 
+    public void consultAvailableShifts(){
+        for (int a = 0; a < activity_list.size(); a++) {
+            if (activity_list.get(a).getName().equals("Crossfit")) {
+                System.out.println("Crossfit");
+                activity_list.get(a).consultShifts();
+            } else if (activity_list.get(a).getName().equals("Funcional")) {
+                System.out.println("Funcional");
+                activity_list.get(a).consultShifts();
+            } else if (activity_list.get(a).getName().equals("Aerobic")) {
+                System.out.println("Aerobic");
+                activity_list.get(a).consultShifts();
+            }
+        }
+    }
 }
