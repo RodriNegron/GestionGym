@@ -89,6 +89,8 @@ public class Main {
         int number;
         char var = 's';
 
+        Admin admin = new Admin("00","admin", "admin", "admin","admin");
+
         Customer client;
         client = gym.checkClient();
 
@@ -128,6 +130,7 @@ public class Main {
                 } while (var == 's');
             }
             else {
+
                 do {
                     System.out.println("Bienvenido " + client.getFirstName() + "!:D");
                     System.out.println("1-admin menu");

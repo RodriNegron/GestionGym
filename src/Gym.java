@@ -104,8 +104,8 @@ public final class Gym {
         scanner.reset();
         System.out.println("Escriba su contraseña");
         pw = scanner.nextLine();
-
-        return customer = customers_list.findCustomer(str,pw);
+        customer = customers_list.findCustomer(str,pw);
+        return customer;
     }
 
 }
