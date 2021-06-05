@@ -39,7 +39,13 @@ public final class Gym {
 
     public void setCuit(String cuit) { this.cuit = cuit; }
 
+    public Customer_list getCustomers_list() { return customers_list; }
+
+    public void setCustomers_list(Customer_list customers_list) { this.customers_list = customers_list; }
+
     //endregion
+
+
 
     public Customer register(Scanner scann){
 
@@ -69,20 +75,16 @@ public final class Gym {
         shifts_map.checkWeeklyShifts();
     }
 
-    public void addToCustomerList(Customer customer)
-    {
-        customers_list.customerRegister(customer);
-    }
 
     public void consultClients()
     {
-        customers_list.listAllCostumers();
+        customers_list.consultList();
     }
 
     public void hardcodeUsers(){
         Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
 
-        addToCustomerList(admin);
+        this.getCustomers_list().add(admin);
     }
 
     public Customer checkClient(){

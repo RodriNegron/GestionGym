@@ -4,6 +4,7 @@ import Classes.Crossfit;
 import Classes.Customer;
 import Classes.Shift;
 import Collections.Shifts_map;
+import Collections.Customer_list;
 
 import java.util.Scanner;
 
@@ -56,8 +57,8 @@ public class Main {
                 case 2:
                     scann.reset();
                     cust = gym.register(scann);
-                    gym.addToCustomerList(cust);
-                    gym.consultClients();
+                    gym.getCustomers_list().add(cust);
+                    gym.getCustomers_list().consultList();
                     break;
                 default:
                     System.out.println("Datos incorrectos!");
@@ -82,7 +83,7 @@ public class Main {
             if (client.getFirstName().compareTo("admin")!=0 ) {
                 do {
                     System.out.println("Bienvenido " + client.getFirstName() + "!:D");
-                    System.out.println("1-Inscribirse");
+                    System.out.println("1-Inscribirse"); //ANOTARSE A UN PLAN
                     System.out.println("2-Consutlar turnos disponibles");
                     System.out.println("3-Ingresar dinero a su billetera");
                     System.out.println("4-Consultar saldo");
