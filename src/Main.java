@@ -97,10 +97,12 @@ public class Main {
 
                     switch (number) {
                         case 1:
-                            gym.consultTrainingPlanList();
-                            System.out.println("A que plan desea inscribirse?");
-                            int aux = scann.nextInt();
-                            gym.signUp(client, aux);
+                            if(client.getTraining_Plan() == 0) {
+                                gym.consultTrainingPlanList();
+                                System.out.println("A que plan desea inscribirse?");
+                                int aux = scann.nextInt();
+                                gym.signUp(client, aux);
+                            }else System.out.println("Ya te encuentras inscripto al sistema!");
                             break;
                         case 2:
                             int num = 0;
@@ -114,13 +116,13 @@ public class Main {
 
                                 System.out.println("En que actividad desea anotarse?");
                                 System.out.println("1- Funcional");
-                                System.out.println("2- Musculacion");
+                                System.out.println("2- Aerobic");
                                 System.out.println("3- Crossfit");
 
                                 num = scann.nextInt();
 
                                 if (num == 1) activity = "Funcional";
-                                else if (num == 2) activity = "Musculacion";
+                                else if (num == 2) activity = "Aerobic";
                                 else activity = "Crossfit";
 
 

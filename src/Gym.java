@@ -80,7 +80,7 @@ public final class Gym {
 
     public void reserveShift(Customer cust, String day , String activity, String hour)
     {
-        activities = shifts_map.reserveShift(cust, day, activity, hour);
+        shifts_map.reserveShift(cust, day, activity, hour);
     }
 
 
@@ -152,7 +152,7 @@ public final class Gym {
 
     public String chooseDay(){return shifts_map.chooseDay();}
 
-    public void checkAvailableShifts(){activities.consultAvailableShifts();}
+    public void checkAvailableShifts(){shifts_map.consultAvailableShifts();}
 
     public void harcodeActivityList()
     {

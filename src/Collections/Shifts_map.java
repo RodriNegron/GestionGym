@@ -81,7 +81,7 @@ public class Shifts_map {
         return aux[day];
     }
 
-    public Activity_list reserveShift(Customer cust, String day, String activity, String hour) {
+    public void reserveShift(Customer cust, String day, String activity, String hour) {
 
         for (Map.Entry<String, Activity_list> e : this.days.entrySet()) {
             String today = e.getKey();
@@ -102,29 +102,44 @@ public class Shifts_map {
 
                                 if ((cust.getTraining_Plan() == 1) && (cust.getShifts().shift_list.size() < 3)) {
                                     cust.getShifts().addShiftToClient(shift);
-                                    al.get(i).modifySlot(hour);
-                                    System.out.println(al.get(i).getAvailableShifts());
+
+                                    Integer inti = slot-1;
+                                    al.get(i).getAvailableShifts().put(hour, inti);
+
 
                                     System.out.println("Sucess");
                                     System.out.println(shift);
+
+                                    Activity_list acts = new Activity_list();
+                                    acts.setActivity_list(al);
+
+                                    days.put(today, acts);
 
                                 } else if (cust.getTraining_Plan() == 2) {
                                     cust.getShifts().addShiftToClient(shift);
-                                    al.get(i).modifySlot(hour);
-                                    System.out.println(al.get(i).getAvailableShifts());
+
+                                    Integer inti = slot-1;
+
+                                    al.get(i).getAvailableShifts().put(hour, inti);
+
+
                                     System.out.println("Sucess");
                                     System.out.println(shift);
+
+
+                                    Activity_list acts = new Activity_list();
+                                    acts.setActivity_list(al);
+
+                                    days.put(today, acts);
+
                                 } else System.out.println("Wrong case");
                             }
                         }
                     }
                 }
-                Activity_list aux = new Activity_list();
-                aux.setActivity_list(al);
-                return aux;
+
             }
         }
-        return null;
     }
 
 
@@ -139,7 +154,19 @@ public class Shifts_map {
                 {
                     System.out.println(day);
 
-                   activities.consultAvailableShifts();
+                    List<Activity> aux = activities.getActivity_list();
+
+                    for (int i = 0; i < aux.size(); i++) {
+                        System.out.println(aux.get(i).getName());
+                        aux.get(i).getAvailableShifts().forEach(
+                                (hour , slot) ->
+                                {
+                                    System.out.println("hour:"+ hour);
+                                    System.out.println("slot:"+ slot);
+                                }
+                        );
+                    }
+
 
                 });
     }
