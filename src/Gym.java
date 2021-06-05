@@ -87,12 +87,12 @@ public final class Gym {
 
     public void addToCustomerList(Customer customer)
     {
-        customers_list.customerRegister(customer);
+        customers_list.add(customer);
     }
 
     public void consultClients()
     {
-        customers_list.listAllCostumers();
+        customers_list.consultList();
     }
 
     public void hardcodeUsers(){
