@@ -1,13 +1,7 @@
 import Classes.Abstract.Activity;
 import Classes.Abstract.Training_plan;
-import Classes.Crossfit;
-import Classes.Customer;
-import Classes.Funcional;
-import Classes.basicPlan;
-import Collections.Activity_list;
-import Collections.Customer_list;
-import Collections.Shifts_map;
-import Collections.TrainingPlan_list;
+import Classes.*;
+import Collections.*;
 
 import java.util.Scanner;
 
@@ -19,6 +13,7 @@ public final class Gym {
     private Customer_list customers_list;
     private TrainingPlan_list training_plan_list;
     private Activity_list activities;
+    private Instructor_list instructor_list;
 
 
     public Gym() {
@@ -26,7 +21,7 @@ public final class Gym {
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
         this.activities = new Activity_list();
-
+        this.instructor_list = new Instructor_list();
     }
 
     public Gym(String name, String location, String cuit) {
@@ -37,7 +32,7 @@ public final class Gym {
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
         this.activities = new Activity_list();
-
+        this.instructor_list = new Instructor_list();
     }
 
     //region setter & getters
@@ -167,6 +162,24 @@ public final class Gym {
         activities.add(aerobic);
     }
 
+    public void hardcodeInstructor (){
+        Instructor instructor1 = new Instructor("Esteban", "38932329", "Ortenzi", "esteban@asd.com", "12345");
+        Instructor instructor2 = new Instructor("Felipe", "37895114", "Sarten", "felipe@asd.com", "12345");
+        Instructor instructor3 = new Instructor("Marcos", "31587786", "Piero", "marcos@asd.com", "12345");
+        Instructor instructor4 = new Instructor("Juan", "23961588", "Juarez", "juan@asd.com", "12345");
+        Instructor instructor5 = new Instructor("Franco", "33258968", "Boni", "franco@asd.com", "12345");
+        Instructor instructor6 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com", "12345");
+
+        instructor_list.add(instructor1);
+        instructor_list.add(instructor2);
+        instructor_list.add(instructor3);
+        instructor_list.add(instructor4);
+        instructor_list.add(instructor5);
+        instructor_list.add(instructor6);
+
+        instructor_list.consultList();
+
+    }
 
 }
 

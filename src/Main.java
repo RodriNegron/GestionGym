@@ -9,7 +9,7 @@ public class Main {
         gym.harcodeShifts();
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
-
+        gym.hardcodeInstructor();
         loggin(gym);
 
     }

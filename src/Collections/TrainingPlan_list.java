@@ -63,6 +63,8 @@ public class TrainingPlan_list{
                 if (customer.getWallet().getTotal_Amount() >= tp.getPrice()) {
                     customer.setTraining_Plan(tp.getId());
                     customer.setDatesTrainingPlan();
+                    customer.getWallet().debit(tp.getPrice());
+
                     System.out.println("sign up complete");
                 } else System.out.println("Insufficient balance");
             } else System.out.println("You are already signed");

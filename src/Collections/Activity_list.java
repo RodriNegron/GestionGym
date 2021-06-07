@@ -10,11 +10,10 @@ public class Activity_list implements Controller {
 
     private List<Activity> activity_list;
 
+
     public Activity_list() { this.activity_list = new ArrayList<>(); }
 
-    public List<Activity> getActivity_list() {
-        return activity_list;
-    }
+    public List<Activity> getActivity_list() { return activity_list; }
 
     public void setActivity_list(List<Activity> activity_list) {
         this.activity_list = activity_list;
