@@ -111,7 +111,7 @@ public final class Gym {
     public void hardcodeTrainingPlans(){
 
         Training_plan basicPlan = new basicPlan(1, 2500 );
-        Training_plan premiumPan = new basicPlan(2, 3000 );
+        Training_plan premiumPan = new premiumPlan(2, 3000 );
 
         addToTrainingPlanList(basicPlan);
         addToTrainingPlanList(premiumPan);

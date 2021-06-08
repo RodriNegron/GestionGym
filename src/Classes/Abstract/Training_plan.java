@@ -6,16 +6,16 @@ import java.time.LocalDate;
 
 public abstract class Training_plan {
     protected int id = 0; //1 for basic plan - 2 for premium plan
-    private String name;
+    private TrainingPlans tp;
     protected double price;
 
 
-    public Training_plan(int id, TrainingPlans premiumPlan, double price){
+    public Training_plan(){
     }
 
-    public Training_plan(int id, String name, double price) {
+    public Training_plan(int id, TrainingPlans tp, double price) {
         this.id = id;
-        this.name = name;
+        this.tp = tp;
         this.price = price;
    }
 
@@ -31,9 +31,9 @@ public abstract class Training_plan {
         this.id = id;
     }
 
-    public String getName() {return name; }
+    public TrainingPlans getTp() { return tp; }
 
-    public void setName(String name) {this.name = name; }
+    public void setTp(TrainingPlans tp) { this.tp = tp; }
 
     public void setPrice(double price) {
         this.price = price;
@@ -42,7 +42,7 @@ public abstract class Training_plan {
     @Override
     public String toString() {
         return  id + " " + "Training_plan->" +
-                "name='" + name + '\'' +
+                "name='" + getTp() + '\'' +
                 ", price=" + price ;
     }
 }
