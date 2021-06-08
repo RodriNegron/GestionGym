@@ -30,9 +30,7 @@ public class Shifts_map {
 
         int day = LocalDate.now().getDayOfMonth();
         DateFormat df = new SimpleDateFormat("EEE dd/MM/yyyy");
-
         Calendar aux = Calendar.getInstance();
-
         c.set(Calendar.DATE, day - 1);
 
         int dia = 0;
@@ -50,7 +48,6 @@ public class Shifts_map {
 
         //we keep the days of the week, from current to Saturday inclusive
         for (int i = 0; i < dayToAdd; i++) {
-
             c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
 
 

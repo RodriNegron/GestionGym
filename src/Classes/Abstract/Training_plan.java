@@ -1,5 +1,7 @@
 package Classes.Abstract;
 
+import Classes.TrainingPlans;
+
 import java.time.LocalDate;
 
 public abstract class Training_plan {
@@ -8,7 +10,7 @@ public abstract class Training_plan {
     protected double price;
 
 
-    public Training_plan(){
+    public Training_plan(int id, TrainingPlans premiumPlan, double price){
     }
 
     public Training_plan(int id, String name, double price) {
