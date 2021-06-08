@@ -63,8 +63,7 @@ public class Activity_list implements Controller {
     @Override
     public void consultList() {
         for (Activity a : activity_list) {
-            System.out.println(a.toString() +
-                    "\n **** end ****");
+            System.out.println(a.toString());
         }
     }
 

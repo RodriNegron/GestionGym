@@ -60,8 +60,7 @@ public class Customer_list implements Controller {
     @Override
     public void consultList() {
         for (Customer c : customers_list) {
-            System.out.println(c.toString() +
-                    "\n **** end ****");
+            System.out.println(c.toString());
         }
     }
 

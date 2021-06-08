@@ -6,10 +6,10 @@ public class Main {
     public static void main(String[] args) {
 
         Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
+        gym.hardcodeInstructor();
         gym.harcodeShifts();
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
-        gym.hardcodeInstructor();
         loggin(gym);
 
     }
@@ -65,7 +65,7 @@ public class Main {
         if (client != null) {
             if (client.getFirstName().compareTo("admin")!=0 ) {
                 do {
-                    System.out.println("Bienvenido " + client.getFirstName() + "!:D");
+                    System.out.println("Bienvenido " + client.getFirstName() + "," + gym.expired(client));
                     System.out.println("1-Inscribirse");
                     System.out.println("2-Reservar turno");
                     System.out.println("3-Ingresar dinero a su billetera");

@@ -57,7 +57,6 @@ public class Customer extends Person {
 
     public void setDatesTrainingPlan()
     {
-
         this.planStartDate = LocalDate.now();
         this.planFinalDate = planStartDate.plusDays(30);
     }
@@ -66,7 +65,7 @@ public class Customer extends Person {
     {
         StringBuilder builder = new StringBuilder();
 
-        if ((planStartDate != null ) & ( planFinalDate != null))
+        if ((planStartDate != null ) && ( planFinalDate != null))
         {
             builder.append(planStartDate.format(DateTimeFormatter.ofPattern("d/M/u")));
             builder.append("\n");
@@ -87,10 +86,9 @@ public class Customer extends Person {
     }
 
     public void consultStatus(){
-        if(training_Plan == 0) System.out.println("You are not yet registered with any plan");
-        else if(training_Plan == 1) System.out.println("You are a basic plan user");
-        else if(training_Plan == 2) System.out.println("You are a premiun plan user");
-
+        if(training_Plan == 0) System.out.println("Usted no esta registrado en ningun plan");
+        else if(training_Plan == 1) System.out.println("Usted se encuentra inscripto al plan basico");
+        else if(training_Plan == 2) System.out.println("Usted se encuentra inscripto al plan premium");
     }
 
 

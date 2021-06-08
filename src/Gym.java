@@ -3,6 +3,8 @@ import Classes.Abstract.Training_plan;
 import Classes.*;
 import Collections.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public final class Gym {
@@ -12,7 +14,7 @@ public final class Gym {
     private Shifts_map shifts_map;
     private Customer_list customers_list;
     private TrainingPlan_list training_plan_list;
-    private Activity_list activities;
+    private Activity_list activities_list;
     private Instructor_list instructor_list;
 
 
@@ -20,7 +22,7 @@ public final class Gym {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
-        this.activities = new Activity_list();
+        this.activities_list = new Activity_list();
         this.instructor_list = new Instructor_list();
     }
 
@@ -31,7 +33,7 @@ public final class Gym {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
-        this.activities = new Activity_list();
+        this.activities_list = new Activity_list();
         this.instructor_list = new Instructor_list();
     }
 
@@ -48,6 +50,14 @@ public final class Gym {
     public String getCuit() { return cuit; }
 
     public void setCuit(String cuit) { this.cuit = cuit; }
+
+    public Activity_list getActivities_list() {
+        return activities_list;
+    }
+
+    public void setActivities_list(Activity_list activities_list) {
+        this.activities_list = activities_list;
+    }
 
     //endregion
 
@@ -110,7 +120,7 @@ public final class Gym {
     public void harcodeShifts()
     {
         harcodeActivityList();
-        shifts_map.hardcodeShifts(activities);
+        shifts_map.hardcodeShifts(activities_list);
     }
 
     public void consultTrainingPlanList()
@@ -156,10 +166,17 @@ public final class Gym {
         Activity funcional = new Funcional("Funcional");
         Activity aerobic = new Crossfit("Aerobic");
 
+        crossfit.getInstructors().add(instructor_list.getInstructors().get(0));
+        crossfit.getInstructors().add(instructor_list.getInstructors().get(1));
+        funcional.getInstructors().add(instructor_list.getInstructors().get(2));
+        funcional.getInstructors().add(instructor_list.getInstructors().get(3));
+        aerobic.getInstructors().add(instructor_list.getInstructors().get(4));
+        aerobic.getInstructors().add(instructor_list.getInstructors().get(5));
 
-        activities.add(crossfit);
-        activities.add(funcional);
-        activities.add(aerobic);
+
+        activities_list.add(crossfit);
+        activities_list.add(funcional);
+        activities_list.add(aerobic);
     }
 
     public void hardcodeInstructor (){
@@ -176,10 +193,26 @@ public final class Gym {
         instructor_list.add(instructor4);
         instructor_list.add(instructor5);
         instructor_list.add(instructor6);
-
-        instructor_list.consultList();
-
     }
 
+    public String expired (Customer cust){
+        String finalDate;
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u"));
+        StringBuilder builder = new StringBuilder();
+
+        if(cust.getPlanFinalDate() != null){
+            finalDate = cust.getPlanFinalDate().format(DateTimeFormatter.ofPattern("d/M/u"));
+
+                if (finalDate.compareTo(date)!=0){
+                    builder.append(" la fecha de caducidad de su plan es el: " + finalDate);
+                }else{
+                    builder.append(" se le ha terminado su plan");
+                    cust.setTraining_Plan(0);
+                }
+        }else{
+            builder.append(" usted no se encuentra asignado a ningun plan.");
+        }
+        return builder.toString();
+    }
 }
 
