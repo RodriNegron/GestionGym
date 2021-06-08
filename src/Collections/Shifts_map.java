@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Shifts_map {
@@ -170,5 +171,23 @@ public class Shifts_map {
 
 
                 });
+    }
+
+    public void addActivity (Activity activity){
+
+        Activity_list aux  = new Activity_list();
+        AtomicBoolean flag = new AtomicBoolean(false);
+        days.forEach(
+                (day, act)->{
+
+                    if (!flag.get()){
+                        for (int j = 0; j < act.getActivity_list().size(); j++) {
+                            aux.add(act.getActivity_list().get(j));
+                            flag.set(true);
+                        }
+                    }
+                }
+    );
+        hardcodeShifts(aux);
     }
 }

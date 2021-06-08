@@ -90,9 +90,12 @@ public abstract class Activity{
 
     public String consultInstructorList (){
         StringBuilder builder = new StringBuilder();
-        builder.append(instructors.getInstructors().get(0));
-        builder.append(instructors.getInstructors().get(1));
-
+        if(getInstructors().getInstructors().size() != 0){
+            builder.append(instructors.getInstructors().get(0));
+            builder.append(instructors.getInstructors().get(1));
+        }else{
+            builder.append("No hay instructores en la Actividad");
+        }
         return builder.toString();
     }
 

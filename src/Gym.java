@@ -214,5 +214,12 @@ public final class Gym {
         }
         return builder.toString();
     }
+
+    public void addActivityToList (Activity activity){
+        activity.hardcodeAvailableShifts();
+        activities_list.add(activity);
+        shifts_map.addActivity(activity);
+        activities_list.consultList();
+    }
 }
 

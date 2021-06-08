@@ -1,4 +1,6 @@
+import Classes.Abstract.Activity;
 import Classes.Customer;
+import Classes.Funcional;
 
 import java.util.Scanner;
 
@@ -73,6 +75,7 @@ public class Main {
                     System.out.println("5-Consultar turnos reservados");
                     System.out.println("6-Consultar estado de cuenta");
                     System.out.println("7-Consultar turnos disponibles");
+                    System.out.println("8-Agregar Actividad");
 
 
                     number = scann.nextInt();
@@ -147,6 +150,10 @@ public class Main {
                             break;
                         case 7:
                             gym.checkAvailableShifts();
+                            break;
+                        case 8:
+                            Activity fitness = new Funcional("Fitness"); // ESTO VA EN EL MENU ADMIN, AUNQUE NO SERVIRIA EN NUESTRO PROGRAMA
+                            gym.addActivityToList(fitness);                    // YA QUE PARA CREAR UNA NUEVA ACTIVIDAD, HAY QUE CREAR UNA NUEVA CLASE.
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
