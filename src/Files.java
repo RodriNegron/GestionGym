@@ -1,12 +1,8 @@
 import Collections.Customer_list;
-/*
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.*;
-import java.util.Collection;
-
 
 public class Files {
 
@@ -57,7 +53,3 @@ public class Files {
         }
     }
 }
-
-
-
- */

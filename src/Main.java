@@ -16,7 +16,6 @@ public class Main {
 
     }
 
-
     public static void loggin(Gym gym){
 
 
@@ -76,7 +75,6 @@ public class Main {
                     System.out.println("6-Consultar estado de cuenta");
                     System.out.println("7-Consultar turnos disponibles");
                     System.out.println("8-Agregar Actividad");
-
 
                     number = scann.nextInt();
 

@@ -22,6 +22,7 @@ public class Password {
         }
         return new String(returnValue);
     }
+
     public static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
         Arrays.fill(password, Character.MIN_VALUE);
@@ -29,11 +30,12 @@ public class Password {
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             return skf.generateSecret(spec).getEncoded();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);
+            throw new AssertionError("Error al hashear la contraseña: " + e.getMessage(), e);
         } finally {
             spec.clearPassword();
         }
     }
+
     public static String generateSecurePassword(String password, String salt) {
         String returnValue = null;
         byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
@@ -46,7 +48,6 @@ public class Password {
     public static boolean verifyUserPassword(String providedPassword, String securedPassword, String salt)
     {
         boolean returnValue = false;
-        // Generate New secure password with the same salt
         String newSecurePassword = generateSecurePassword(providedPassword, salt);
 
         returnValue = newSecurePassword.equalsIgnoreCase(securedPassword);
