@@ -48,8 +48,8 @@ public class Wallet {
 
     @Override
     public String toString() {
-        return "Wallet{" +
-                ", total_Amount=" + total_Amount +
+        return "Billetera{" +
+                ", Saldo=" + total_Amount +
                 '}';
     }
 }

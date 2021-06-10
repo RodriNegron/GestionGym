@@ -2,6 +2,7 @@ import Classes.Abstract.Activity;
 import Classes.Abstract.Training_plan;
 import Classes.*;
 import Collections.*;
+import Utils.Password;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -59,9 +60,17 @@ public final class Gym {
         this.activities_list = activities_list;
     }
 
+    public void setCustomers_list(Customer_list customers_list) { this.customers_list = customers_list; }
+
+    public Customer_list getCustomers_list() { return customers_list; }
+
+    public Shifts_map getShifts_map() {
+        return shifts_map;
+    }
+
     //endregion
 
-    public Customer register(Scanner scann){
+    public Customer register(Scanner scann, String salt){
 
         String dni, firstname , lastname, email, password;
 
@@ -75,8 +84,9 @@ public final class Gym {
         email = scann.nextLine();
         System.out.println("Contraseña: ");
         password = scann.nextLine();
+        password = Password.generateSecurePassword(password,salt);
 
-        return new Customer(dni, firstname, lastname, email, password);
+        return new Customer(dni, firstname, lastname, email, password, salt);
     }
 
     public String consultShiftsOnClient(Customer cust)
@@ -101,8 +111,8 @@ public final class Gym {
     }
 
     public void hardcodeUsers(){
-        Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
-        Customer user = new Customer("111", "user", "user", "user@user", "user");
+        Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin", "salt");
+        Customer user = new Customer("111", "user", "user", "user@user", "user", "salt");
 
         addToCustomerList(admin);
         addToCustomerList(user);
@@ -120,7 +130,7 @@ public final class Gym {
     public void harcodeShifts()
     {
         harcodeActivityList();
-        shifts_map.hardcodeShifts(activities_list);
+        //shifts_map.hardcodeShifts(activities_list);
     }
 
     public void consultTrainingPlanList()

@@ -12,18 +12,15 @@ public class Customer extends Person {
     protected LocalDate planFinalDate;
     private Shift_list shifts;
     private Wallet wallet;
+    private String salt;
 
     //region constructor
 
-    public Customer() {
-        this.shifts = new Shift_list();
-        this.wallet =  new Wallet(this.getId());
-    }
-
-    public Customer(String dni, String firstName, String lastName, String email, String password) {
+    public Customer(String dni, String firstName, String lastName, String email, String password, String salt) {
         super(dni,firstName, lastName, email, password);
         this.shifts = new Shift_list();
         this.wallet =  new Wallet(this.getId());
+        this.salt = salt;
     }
     //endregion
 
@@ -51,6 +48,8 @@ public class Customer extends Person {
     public LocalDate getPlanFinalDate() {
         return planFinalDate;
     }
+
+    public String getSalt() { return salt; }
 
     //endregion
 
