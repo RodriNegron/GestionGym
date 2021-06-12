@@ -25,7 +25,7 @@ public class Shifts_map {
     }
     //endregion
 
-    public void hardcodeShifts() {
+    public void hardcodeShifts(Instructor_list instructors) {
         Calendar c = Calendar.getInstance();
 
         // Set the calendar to monday of the current week
@@ -58,13 +58,17 @@ public class Shifts_map {
             Activity funcional = new Funcional("Funcional");
             Activity aerobic = new Crossfit("Aerobic");
 
-
+            crossfit.getInstructors().add(instructors.getInstructors().get(0));
+            crossfit.getInstructors().add(instructors.getInstructors().get(1));
+            funcional.getInstructors().add(instructors.getInstructors().get(2));
+            funcional.getInstructors().add(instructors.getInstructors().get(3));
+            aerobic.getInstructors().add(instructors.getInstructors().get(4));
+            aerobic.getInstructors().add(instructors.getInstructors().get(5));
 
 
             aux1.add(crossfit);
             aux1.add(funcional);
             aux1.add(aerobic);
-
 
             String dayToPut= df.format(c.getTimeInMillis());
             days.put(dayToPut , aux1); //rest of the days in week to add
@@ -187,19 +191,10 @@ public class Shifts_map {
 
     public void addActivity (Activity activity){
 
-        Activity_list aux  = new Activity_list();
-        AtomicBoolean flag = new AtomicBoolean(false);
         days.forEach(
                 (day, act)->{
-
-                    if (!flag.get()){
-                        for (int j = 0; j < act.getActivity_list().size(); j++) {
-                            aux.add(act.getActivity_list().get(j));
-                            flag.set(true);
-                        }
-                    }
+                    act.add(activity);
                 }
-    );
-       // hardcodeShifts(aux);
+        );
     }
 }

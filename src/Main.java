@@ -11,8 +11,7 @@ public class Main {
 
         Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
         gym.hardcodeInstructor();
-        //gym.harcodeShifts();
-        gym.getShifts_map().hardcodeShifts();
+        gym.harcodeShifts();
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
         String salt = Password.getSalt(30);
@@ -118,6 +117,7 @@ public class Main {
 
                                 num = scann.nextInt();
 
+
                                 if (num == 1) activity = "Funcional";
                                 else if (num == 2) activity = "Aerobic";
                                 else activity = "Crossfit";
@@ -166,6 +166,7 @@ public class Main {
                         case 8:
                             Activity fitness = new Funcional("Fitness"); // ESTO VA EN EL MENU ADMIN, AUNQUE NO SERVIRIA EN NUESTRO PROGRAMA
                             gym.addActivityToList(fitness);                    // YA QUE PARA CREAR UNA NUEVA ACTIVIDAD, HAY QUE CREAR UNA NUEVA CLASE.
+                            gym.checkAvailableShifts();
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
@@ -179,10 +180,9 @@ public class Main {
                 do {
                     System.out.println("Bienvenido " + client.getFirstName() + "!:D");
                     System.out.println("1-admin menu"); //agregar actividad
-                    System.out.println("2-admin menu"); //total ganancias
+                    System.out.println("2-admin menu"); //total ganancias consultar por mes
                     System.out.println("3-admin menu"); //consultar actividades
                     System.out.println("4-admin menu"); //consultar clientes
-                    System.out.println("5-admin menu"); //modificar y consultar plan entrenamiento
                     System.out.println("Elija una opcion: ");
                     number = scann.nextInt();
 

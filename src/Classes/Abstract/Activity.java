@@ -80,7 +80,7 @@ public abstract class Activity{
                     if(hours.equals(hour))
                     {
                         Integer aux = slot--;
-                        availableShifts.put(hour, aux);
+                        availableShifts.replace(hour, slot, aux);
                     }
                 }
         );
