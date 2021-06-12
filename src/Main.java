@@ -2,6 +2,7 @@ import Classes.Abstract.Activity;
 import Classes.Customer;
 import Classes.Funcional;
 import Collections.Customer_list;
+import Collections.Shifts_map;
 import Utils.Password;
 
 import java.util.Scanner;
@@ -15,17 +16,22 @@ public class Main {
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
         String salt = Password.getSalt(30);
-
         //prueba archivos
         String Customer_file = "customers.json";
+        String Shift_file = "shifts.json";
+
         Customer_list persistedList;
+        Shifts_map persistedMap;
+
         persistedList = Files.readFile(Customer_file);
         gym.setCustomers_list(persistedList);
 
         loggin(gym, salt);
 
         Files.writeFile(gym.getCustomers_list(),Customer_file);
-        //
+        Files.writeFile(gym.getShifts_map(), Shift_file);
+
+
 
     }
 

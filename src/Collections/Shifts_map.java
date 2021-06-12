@@ -6,11 +6,11 @@ import Classes.Customer;
 import Classes.Funcional;
 import Classes.Shift;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Shifts_map {
