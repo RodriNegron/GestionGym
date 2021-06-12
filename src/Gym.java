@@ -15,6 +15,7 @@ public final class Gym {
     private Shifts_map shifts_map;
     private Customer_list customers_list;
     private TrainingPlan_list training_plan_list;
+    private Activity_list activities_list;
     private Instructor_list instructor_list;
 
 
@@ -22,6 +23,7 @@ public final class Gym {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
+        this.activities_list = new Activity_list();
         this.instructor_list = new Instructor_list();
     }
 
@@ -32,11 +34,11 @@ public final class Gym {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
+        this.activities_list = new Activity_list();
         this.instructor_list = new Instructor_list();
     }
 
     //region setter & getters
-
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
@@ -49,30 +51,23 @@ public final class Gym {
 
     public void setCuit(String cuit) { this.cuit = cuit; }
 
+    public Activity_list getActivities_list() {
+        return activities_list;
+    }
+
+    public void setActivities_list(Activity_list activities_list) {
+        this.activities_list = activities_list;
+    }
 
     public void setCustomers_list(Customer_list customers_list) { this.customers_list = customers_list; }
 
     public Customer_list getCustomers_list() { return customers_list; }
 
-    public Shifts_map getShifts_map() {
-        return shifts_map;
-    }
+    public Shifts_map getShifts_map() { return shifts_map; }
 
-    public TrainingPlan_list getTraining_plan_list() {
-        return training_plan_list;
-    }
+    public Instructor_list getInstructor_list() { return instructor_list; }
 
-    public Instructor_list getInstructor_list() {
-        return instructor_list;
-    }
-
-    public void setTraining_plan_list(TrainingPlan_list training_plan_list) {
-        this.training_plan_list = training_plan_list;
-    }
-
-    public void setInstructor_list(Instructor_list instructor_list) {
-        this.instructor_list = instructor_list;
-    }
+    public void setShifts_map(Shifts_map shifts_map) { this.shifts_map = shifts_map; }
     //endregion
 
     public Customer register(Scanner scann, String salt){
@@ -104,7 +99,6 @@ public final class Gym {
         shifts_map.reserveShift(cust, day, activity, hour);
     }
 
-
     public void addToCustomerList(Customer customer)
     {
         customers_list.add(customer);
@@ -134,7 +128,8 @@ public final class Gym {
 
     public void harcodeShifts()
     {
-        shifts_map.hardcodeShifts(getInstructor_list());
+        harcodeActivityList();
+        //shifts_map.hardcodeShifts(activities_list);
     }
 
     public void consultTrainingPlanList()
@@ -155,14 +150,14 @@ public final class Gym {
     public Customer checkClient(){
         Scanner scanner = new Scanner(System.in);
         String str,pw;
-
+        Customer customer;
         System.out.println("Escriba su email");
         str = scanner.nextLine();
         scanner.reset();
         System.out.println("Escriba su contraseña");
         pw = scanner.nextLine();
 
-        return customers_list.findCustomer(str,pw);
+        return customer = customers_list.findCustomer(str,pw);
     }
 
     public void signUp(Customer cust, int trainingPlan)
@@ -173,6 +168,24 @@ public final class Gym {
     public String chooseDay(){return shifts_map.chooseDay();}
 
     public void checkAvailableShifts(){shifts_map.consultAvailableShifts();}
+
+    public void harcodeActivityList()
+    {
+        Activity crossfit = new Crossfit("Crossfit");
+        Activity funcional = new Funcional("Funcional");
+        Activity aerobic = new Crossfit("Aerobic");
+
+        crossfit.getInstructors().add(instructor_list.getInstructors().get(0));
+        crossfit.getInstructors().add(instructor_list.getInstructors().get(1));
+        funcional.getInstructors().add(instructor_list.getInstructors().get(2));
+        funcional.getInstructors().add(instructor_list.getInstructors().get(3));
+        aerobic.getInstructors().add(instructor_list.getInstructors().get(4));
+        aerobic.getInstructors().add(instructor_list.getInstructors().get(5));
+
+        activities_list.add(crossfit);
+        activities_list.add(funcional);
+        activities_list.add(aerobic);
+    }
 
     public void hardcodeInstructor (){
         Instructor instructor1 = new Instructor("Esteban", "38932329", "Ortenzi", "esteban@asd.com", "12345");
@@ -211,7 +224,10 @@ public final class Gym {
     }
 
     public void addActivityToList (Activity activity){
+        activity.hardcodeAvailableShifts();
+        activities_list.add(activity);
         shifts_map.addActivity(activity);
+        activities_list.consultList();
     }
 }
 

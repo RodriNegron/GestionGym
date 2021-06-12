@@ -19,10 +19,14 @@ public class Shifts_map {
 
     Map<String, Activity_list> days;
 
-    //region constructor
+    //region constructor, setter & getter
     public Shifts_map() {
         days = new HashMap<String, Activity_list>();
     }
+
+    public Map<String, Activity_list> getDays() { return days; }
+
+    public void setDays(Map<String, Activity_list> days) { this.days = days; }
     //endregion
 
     public void hardcodeShifts(Instructor_list instructors) {
