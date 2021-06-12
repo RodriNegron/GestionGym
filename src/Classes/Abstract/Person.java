@@ -14,6 +14,14 @@ public abstract class Person {
         incrementalId();
     }
 
+    public Person(String dni, String firstName, String lastName, String email) {
+        incrementalId();
+        this.dni = dni;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     public Person(String dni, String firstName, String lastName, String email, String password) {
         incrementalId();
         this.dni = dni;

@@ -11,11 +11,9 @@ public class Customer_list implements Controller {
 
     private List<Customer> customers_list;
 
-
     public Customer_list() {
         this.customers_list = new ArrayList<>();
     }
-
 
     @Override
     public void add(Object name) {
@@ -91,6 +89,5 @@ public class Customer_list implements Controller {
             }
         }
     }
-
 
 }

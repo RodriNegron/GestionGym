@@ -53,7 +53,6 @@ public class Customer extends Person {
 
     //endregion
 
-
     public void setDatesTrainingPlan()
     {
         this.planStartDate = LocalDate.now();
@@ -90,9 +89,6 @@ public class Customer extends Person {
         else if(training_Plan == 2) System.out.println("Usted se encuentra inscripto al plan premium");
     }
 
-
-
-    //use stringbuilder over void functions
     @Override
     public String toString() {
         return super.toString() + "\n" +

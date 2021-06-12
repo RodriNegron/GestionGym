@@ -14,7 +14,6 @@ public class TrainingPlan_list{
         plan_list = new ArrayList<>();
     }
 
-
     public void addTrainingPlan(Training_plan tp) {
         boolean found = false;
         if(plan_list.size() <= 0) plan_list.add(tp);

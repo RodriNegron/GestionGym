@@ -9,7 +9,6 @@ public abstract class Training_plan {
     private TrainingPlans tp;
     protected double price;
 
-
     public Training_plan(){
     }
 

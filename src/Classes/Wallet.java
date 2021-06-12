@@ -31,11 +31,6 @@ public class Wallet {
     }
     //endregion
 
-    public double viewAmount()
-    {
-        return getTotal_Amount();
-    }
-
     public void deposit(double amount)
     {
         System.out.println("Deposito realizado con exito!");

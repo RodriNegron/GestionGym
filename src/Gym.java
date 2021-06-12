@@ -188,12 +188,12 @@ public final class Gym {
     }
 
     public void hardcodeInstructor (){
-        Instructor instructor1 = new Instructor("Esteban", "38932329", "Ortenzi", "esteban@asd.com", "12345");
-        Instructor instructor2 = new Instructor("Felipe", "37895114", "Sarten", "felipe@asd.com", "12345");
-        Instructor instructor3 = new Instructor("Marcos", "31587786", "Piero", "marcos@asd.com", "12345");
-        Instructor instructor4 = new Instructor("Juan", "23961588", "Juarez", "juan@asd.com", "12345");
-        Instructor instructor5 = new Instructor("Franco", "33258968", "Boni", "franco@asd.com", "12345");
-        Instructor instructor6 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com", "12345");
+        Instructor instructor1 = new Instructor("Esteban", "38932329", "Ortenzi", "esteban@asd.com");
+        Instructor instructor2 = new Instructor("Felipe", "37895114", "Sarten", "felipe@asd.com" );
+        Instructor instructor3 = new Instructor("Marcos", "31587786", "Piero", "marcos@asd.com");
+        Instructor instructor4 = new Instructor("Juan", "23961588", "Juarez", "juan@asd.com");
+        Instructor instructor5 = new Instructor("Franco", "33258968", "Boni", "franco@asd.com");
+        Instructor instructor6 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
 
         instructor_list.add(instructor1);
         instructor_list.add(instructor2);

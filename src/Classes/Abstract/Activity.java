@@ -1,11 +1,6 @@
 package Classes.Abstract;
-
-import Classes.Instructor;
 import Collections.Instructor_list;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class Activity{
@@ -99,6 +94,7 @@ public abstract class Activity{
         return builder.toString();
     }
 
+    @Override
     public String toString() {
         return "Actividad{" +
                 " Nombre='" + name + '\'' +

@@ -2,14 +2,12 @@ package Collections;
 
 import Classes.Abstract.Activity;
 import Interfaces.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_list implements Controller {
 
     private List<Activity> acts;
-
 
     public Activity_list() { this.acts = new ArrayList<>(); }
 
@@ -51,7 +49,7 @@ public class Activity_list implements Controller {
     }
 
     @Override
-    public void delete(int id) {      ////////// SE BORRA FISICAMENTE, YA QUE NO SE PUEDE LOGICAMENTE
+    public void delete(int id) {
         Activity activityDelete = (Activity) findById(id);
         if (activityDelete!=null){
             acts.remove(activityDelete);
