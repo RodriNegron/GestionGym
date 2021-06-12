@@ -1,6 +1,9 @@
 import Classes.Abstract.Activity;
 import Classes.Customer;
 import Classes.Funcional;
+import Classes.Admin;
+import Classes.Instructor;
+import Collections.*;
 
 import java.util.Scanner;
 
@@ -21,25 +24,33 @@ public class Main {
 
         Scanner scann = new Scanner(System.in);
         Customer cust;
+        //Admin administrator = new Admin("000", "admin", "admin", "admin@admin", gym.getCuit());
+        Admin administrator = new Admin("admin@admin", "admin123");
+
 
         int number;
         char var = 's';
         String string;
 
 
-        System.out.println("Bienvenido a " + gym.getName() +" gym:");
+        System.out.println("\nBienvenido a |" + gym.getName() +" Gym|:");
         do {
-            System.out.println("1- Ingresar");
-            System.out.println("2- Registrarse");
+            System.out.println("\t1- Ingreso Clientes");
+            System.out.println("\t2- Ingreso Admin");
+            System.out.println("\t3- Registrarse");
+
 
             number = scann.nextInt();
             scann.nextLine();
 
             switch (number) {
                 case 1:
-                    menu(gym);
+                    menuUsuario(gym);
                     break;
                 case 2:
+                    menuAdmin(gym, administrator);
+                    break;
+                case 3:
                     scann.reset();
                     cust = gym.register(scann);
                     gym.addToCustomerList(cust);
@@ -55,7 +66,7 @@ public class Main {
 
     }
 
-    public static void menu(Gym gym) {
+    public static void menuUsuario(Gym gym) {
         Scanner scann = new Scanner(System.in);
         int number;
         char var = 's';
@@ -64,7 +75,7 @@ public class Main {
         client = gym.checkClient();
 
         if (client != null) {
-            if (client.getFirstName().compareTo("admin")!=0 ) {
+            //if (client.getFirstName().compareTo("admin")!=0 ) {
                 do {
                     System.out.println("Bienvenido " + client.getFirstName() + "," + gym.expired(client));
                     System.out.println("1-Inscribirse");
@@ -74,7 +85,7 @@ public class Main {
                     System.out.println("5-Consultar turnos reservados");
                     System.out.println("6-Consultar estado de cuenta");
                     System.out.println("7-Consultar turnos disponibles");
-                    System.out.println("8-Agregar Actividad");
+                    System.out.println("0-Regresar");
 
                     number = scann.nextInt();
 
@@ -103,7 +114,6 @@ public class Main {
                                 System.out.println("3- Crossfit");
 
                                 num = scann.nextInt();
-
                                 if (num == 1) activity = "Funcional";
                                 else if (num == 2) activity = "Aerobic";
                                 else activity = "Crossfit";
@@ -149,10 +159,8 @@ public class Main {
                         case 7:
                             gym.checkAvailableShifts();
                             break;
-                        case 8:
-                            Activity fitness = new Funcional("Fitness"); // ESTO VA EN EL MENU ADMIN, AUNQUE NO SERVIRIA EN NUESTRO PROGRAMA
-                            gym.addActivityToList(fitness);                    // YA QUE PARA CREAR UNA NUEVA ACTIVIDAD, HAY QUE CREAR UNA NUEVA CLASE.
-                            break;
+                        case 0:
+                            loggin(gym);
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
                     }
@@ -160,43 +168,57 @@ public class Main {
                     scann.nextLine();
                     var = scann.nextLine().charAt(0);
                 } while (var == 's');
-            }
-            else {
-                do {
-                    System.out.println("Bienvenido " + client.getFirstName() + "!:D");
-                    System.out.println("1-admin menu"); //agregar actividad
-                    System.out.println("2-admin menu"); //total ganancias
-                    System.out.println("3-admin menu"); //consultar actividades
-                    System.out.println("4-admin menu"); //consultar clientes
-                    System.out.println("5-admin menu"); //modificar y consultar plan entrenamiento
-                    System.out.println("Elija una opcion: ");
-                    number = scann.nextInt();
 
-                    switch (number) {
-                        /*case 1:
-                            System.out.println(gym);
+            }else System.out.println("Credenciales invalidas.");
+
+        }
+
+    public static void menuAdmin (Gym gym, Admin administrator) {
+        Scanner scann = new Scanner(System.in);
+        int number;
+        char var = 's';
+
+        Admin admin = null;
+        admin = gym.checkAdmin(administrator);
+
+
+        if (admin != null) {
+            do {
+                System.out.println("Menu Administrador");
+                System.out.println("1-Consultar actividades");
+                System.out.println("2-Agregar actividad");
+                System.out.println("3-Consultar ganancias"); //total ganancias
+                System.out.println("4-Consultar clientes");
+                System.out.println("0 - Regresar");
+                System.out.println("Elija una opcion: ");
+                number = scann.nextInt();
+
+                switch (number) {
+                        case 1:
+                            gym.getActivities_list().consultList();
+
                             break;
                         case 2:
-                            System.out.println(gym.);
+                            Activity fitness = new Funcional("Fitness"); // NO SERVIRIA EN NUESTRO PROGRAMA YA QUE PARA
+                            gym.addActivityToList(fitness);// CREAR UNA NUEVA ACTIVIDAD, HAY QUE CREAR UNA NUEVA CLASE.
                             break;
                         case 3:
-                            System.out.println(gym.);
+
                             break;
                         case 4:
-                            gym.;
+                           gym.consultClients();
                             break;
-                        case 5:
-                            gym.;
-                            break;*/
+                         case 0:
+                            loggin(gym);
+
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
                     }
-                    System.out.println("¿Desea continuar operando? | Usuario: " + client.getFirstName() + " | Opciones: s/n");
+                    System.out.println("¿Desea continuar operando? | Opciones: s/n");
                     scann.nextLine();
                     var = scann.nextLine().charAt(0);
-                } while (var == 's');
-            }
-        }else   System.out.println("Credenciales invalidas");
+            } while (var == 's');
+        }else System.out.println("Credenciales invalidas");
     }
 
 }
