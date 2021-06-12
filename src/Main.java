@@ -1,4 +1,8 @@
+import Classes.Abstract.Activity;
 import Classes.Customer;
+import Classes.Funcional;
+import Collections.Customer_list;
+import Utils.Password;
 
 import java.util.Scanner;
 
@@ -6,16 +10,27 @@ public class Main {
     public static void main(String[] args) {
 
         Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
-        gym.harcodeShifts();
+        gym.hardcodeInstructor();
+        //gym.harcodeShifts();
+        gym.getShifts_map().hardcodeShifts();
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
+        String salt = Password.getSalt(30);
 
-        loggin(gym);
+        //prueba archivos
+        String Customer_file = "customers.json";
+        Customer_list persistedList;
+        persistedList = Files.readFile(Customer_file);
+        gym.setCustomers_list(persistedList);
+
+        loggin(gym, salt);
+
+        Files.writeFile(gym.getCustomers_list(),Customer_file);
+        //
 
     }
 
-
-    public static void loggin(Gym gym){
+    public static void loggin(Gym gym, String salt){
 
 
         Scanner scann = new Scanner(System.in);
@@ -40,7 +55,7 @@ public class Main {
                     break;
                 case 2:
                     scann.reset();
-                    cust = gym.register(scann);
+                    cust = gym.register(scann, salt);
                     gym.addToCustomerList(cust);
                     break;
                 default:
@@ -65,7 +80,7 @@ public class Main {
         if (client != null) {
             if (client.getFirstName().compareTo("admin")!=0 ) {
                 do {
-                    System.out.println("Bienvenido " + client.getFirstName() + "!:D");
+                    System.out.println("Bienvenido " + client.getFirstName() + "," + gym.expired(client));
                     System.out.println("1-Inscribirse");
                     System.out.println("2-Reservar turno");
                     System.out.println("3-Ingresar dinero a su billetera");
@@ -73,7 +88,7 @@ public class Main {
                     System.out.println("5-Consultar turnos reservados");
                     System.out.println("6-Consultar estado de cuenta");
                     System.out.println("7-Consultar turnos disponibles");
-
+                    System.out.println("8-Agregar Actividad");
 
                     number = scann.nextInt();
 
@@ -147,6 +162,10 @@ public class Main {
                             break;
                         case 7:
                             gym.checkAvailableShifts();
+                            break;
+                        case 8:
+                            Activity fitness = new Funcional("Fitness"); // ESTO VA EN EL MENU ADMIN, AUNQUE NO SERVIRIA EN NUESTRO PROGRAMA
+                            gym.addActivityToList(fitness);                    // YA QUE PARA CREAR UNA NUEVA ACTIVIDAD, HAY QUE CREAR UNA NUEVA CLASE.
                             break;
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");

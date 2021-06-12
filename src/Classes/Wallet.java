@@ -42,10 +42,14 @@ public class Wallet {
         this.total_Amount = this.total_Amount + amount;
     }
 
+    public void debit (double total){
+        this.setTotal_Amount(this.getTotal_Amount() - total);
+    }
+
     @Override
     public String toString() {
-        return "Wallet{" +
-                ", total_Amount=" + total_Amount +
+        return "Billetera{" +
+                ", Saldo=" + total_Amount +
                 '}';
     }
 }

@@ -63,11 +63,13 @@ public class TrainingPlan_list{
                 if (customer.getWallet().getTotal_Amount() >= tp.getPrice()) {
                     customer.setTraining_Plan(tp.getId());
                     customer.setDatesTrainingPlan();
-                    System.out.println("sign up complete");
-                } else System.out.println("Insufficient balance");
-            } else System.out.println("You are already signed");
+                    customer.getWallet().debit(tp.getPrice());
+
+                    System.out.println("Registro completado");
+                } else System.out.println("Saldo insuficiente");
+            } else System.out.println("Ya se encuentra inscripto a un plan");
         }
-        else System.out.println("Wrong case!");
+        else System.out.println("Opcion invalida!");
 
     }
 

@@ -10,14 +10,13 @@ public class Activity_list implements Controller {
 
     private List<Activity> acts;
 
+
     public Activity_list() { this.acts = new ArrayList<>(); }
 
-    public List<Activity> getActs() {
-        return acts;
-    }
+    public List<Activity> getActivity_list() { return acts; }
 
-    public void setActs(List<Activity> acts) {
-        this.acts = acts;
+    public void setActivity_list(List<Activity> activity_list) {
+        this.acts = activity_list;
     }
 
     @Override
@@ -64,8 +63,7 @@ public class Activity_list implements Controller {
     @Override
     public void consultList() {
         for (Activity a : acts) {
-            System.out.println(a.toString() +
-                    "\n **** end ****");
+            System.out.println(a.toString());
         }
     }
 
@@ -82,26 +80,6 @@ public class Activity_list implements Controller {
                 acts.get(a).consultShifts();
             }
         }
-    }
-
-    public void reduceSlotActivity(int idActivty , String hour)
-    {
-        acts.get(idActivty).modifySlot(hour);
-    }
-
-    public Activity foundActivity(String activity)
-    {
-       Activity aux = null;
-
-        for (int i = 0; i < acts.size(); i++) {
-            if (acts.get(i).getName().equals(activity))
-            {
-                System.out.println("asd");
-                aux = acts.get(i);
-            }
-        }
-
-       return aux;
     }
 
 }

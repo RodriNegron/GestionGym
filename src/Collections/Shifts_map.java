@@ -1,13 +1,16 @@
 package Collections;
 
 import Classes.Abstract.Activity;
+import Classes.Crossfit;
 import Classes.Customer;
+import Classes.Funcional;
 import Classes.Shift;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Shifts_map {
@@ -22,16 +25,14 @@ public class Shifts_map {
     }
     //endregion
 
-    public void hardcodeShifts(Activity_list activities) {
+    public void hardcodeShifts() {
         Calendar c = Calendar.getInstance();
 
         // Set the calendar to monday of the current week
 
         int day = LocalDate.now().getDayOfMonth();
         DateFormat df = new SimpleDateFormat("EEE dd/MM/yyyy");
-
         Calendar aux = Calendar.getInstance();
-
         c.set(Calendar.DATE, day - 1);
 
         int dia = 0;
@@ -49,13 +50,25 @@ public class Shifts_map {
 
         //we keep the days of the week, from current to Saturday inclusive
         for (int i = 0; i < dayToAdd; i++) {
-
             c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
 
-            Activity_list aux1 = activities;
+            Activity_list aux1 = new Activity_list();
+
+            Activity crossfit = new Crossfit("Crossfit");
+            Activity funcional = new Funcional("Funcional");
+            Activity aerobic = new Crossfit("Aerobic");
+
+
+
+
+            aux1.add(crossfit);
+            aux1.add(funcional);
+            aux1.add(aerobic);
+
 
             String dayToPut= df.format(c.getTimeInMillis());
             days.put(dayToPut , aux1); //rest of the days in week to add
+
         }
 
     }
@@ -80,13 +93,14 @@ public class Shifts_map {
 
         return aux[day];
     }
+
     public void reserveShift(Customer cust, String day, String activity, String hour) {
 
         for (Map.Entry<String, Activity_list> e : this.days.entrySet()) {
             String today = e.getKey();
 
             Activity_list activity_list = e.getValue();
-            List<Activity> al = activity_list.getActs();
+            List<Activity> al = activity_list.getActivity_list();
 
             if (today.equals(day)) {
 
@@ -111,7 +125,7 @@ public class Shifts_map {
                                     System.out.println(shift);
 
                                     Activity_list acts = new Activity_list();
-                                    acts.setActs(al);
+                                    acts.setActivity_list(al);
 
                                     days.put(today, acts);
 
@@ -128,7 +142,7 @@ public class Shifts_map {
 
 
                                     Activity_list acts = new Activity_list();
-                                    acts.setActs(al);
+                                    acts.setActivity_list(al);
 
                                     days.put(today, acts);
 
@@ -154,7 +168,7 @@ public class Shifts_map {
                 {
                     System.out.println(day);
 
-                    List<Activity> aux = activities.getActs();
+                    List<Activity> aux = activities.getActivity_list();
 
                     for (int i = 0; i < aux.size(); i++) {
                         System.out.println(aux.get(i).getName());
@@ -171,4 +185,21 @@ public class Shifts_map {
                 });
     }
 
+    public void addActivity (Activity activity){
+
+        Activity_list aux  = new Activity_list();
+        AtomicBoolean flag = new AtomicBoolean(false);
+        days.forEach(
+                (day, act)->{
+
+                    if (!flag.get()){
+                        for (int j = 0; j < act.getActivity_list().size(); j++) {
+                            aux.add(act.getActivity_list().get(j));
+                            flag.set(true);
+                        }
+                    }
+                }
+    );
+       // hardcodeShifts(aux);
+    }
 }

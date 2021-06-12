@@ -60,15 +60,16 @@ public abstract class Activity{
         availableShifts.put("18-19:30", 10);
     }
 
-    public void consultShifts()
-    {
+    public String consultShifts() {
+        StringBuilder builder = new StringBuilder();
         availableShifts.forEach(
                 ( hour , slot)->
                 {
-                    System.out.println("hour: " + hour);
-                    System.out.println("slot: " + slot);
+                    builder.append("[hour: " + hour + " ");
+                    builder.append("slot: " + slot + " ]");
                 }
         );
+        return builder.toString();
     }
 
     public void modifySlot(String hour)
@@ -87,5 +88,23 @@ public abstract class Activity{
 
     private void incrementalId () { this.idActivity = count++; }
 
+    public String consultInstructorList (){
+        StringBuilder builder = new StringBuilder();
+        if(getInstructors().getInstructors().size() != 0){
+            builder.append(instructors.getInstructors().get(0));
+            builder.append(instructors.getInstructors().get(1));
+        }else{
+            builder.append("No hay instructores en la Actividad");
+        }
+        return builder.toString();
+    }
+
+    public String toString() {
+        return "Actividad{" +
+                " Nombre='" + name + '\'' +
+                ", Turnos disponibles=" + consultShifts() +
+                ", Instructores asignados=" + consultInstructorList() +
+                '}';
+    }
 }
 

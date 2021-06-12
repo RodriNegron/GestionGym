@@ -62,8 +62,7 @@ public class Instructor_list implements Controller {
     @Override
     public void consultList() {
         for (Instructor i : instructors_list) {
-            System.out.println(i.toString() +
-                    "\n **** end ****");
+            System.out.println(i.toString());
         }
     }
 
@@ -116,5 +115,6 @@ public class Instructor_list implements Controller {
             System.out.println("Instructor not found");
         }
     }
+
 
 }
