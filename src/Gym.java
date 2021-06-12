@@ -3,6 +3,7 @@ import Classes.Abstract.Training_plan;
 import Classes.*;
 import Collections.*;
 import Classes.Admin;
+import Utils.Password;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -39,7 +40,6 @@ public final class Gym {
     }
 
     //region setter & getters
-
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
@@ -62,9 +62,17 @@ public final class Gym {
         this.activities_list = activities_list;
     }
 
+    public void setCustomers_list(Customer_list customers_list) { this.customers_list = customers_list; }
+
+
+    public Shifts_map getShifts_map() { return shifts_map; }
+
+    public Instructor_list getInstructor_list() { return instructor_list; }
+
+    public void setShifts_map(Shifts_map shifts_map) { this.shifts_map = shifts_map; }
     //endregion
 
-    public Customer register(Scanner scann){
+    public Customer register(Scanner scann, String salt){
 
         String dni, firstname , lastname, email, password;
 
@@ -78,8 +86,9 @@ public final class Gym {
         email = scann.nextLine();
         System.out.println("Contraseña: ");
         password = scann.nextLine();
+        password = Password.generateSecurePassword(password,salt);
 
-        return new Customer(dni, firstname, lastname, email, password);
+        return new Customer(dni, firstname, lastname, email, password, salt);
     }
 
     public String consultShiftsOnClient(Customer cust)
@@ -92,7 +101,6 @@ public final class Gym {
         shifts_map.reserveShift(cust, day, activity, hour);
     }
 
-
     public void addToCustomerList(Customer customer)
     {
         customers_list.add(customer);
@@ -104,8 +112,8 @@ public final class Gym {
     }
 
     public void hardcodeUsers(){
-        Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin");
-        Customer user = new Customer("111", "user", "user", "user@user", "user");
+        Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin", "salt");
+        Customer user = new Customer("111", "user", "user", "user@user", "user", "salt");
 
         addToCustomerList(admin);
         addToCustomerList(user);
@@ -123,7 +131,7 @@ public final class Gym {
     public void harcodeShifts()
     {
         harcodeActivityList();
-        shifts_map.hardcodeShifts(activities_list);
+        //shifts_map.hardcodeShifts(activities_list);
     }
 
     public void consultTrainingPlanList()
@@ -198,21 +206,20 @@ public final class Gym {
         aerobic.getInstructors().add(instructor_list.getInstructors().get(4));
         aerobic.getInstructors().add(instructor_list.getInstructors().get(5));
 
-
         activities_list.add(crossfit);
         activities_list.add(funcional);
         activities_list.add(aerobic);
     }
 
     public void hardcodeInstructor (){
-        Instructor instructor1 = new Instructor("Esteban", "38932329", "Ortenzi", "esteban@asd.com", "12345");
-        Instructor instructor2 = new Instructor("Felipe", "37895114", "Sarten", "felipe@asd.com", "12345");
-        Instructor instructor3 = new Instructor("Marcos", "31587786", "Piero", "marcos@asd.com", "12345");
-        Instructor instructor4 = new Instructor("Juan", "23961588", "Juarez", "juan@asd.com", "12345");
-        Instructor instructor5 = new Instructor("Franco", "33258968", "Boni", "franco@asd.com", "12345");
-        Instructor instructor6 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com", "12345");
-        Instructor instructor7 = new Instructor("Federico", "38159753", "Garcia", "federico@asd.com", "12345");
-        Instructor instructor8 = new Instructor("Francisco", "39741369", "Gonzalez", "francisco@asd.com", "12345");
+        Instructor instructor1 = new Instructor("Esteban", "38932329", "Ortenzi", "esteban@asd.com");
+        Instructor instructor2 = new Instructor("Felipe", "37895114", "Sarten", "felipe@asd.com" );
+        Instructor instructor3 = new Instructor("Marcos", "31587786", "Piero", "marcos@asd.com");
+        Instructor instructor4 = new Instructor("Juan", "23961588", "Juarez", "juan@asd.com");
+        Instructor instructor5 = new Instructor("Franco", "33258968", "Boni", "franco@asd.com");
+        Instructor instructor6 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
+        Instructor instructor7 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
+        Instructor instructor8 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
 
         instructor_list.add(instructor1);
         instructor_list.add(instructor2);

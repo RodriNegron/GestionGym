@@ -1,6 +1,9 @@
 import Classes.Abstract.Activity;
 import Classes.Customer;
 import Classes.Funcional;
+import Collections.Customer_list;
+import Collections.Shifts_map;
+import Utils.Password;
 import Classes.Admin;
 import Classes.Instructor;
 import Collections.*;
@@ -12,15 +15,32 @@ public class Main {
 
         Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
         gym.hardcodeInstructor();
-        gym.harcodeShifts();
+        //gym.harcodeShifts();
+        gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
-        loggin(gym);
+        String salt = Password.getSalt(30);
+
+        //prueba archivos
+        String Customer_file = "customers.json";
+        String Shift_file = "shifts.json";
+        Customer_list persistedList;
+        Shifts_map persistedMap;
+
+        persistedList = toFiles.readFile(Customer_file);
+        persistedMap = toFiles.readMapFile(Shift_file);
+
+        gym.setShifts_map(persistedMap);
+        gym.setCustomers_list(persistedList);
+
+        loggin(gym, salt);
+        //Fiiles.writeFile(gym.getShifts_map().getDays(),Shift_file);
+        toFiles.writeFile(gym.getCustomers_list(),Customer_file);
+        //
 
     }
 
-    public static void loggin(Gym gym){
-
+    public static void loggin(Gym gym, String salt){
 
         Scanner scann = new Scanner(System.in);
         Customer cust;
@@ -31,7 +51,6 @@ public class Main {
         int number;
         char var = 's';
         String string;
-
 
         System.out.println("\nBienvenido a |" + gym.getName() +" Gym|:");
         do {
@@ -45,14 +64,14 @@ public class Main {
 
             switch (number) {
                 case 1:
-                    menuUsuario(gym);
+                    menuUsuario(gym, salt);
                     break;
                 case 2:
-                    menuAdmin(gym, administrator);
+                    menuAdmin(gym, administrator, salt);
                     break;
                 case 3:
                     scann.reset();
-                    cust = gym.register(scann);
+                    cust = gym.register(scann, salt);
                     gym.addToCustomerList(cust);
                     break;
                 default:
@@ -66,7 +85,7 @@ public class Main {
 
     }
 
-    public static void menuUsuario(Gym gym) {
+    public static void menuUsuario(Gym gym, String salt) {
         Scanner scann = new Scanner(System.in);
         int number;
         char var = 's';
@@ -160,7 +179,7 @@ public class Main {
                             gym.checkAvailableShifts();
                             break;
                         case 0:
-                            loggin(gym);
+                            loggin(gym,salt);
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");
                     }
@@ -173,7 +192,7 @@ public class Main {
 
         }
 
-    public static void menuAdmin (Gym gym, Admin administrator) {
+    public static void menuAdmin (Gym gym, Admin administrator, String salt) {
         Scanner scann = new Scanner(System.in);
         int number;
         char var = 's';
@@ -209,7 +228,7 @@ public class Main {
                            gym.consultClients();
                             break;
                          case 0:
-                            loggin(gym);
+                            loggin(gym, salt);
 
                         default:
                             System.out.println("Usted ha intentado consultar un valor erroneo");

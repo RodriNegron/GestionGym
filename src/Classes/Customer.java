@@ -12,18 +12,15 @@ public class Customer extends Person {
     protected LocalDate planFinalDate;
     private Shift_list shifts;
     private Wallet wallet;
+    private String salt;
 
     //region constructor
 
-    public Customer() {
-        this.shifts = new Shift_list();
-        this.wallet =  new Wallet(this.getId());
-    }
-
-    public Customer(String dni, String firstName, String lastName, String email, String password) {
+    public Customer(String dni, String firstName, String lastName, String email, String password, String salt) {
         super(dni,firstName, lastName, email, password);
         this.shifts = new Shift_list();
         this.wallet =  new Wallet(this.getId());
+        this.salt = salt;
     }
     //endregion
 
@@ -52,8 +49,9 @@ public class Customer extends Person {
         return planFinalDate;
     }
 
-    //endregion
+    public String getSalt() { return salt; }
 
+    //endregion
 
     public void setDatesTrainingPlan()
     {
@@ -91,9 +89,6 @@ public class Customer extends Person {
         else if(training_Plan == 2) System.out.println("Usted se encuentra inscripto al plan premium");
     }
 
-
-
-    //use stringbuilder over void functions
     @Override
     public String toString() {
         return super.toString() + "\n" +

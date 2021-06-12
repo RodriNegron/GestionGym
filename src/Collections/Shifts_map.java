@@ -1,7 +1,9 @@
 package Collections;
 
 import Classes.Abstract.Activity;
+import Classes.Crossfit;
 import Classes.Customer;
+import Classes.Funcional;
 import Classes.Shift;
 
 import java.text.DateFormat;
@@ -17,13 +19,17 @@ public class Shifts_map {
 
     Map<String, Activity_list> days;
 
-    //region constructor
+    //region constructor, setter & getter
     public Shifts_map() {
         days = new HashMap<String, Activity_list>();
     }
+
+    public Map<String, Activity_list> getDays() { return days; }
+
+    public void setDays(Map<String, Activity_list> days) { this.days = days; }
     //endregion
 
-    public void hardcodeShifts(Activity_list activities) {
+    public void hardcodeShifts(Instructor_list instructors) {
         Calendar c = Calendar.getInstance();
 
         // Set the calendar to monday of the current week
@@ -50,9 +56,27 @@ public class Shifts_map {
         for (int i = 0; i < dayToAdd; i++) {
             c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
 
+            Activity_list aux1 = new Activity_list();
+
+            Activity crossfit = new Crossfit("Crossfit");
+            Activity funcional = new Funcional("Funcional");
+            Activity aerobic = new Crossfit("Aerobic");
+
+            crossfit.getInstructors().add(instructors.getInstructors().get(0));
+            crossfit.getInstructors().add(instructors.getInstructors().get(1));
+            funcional.getInstructors().add(instructors.getInstructors().get(2));
+            funcional.getInstructors().add(instructors.getInstructors().get(3));
+            aerobic.getInstructors().add(instructors.getInstructors().get(4));
+            aerobic.getInstructors().add(instructors.getInstructors().get(5));
+
+
+            aux1.add(crossfit);
+            aux1.add(funcional);
+            aux1.add(aerobic);
+
 
             String dayToPut= df.format(c.getTimeInMillis());
-            days.put(dayToPut , activities); //rest of the days in week to add
+            days.put(dayToPut , aux1); //rest of the days in week to add
 
         }
 
@@ -185,6 +209,6 @@ public class Shifts_map {
                     }
                 }
     );
-        hardcodeShifts(aux);
+       // hardcodeShifts(aux);
     }
 }

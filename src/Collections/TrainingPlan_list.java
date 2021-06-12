@@ -14,7 +14,6 @@ public class TrainingPlan_list{
         plan_list = new ArrayList<>();
     }
 
-
     public void addTrainingPlan(Training_plan tp) {
         boolean found = false;
         if(plan_list.size() <= 0) plan_list.add(tp);
@@ -65,11 +64,11 @@ public class TrainingPlan_list{
                     customer.setDatesTrainingPlan();
                     customer.getWallet().debit(tp.getPrice());
 
-                    System.out.println("sign up complete");
-                } else System.out.println("Insufficient balance");
-            } else System.out.println("You are already signed");
+                    System.out.println("Registro completado");
+                } else System.out.println("Saldo insuficiente");
+            } else System.out.println("Ya se encuentra inscripto a un plan");
         }
-        else System.out.println("Wrong case!");
+        else System.out.println("Opcion invalida!");
 
     }
 
