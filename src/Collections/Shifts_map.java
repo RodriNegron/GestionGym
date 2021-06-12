@@ -52,10 +52,10 @@ public class Shifts_map {
 
             c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
 
+            Activity_list aux1 = activities;
 
             String dayToPut= df.format(c.getTimeInMillis());
-            days.put(dayToPut , activities); //rest of the days in week to add
-
+            days.put(dayToPut , aux1); //rest of the days in week to add
         }
 
     }
@@ -80,14 +80,13 @@ public class Shifts_map {
 
         return aux[day];
     }
-
     public void reserveShift(Customer cust, String day, String activity, String hour) {
 
         for (Map.Entry<String, Activity_list> e : this.days.entrySet()) {
             String today = e.getKey();
 
             Activity_list activity_list = e.getValue();
-            List<Activity> al = activity_list.getActivity_list();
+            List<Activity> al = activity_list.getActs();
 
             if (today.equals(day)) {
 
@@ -112,7 +111,7 @@ public class Shifts_map {
                                     System.out.println(shift);
 
                                     Activity_list acts = new Activity_list();
-                                    acts.setActivity_list(al);
+                                    acts.setActs(al);
 
                                     days.put(today, acts);
 
@@ -129,7 +128,7 @@ public class Shifts_map {
 
 
                                     Activity_list acts = new Activity_list();
-                                    acts.setActivity_list(al);
+                                    acts.setActs(al);
 
                                     days.put(today, acts);
 
@@ -155,7 +154,7 @@ public class Shifts_map {
                 {
                     System.out.println(day);
 
-                    List<Activity> aux = activities.getActivity_list();
+                    List<Activity> aux = activities.getActs();
 
                     for (int i = 0; i < aux.size(); i++) {
                         System.out.println(aux.get(i).getName());
@@ -171,4 +170,5 @@ public class Shifts_map {
 
                 });
     }
+
 }

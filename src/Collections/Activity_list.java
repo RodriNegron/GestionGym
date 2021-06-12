@@ -8,40 +8,40 @@ import java.util.List;
 
 public class Activity_list implements Controller {
 
-    private List<Activity> activity_list;
+    private List<Activity> acts;
 
-    public Activity_list() { this.activity_list = new ArrayList<>(); }
+    public Activity_list() { this.acts = new ArrayList<>(); }
 
-    public List<Activity> getActivity_list() {
-        return activity_list;
+    public List<Activity> getActs() {
+        return acts;
     }
 
-    public void setActivity_list(List<Activity> activity_list) {
-        this.activity_list = activity_list;
+    public void setActs(List<Activity> acts) {
+        this.acts = acts;
     }
 
     @Override
     public void add(Object name) {
         boolean createdActivity = false;
         name = (Activity) name;
-        for (Activity c : activity_list) {
-            if (((Activity) name).getName().compareTo(c.getName())==0) {
+        for (Activity c : acts) {
+            if (((Activity) name).equals(c)) {
                 createdActivity=true;
-                break;
+
             }
         }
         if (!createdActivity) {
-            activity_list.add((Activity) name);
+            acts.add((Activity) name);
         } else {
-            System.out.println("This activity already exists");
+            System.out.println("Esta actividad ya existe");
         }
     }
 
     @Override
     public Object findById(int id) {
         Activity activity = null;
-        if (activity_list.size() > 0){
-            for (Activity a : activity_list) {
+        if (acts.size() > 0){
+            for (Activity a : acts) {
                 if (a.getIdActivity()==id) {
                     activity = a;
                     break;
@@ -55,7 +55,7 @@ public class Activity_list implements Controller {
     public void delete(int id) {      ////////// SE BORRA FISICAMENTE, YA QUE NO SE PUEDE LOGICAMENTE
         Activity activityDelete = (Activity) findById(id);
         if (activityDelete!=null){
-            activity_list.remove(activityDelete);
+            acts.remove(activityDelete);
         }else{
             System.out.println("Activity not found");
         }
@@ -63,25 +63,45 @@ public class Activity_list implements Controller {
 
     @Override
     public void consultList() {
-        for (Activity a : activity_list) {
+        for (Activity a : acts) {
             System.out.println(a.toString() +
                     "\n **** end ****");
         }
     }
 
     public void consultAvailableShifts(){
-        for (int a = 0; a < activity_list.size(); a++) {
-            if (activity_list.get(a).getName().equals("Crossfit")) {
+        for (int a = 0; a < acts.size(); a++) {
+            if (acts.get(a).getName().equals("Crossfit")) {
                 System.out.println("Crossfit");
-                activity_list.get(a).consultShifts();
-            } else if (activity_list.get(a).getName().equals("Funcional")) {
+                acts.get(a).consultShifts();
+            } else if (acts.get(a).getName().equals("Funcional")) {
                 System.out.println("Funcional");
-                activity_list.get(a).consultShifts();
-            } else if (activity_list.get(a).getName().equals("Aerobic")) {
+                acts.get(a).consultShifts();
+            } else if (acts.get(a).getName().equals("Aerobic")) {
                 System.out.println("Aerobic");
-                activity_list.get(a).consultShifts();
+                acts.get(a).consultShifts();
             }
         }
+    }
+
+    public void reduceSlotActivity(int idActivty , String hour)
+    {
+        acts.get(idActivty).modifySlot(hour);
+    }
+
+    public Activity foundActivity(String activity)
+    {
+       Activity aux = null;
+
+        for (int i = 0; i < acts.size(); i++) {
+            if (acts.get(i).getName().equals(activity))
+            {
+                System.out.println("asd");
+                aux = acts.get(i);
+            }
+        }
+
+       return aux;
     }
 
 }

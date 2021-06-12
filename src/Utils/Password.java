@@ -1,4 +1,4 @@
-package Utils;
+/*package Utils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -54,3 +54,4 @@ public class Password {
         return returnValue;
     }
 }
+*/

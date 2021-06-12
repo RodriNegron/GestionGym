@@ -1,9 +1,6 @@
+import Classes.*;
 import Classes.Abstract.Activity;
 import Classes.Abstract.Training_plan;
-import Classes.Crossfit;
-import Classes.Customer;
-import Classes.Funcional;
-import Classes.basicPlan;
 import Collections.Activity_list;
 import Collections.Customer_list;
 import Collections.Shifts_map;
@@ -54,7 +51,10 @@ public final class Gym {
 
     public void setCuit(String cuit) { this.cuit = cuit; }
 
-    //endregion
+    public Activity_list getActivities() {
+        return activities;
+    }
+//endregion
 
     public Customer register(Scanner scann){
 
@@ -115,7 +115,7 @@ public final class Gym {
     public void harcodeShifts()
     {
         harcodeActivityList();
-        shifts_map.hardcodeShifts(activities);
+        shifts_map.hardcodeShifts(getActivities());
     }
 
     public void consultTrainingPlanList()
@@ -159,8 +159,7 @@ public final class Gym {
     {
         Activity crossfit = new Crossfit("Crossfit");
         Activity funcional = new Funcional("Funcional");
-        Activity aerobic = new Crossfit("Aerobic");
-
+        Activity aerobic = new Aerobic("Aerobic");
 
         activities.add(crossfit);
         activities.add(funcional);
