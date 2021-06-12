@@ -2,8 +2,8 @@ import Classes.Abstract.Activity;
 import Classes.Customer;
 import Classes.Funcional;
 import Collections.Customer_list;
+import Collections.Shifts_map;
 import Utils.Password;
-
 import java.util.Scanner;
 
 public class Main {
@@ -12,26 +12,31 @@ public class Main {
         Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
         gym.hardcodeInstructor();
         //gym.harcodeShifts();
-        gym.getShifts_map().hardcodeShifts();
+        //gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
         String salt = Password.getSalt(30);
 
         //prueba archivos
         String Customer_file = "customers.json";
+        String Shift_file = "shifts.json";
         Customer_list persistedList;
-        persistedList = Files.readFile(Customer_file);
+        Shifts_map persistedMap;
+
+        persistedList = toFiles.readFile(Customer_file);
+        persistedMap = toFiles.readMapFile(Shift_file);
+
+        gym.setShifts_map(persistedMap);
         gym.setCustomers_list(persistedList);
 
         loggin(gym, salt);
-
-        Files.writeFile(gym.getCustomers_list(),Customer_file);
+        //Fiiles.writeFile(gym.getShifts_map().getDays(),Shift_file);
+        toFiles.writeFile(gym.getCustomers_list(),Customer_file);
         //
 
     }
 
     public static void loggin(Gym gym, String salt){
-
 
         Scanner scann = new Scanner(System.in);
         Customer cust;
@@ -39,7 +44,6 @@ public class Main {
         int number;
         char var = 's';
         String string;
-
 
         System.out.println("Bienvenido a " + gym.getName() +" gym:");
         do {

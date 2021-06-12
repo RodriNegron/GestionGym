@@ -19,13 +19,17 @@ public class Shifts_map {
 
     Map<String, Activity_list> days;
 
-    //region constructor
+    //region constructor, setter & getter
     public Shifts_map() {
         days = new HashMap<String, Activity_list>();
     }
+
+    public Map<String, Activity_list> getDays() { return days; }
+
+    public void setDays(Map<String, Activity_list> days) { this.days = days; }
     //endregion
 
-    public void hardcodeShifts() {
+    public void hardcodeShifts(Instructor_list instructors) {
         Calendar c = Calendar.getInstance();
 
         // Set the calendar to monday of the current week
@@ -58,7 +62,12 @@ public class Shifts_map {
             Activity funcional = new Funcional("Funcional");
             Activity aerobic = new Crossfit("Aerobic");
 
-
+            crossfit.getInstructors().add(instructors.getInstructors().get(0));
+            crossfit.getInstructors().add(instructors.getInstructors().get(1));
+            funcional.getInstructors().add(instructors.getInstructors().get(2));
+            funcional.getInstructors().add(instructors.getInstructors().get(3));
+            aerobic.getInstructors().add(instructors.getInstructors().get(4));
+            aerobic.getInstructors().add(instructors.getInstructors().get(5));
 
 
             aux1.add(crossfit);

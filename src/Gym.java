@@ -39,7 +39,6 @@ public final class Gym {
     }
 
     //region setter & getters
-
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
@@ -64,10 +63,11 @@ public final class Gym {
 
     public Customer_list getCustomers_list() { return customers_list; }
 
-    public Shifts_map getShifts_map() {
-        return shifts_map;
-    }
+    public Shifts_map getShifts_map() { return shifts_map; }
 
+    public Instructor_list getInstructor_list() { return instructor_list; }
+
+    public void setShifts_map(Shifts_map shifts_map) { this.shifts_map = shifts_map; }
     //endregion
 
     public Customer register(Scanner scann, String salt){
@@ -98,7 +98,6 @@ public final class Gym {
     {
         shifts_map.reserveShift(cust, day, activity, hour);
     }
-
 
     public void addToCustomerList(Customer customer)
     {
@@ -182,7 +181,6 @@ public final class Gym {
         funcional.getInstructors().add(instructor_list.getInstructors().get(3));
         aerobic.getInstructors().add(instructor_list.getInstructors().get(4));
         aerobic.getInstructors().add(instructor_list.getInstructors().get(5));
-
 
         activities_list.add(crossfit);
         activities_list.add(funcional);
