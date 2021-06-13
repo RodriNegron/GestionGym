@@ -69,6 +69,16 @@ public class Activity_list implements Controller {
         }
     }
 
+    public void deleteActivitie(Activity activity){
+
+        for (int i = 0; i < acts.size(); i++) {
+
+            if (acts.get(i).getName().compareTo(activity.getName())==0){
+                acts.remove(acts.get(i));
+            }
+        }
+    }
+
     public void consultAvailableShifts(){
         for (int a = 0; a < acts.size(); a++) {
             if (acts.get(a).getName().equals("Crossfit")) {

@@ -1,3 +1,4 @@
+import Classes.MonthlyGain;
 import Classes.Sunday;
 import Collections.Activity_list;
 import Collections.Customer_list;
@@ -61,6 +62,27 @@ class toFiles {
             }
         }
         return shifts;
+    }
+
+    public static HashMap<String, Double> readMonthlyGains (String fileName) {
+        HashMap<String, Double> gains = null;
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new BufferedReader(new FileReader(fileName)));
+            gains = getGson().fromJson(reader, (new TypeToken< HashMap<String, Double>>() {
+            }.getType()));
+        } catch (IOException e) {
+            gains = new  HashMap<String, Double>();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return gains;
     }
 
     public static Sunday readSundayFile (String fileName) {

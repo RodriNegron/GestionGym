@@ -28,4 +28,13 @@ public class Sunday {
     public void setAux(int aux) {
         this.aux = aux;
     }
+
+    @Override
+    public String toString() {
+        return "Sunday{" +
+                "aux=" + aux +
+                ", Sunday='" + Sunday + '\'' +
+                ", nextSunday='" + nextSunday + '\'' +
+                '}';
+    }
 }

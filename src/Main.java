@@ -1,41 +1,42 @@
+import Classes.*;
 import Classes.Abstract.Activity;
-import Classes.Customer;
-import Classes.Funcional;
-import Classes.Sunday;
 import Collections.Activity_list;
 import Collections.Customer_list;
 import Utils.Password;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import Classes.Admin;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
+        //region files
+        String Customer_file = "customers.json";
+        String Shift_file = "shifts.json";
+        String sunday = "sundays.json";
+        String gains = "montlhyGains.json";
 
-            Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
-            //region files
-            String Customer_file = "customers.json";
-            String Shift_file = "shifts.json";
-            String sunday = "sundays.json";
+        Customer_list persistedList;
+        HashMap<String, Activity_list> persistedMap;
+        Sunday persistedSundays;
+        HashMap<String, Double> monthlyGain;
+        //endregion
 
-            Customer_list persistedList;
-            HashMap<String, Activity_list> persistedMap;
-            Sunday persistedSundays;
+        gym.hardcodeInstructor();
+        gym.hardcodeUsers();
+        gym.hardcodeTrainingPlans();
+        String salt = Password.getSalt(30);
 
-            //endregion
+        persistedSundays = toFiles.readSundayFile(sunday);
+        monthlyGain = toFiles.readMonthlyGains(gains);
+        gym.getMoth().setGains(monthlyGain);
 
-            gym.hardcodeInstructor();
-            gym.hardcodeUsers();
-            gym.hardcodeTrainingPlans();
-            String salt = Password.getSalt(30);
+        String day = LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u"));
 
-            persistedSundays = toFiles.readSundayFile(sunday);
-            String day = LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u"));
-
-            if ((LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) && (persistedSundays.getAux() == 0)) {
+        if ((LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) && (persistedSundays.getAux() == 0)) {
 
             persistedSundays.setAux(1);
             persistedSundays.setSunday(LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u")));
@@ -47,18 +48,18 @@ public class Main {
             gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
             gym.resetShiftsInClients();
 
-            loggin(gym, salt, persistedSundays);
+            loggin(gym, salt, persistedSundays, monthlyGain);
 
             toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
             toFiles.writeFile(gym.getCustomers_list(), Customer_file);
             toFiles.writeFile(persistedSundays, sunday);
+            toFiles.writeFile(gym.getMoth().getGains(), gains);
 
-        } else if(day.equals(persistedSundays.getNextSunday())){
+        } else if (day.equals(persistedSundays.getNextSunday())) {
             System.out.println("Al ser domingo, al volver a ingresar se resetearan los turnos semanales");
             persistedSundays.setAux(0);
             toFiles.writeFile(persistedSundays, sunday);
-        }else
-        {
+        } else {
 
             persistedList = toFiles.readFile(Customer_file);
             persistedMap = toFiles.readMapFile(Shift_file);
@@ -68,14 +69,16 @@ public class Main {
             gym.getShifts_map().setDays(persistedMap);
 
 
-            loggin(gym, salt, persistedSundays);
+            loggin(gym, salt, persistedSundays, monthlyGain);
 
             toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
             toFiles.writeFile(gym.getCustomers_list(), Customer_file);
+            toFiles.writeFile(gym.getMoth().getGains(), gains);
+
         }
     }
 
-    public static void loggin(Gym gym, String salt, Sunday persistedSunday) {
+    public static void loggin(Gym gym, String salt, Sunday persistedSunday, HashMap<String, Double> monthlyGain) {
 
         Scanner scann = new Scanner(System.in);
         Customer cust;
@@ -97,10 +100,10 @@ public class Main {
 
             switch (number) {
                 case 1:
-                    menuUsuario(gym, salt, persistedSunday);
+                    menuUsuario(scann, gym, salt, persistedSunday, monthlyGain);
                     break;
                 case 2:
-                    menuAdmin(gym, administrator, salt, persistedSunday);
+                    menuAdmin(scann, gym, administrator, salt, persistedSunday, monthlyGain);
                     break;
                 case 3:
                     scann.reset();
@@ -118,8 +121,7 @@ public class Main {
 
     }
 
-    public static void menuUsuario(Gym gym, String salt, Sunday persistedSunday) {
-        Scanner scann = new Scanner(System.in);
+    public static void menuUsuario(Scanner scann, Gym gym, String salt, Sunday persistedSunday, HashMap<String, Double> monthlyGain) {
         int number;
         char var = 's';
 
@@ -146,19 +148,18 @@ public class Main {
                             gym.consultTrainingPlanList();
                             System.out.println("A que plan desea inscribirse?");
                             int aux = scann.nextInt();
-                            gym.signUp(client, aux);
+                            gym.signUp(client, aux, monthlyGain);
                         } else System.out.println("Ya te encuentras inscripto al sistema!");
                         break;
                     case 2:
 
                         if (client.getTraining_Plan() != 0) {
 
-                            if (client.getTraining_Plan() == 2){
+                            if (client.getTraining_Plan() == 2) {
                                 scannReserveShift(gym, scann, client, persistedSunday);
-                            }
-                            else if ((client.getTraining_Plan() == 1) && (client.getShifts().getShift_list().size() < 3))
-                               scannReserveShift(gym, scann, client,persistedSunday);
-                           else{
+                            } else if ((client.getTraining_Plan() == 1) && (client.getShifts().getShift_list().size() < 3))
+                                scannReserveShift(gym, scann, client, persistedSunday);
+                            else {
                                 System.out.println("Ya tiene 3 turnos reservados. ");
                             }
 
@@ -185,7 +186,7 @@ public class Main {
                         gym.checkAvailableShifts();
                         break;
                     case 0:
-                        loggin(gym, salt,persistedSunday);
+                        loggin(gym, salt, persistedSunday, monthlyGain);
                     default:
                         System.out.println("Usted ha intentado consultar un valor erroneo");
                 }
@@ -198,8 +199,7 @@ public class Main {
 
     }
 
-    public static void menuAdmin(Gym gym, Admin administrator, String salt, Sunday persistedSunday) {
-        Scanner scann = new Scanner(System.in);
+    public static void menuAdmin(Scanner scann, Gym gym, Admin administrator, String salt, Sunday persistedSunday, HashMap<String, Double> monthlyGain) {
         int number;
         char var = 's';
 
@@ -211,12 +211,15 @@ public class Main {
                 System.out.println("Menu Administrador");
                 System.out.println("1-Consultar actividades");
                 System.out.println("2-Agregar actividad");
-                //ELIMINAR ACTIVIDAD 1
-                System.out.println("3-Consultar clientes");
-                //DAR DE BAJA(PLAN) CLIENTE 2
-                System.out.println("4-Ganancia total");
-                //GANANCIA TOTAL 3
-                //CONSULTAR ISNTRUCTORES -- AGREGAR 4
+
+                System.out.println("3-Eliminar actividad"); //->ETA
+
+                System.out.println("4-Ganancia Mensual"); //->mensual //anual
+                System.out.println("5-Ganancia Anual"); //->mensual //anual
+                System.out.println("6-Consultar clientes");
+                System.out.println("7-Consultar instructores"); //->Agregar y borrar
+
+                //cambiar precio training plan
 
                 System.out.println("0-Regresar");
                 System.out.println("Elija una opcion: ");
@@ -224,32 +227,54 @@ public class Main {
 
                 switch (number) {
                     case 1:
-                        gym.getShifts_map().consultActivities();
+                        gym.getShifts_map().consultActivitiesByDays();
                         break;
                     case 2:
+
                         Activity fitness = new Funcional("Fitness");
                         gym.addActivityToList(fitness);
-                        gym.getShifts_map().consultActivities();
+                        gym.getShifts_map().consultActivitiesByDays();
                         break;
                     case 3:
-                        gym.consultClients();
+                        String nameToDelete;
+                        gym.getShifts_map().consultActivities();
+                        System.out.println("A continuacion elija el nombre de la actividad que desea eliminar");
+                        scann.nextLine();
+                        nameToDelete = scann.nextLine();
+
+                        Activity_list aux = gym.foundActivity(nameToDelete);
+
+                        for (int i = 0; i < aux.getActivity_list().size(); i++) {
+                            System.out.println(aux.getActivity_list().get(i).getIdActivity());
+                        }
+
+                        gym.deleteActivity(aux, gym.getCustomers_list());
                         break;
                     case 4:
 
                         break;
+                    case 5:
+                        break;
+                    case 6:
+                        gym.consultClients();
+                        break;
+                    case 7:
+                        gym.consultInstructors();
+                        break;
                     case 0:
-                        loggin(gym, salt, persistedSunday);
+                        loggin(gym, salt, persistedSunday, monthlyGain);
                     default:
                         System.out.println("Usted ha intentado consultar un valor erroneo");
                 }
                 System.out.println("¿Desea continuar operando? | Opciones: s/n");
                 scann.nextLine();
                 var = scann.nextLine().charAt(0);
+                System.out.println(var);
             } while (var == 's');
         } else System.out.println("Credenciales invalidas");
     }
 
-    public static void scannReserveShift (Gym gym, Scanner scann, Customer client, Sunday persistedSundays){
+    public static void scannReserveShift(Gym gym, Scanner scann, Customer client, Sunday persistedSundays) {
         int num = 0;
         int time;
         String hour;

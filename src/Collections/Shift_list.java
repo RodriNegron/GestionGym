@@ -1,5 +1,6 @@
 package Collections;
 
+import Classes.Abstract.Activity;
 import Classes.Shift;
 import Interfaces.Controller;
 import java.util.ArrayList;
@@ -70,5 +71,13 @@ public class Shift_list implements Controller {
     public void delete(int id) {
 
     }
+    public void deleteShiftsByActivity(Activity activity){
 
+        for (int i = 0; i < shift_list.size(); i++) {
+
+            if (shift_list.get(i).getActivity().equals(activity.getName())){
+                shift_list.remove(shift_list.get(i));
+            }
+        }
+    }
 }

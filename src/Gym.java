@@ -6,6 +6,7 @@ import Classes.Admin;
 import Utils.Password;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public final class Gym {
@@ -16,7 +17,7 @@ public final class Gym {
     private Customer_list customers_list;
     private TrainingPlan_list training_plan_list;
     private Instructor_list instructor_list;
-
+    private MonthlyGain moth;
 
     //region Constructors, getters & setters
 
@@ -25,6 +26,7 @@ public final class Gym {
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
         this.instructor_list = new Instructor_list();
+        moth = new MonthlyGain();
     }
 
     public Gym(String name, String location, String cuit) {
@@ -35,6 +37,16 @@ public final class Gym {
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
         this.instructor_list = new Instructor_list();
+        moth = new MonthlyGain();
+
+    }
+
+    public MonthlyGain getMoth() {
+        return moth;
+    }
+
+    public void setMoth(MonthlyGain moth) {
+        this.moth = moth;
     }
 
     public String getName() { return name; }
@@ -99,6 +111,11 @@ public final class Gym {
         customers_list.consultList();
     }
 
+    public void consultInstructors()
+    {
+        instructor_list.consultList();
+
+    }
     public void hardcodeUsers(){
         Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin", "salt");
         Customer user = new Customer("111", "user", "user", "user@user", "user", "salt");
@@ -164,10 +181,7 @@ public final class Gym {
         return admin;
     }
 
-    public void signUp(Customer cust, int trainingPlan)
-    {
-        training_plan_list.buyTrainingPlan(cust, trainingPlan);
-    }
+
 
     public String chooseDay(Sunday persistedSunday){return shifts_map.chooseDay(persistedSunday);}
 
@@ -222,6 +236,38 @@ public final class Gym {
         for (Customer aux : getCustomers_list().getCustomers_list() ) {
             aux.getShifts().getShift_list().clear();
         }
+    }
+
+    public void deleteActivity(Activity_list act, Customer_list cust)
+    {
+        shifts_map.deleteActivity(act , cust);
+    }
+
+    public Activity_list foundActivity(String activityName){
+        Activity_list aux = shifts_map.getActivityByName(activityName);
+        return aux;
+    }
+
+    public void signUp(Customer cust, int trainingPlan, HashMap<String, Double> month)
+    {
+        Training_plan aux = (Training_plan) training_plan_list.findById(trainingPlan);
+
+        training_plan_list.buyTrainingPlan(cust, trainingPlan);
+
+        month.forEach(
+                (mon, val)->
+                {
+                    if (mon.equals(LocalDate.now().getMonth().toString()))
+                    {
+                        Double money = month.get(mon);
+                        System.out.println(money);
+                        money = money + aux.getPrice();
+                        System.out.println(money);
+
+                        month.put(mon, money);
+                    }
+                }
+        );
     }
 
 }

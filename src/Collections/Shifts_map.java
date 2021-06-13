@@ -163,7 +163,7 @@ public class Shifts_map {
                 });
     }
 
-    public void consultActivities() {
+    public void consultActivitiesByDays() {
         this.days.forEach(
                 (day, activities) ->
                 {
@@ -172,20 +172,38 @@ public class Shifts_map {
                     List<Activity> aux = activities.getActivity_list();
 
                     for (int i = 0; i < aux.size(); i++) {
-                        System.out.println(aux.get(i).getName());
+                        System.out.println("Name: " + aux.get(i).getName());
                     }
                 }
         );
     }
 
-    public void addActivity(Activity activity, Instructor_list instructor_list) {
-        days.forEach(
-                (day, act) -> {
-                    activity.getInstructors().add(instructor_list.getInstructors().get(6));
-                    activity.getInstructors().add(instructor_list.getInstructors().get(7));
-                    act.add(activity);
+    public void consultActivities() {
+        Activity_list aux = this.days.get(LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy")));
+
+        for (int i = 0; i < aux.getActivity_list().size(); i++) {
+            System.out.println(aux.getActivity_list().get(i).getName());
+        }
+    }
+
+
+    public Activity_list getActivityByName(String name)
+    {
+        Activity_list aux = new Activity_list();
+
+        for (Map.Entry<String, Activity_list> e : this.days.entrySet()) {
+
+            Activity_list activity_list = e.getValue();
+            List<Activity> al = activity_list.getActivity_list();
+
+            for (int i = 0; i < al.size() && al.get(i) != null; i++) {
+                if(al.get(i).getName().compareTo(name) == 0)
+                {
+                    aux.add(al.get(i));
                 }
-        );
+            }
+        }
+        return aux;
     }
 
     public Activity_list addInstructorsToActivityList (Instructor_list instructors){
@@ -209,5 +227,35 @@ public class Shifts_map {
 
         return aux1;
 
+    }
+
+    public void addActivity(Activity activity, Instructor_list instructor_list) {
+        days.forEach(
+                (day, act) -> {
+                    activity.getInstructors().add(instructor_list.getInstructors().get(6));
+                    activity.getInstructors().add(instructor_list.getInstructors().get(7));
+                    act.add(activity);
+                }
+        );
+    }
+
+    public void deleteActivity(Activity_list activities, Customer_list customer_list){
+        System.out.println("----");
+        days.forEach(
+                (day, act) -> {
+                    for (int i = 0; i < act.getActivity_list().size(); i++) {
+                        for (int j = 0; j < activities.getActivity_list().size(); j++) {
+                            if (activities.getActivity_list().get(j).getIdActivity() == act.getActivity_list().get(i).getIdActivity())
+                                System.out.println(act.getActivity_list().get(i).getIdActivity());
+                        }
+                    }
+
+                }
+        );
+        System.out.println("asd");
+        for (int i = 0; i < customer_list.getCustomers_list().size(); i++) {
+            customer_list.getCustomers_list().get(i).getShifts().deleteShiftsByActivity(activities.getActivity_list().get(i));
+        }
+        System.out.println("asd2");
     }
 }
