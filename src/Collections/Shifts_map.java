@@ -25,9 +25,13 @@ public class Shifts_map {
         days = new HashMap<String, Activity_list>();
     }
 
-    public Map<String, Activity_list> getDays() { return days; }
+    public Map<String, Activity_list> getDays() {
+        return days;
+    }
 
-    public void setDays(Map<String, Activity_list> days) { this.days = days; }
+    public void setDays(Map<String, Activity_list> days) {
+        this.days = days;
+    }
     //endregion
 
     public void hardcodeShifts(Instructor_list instructors) {
@@ -37,7 +41,7 @@ public class Shifts_map {
 
         int day = LocalDate.now().getDayOfMonth();
 
-        if(LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) day++;
+        if (LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) day++;
 
         DateFormat df = new SimpleDateFormat("EEE dd/MM/yyyy");
         Calendar aux = Calendar.getInstance();
@@ -79,8 +83,8 @@ public class Shifts_map {
             aux1.add(aerobic);
 
 
-            String dayToPut= df.format(c.getTimeInMillis());
-            days.put(dayToPut , aux1); //rest of the days in week to add
+            String dayToPut = df.format(c.getTimeInMillis());
+            days.put(dayToPut, aux1); //rest of the days in week to add
 
         }
 
@@ -130,7 +134,7 @@ public class Shifts_map {
                                 if ((cust.getTraining_Plan() == 1) && (cust.getShifts().shift_list.size() < 3)) {
                                     cust.getShifts().add(shift);
 
-                                    Integer inti = slot-1;
+                                    Integer inti = slot - 1;
                                     al.get(i).getAvailableShifts().put(hour, inti);
 
 
@@ -145,7 +149,7 @@ public class Shifts_map {
                                 } else if (cust.getTraining_Plan() == 2) {
                                     cust.getShifts().add(shift);
 
-                                    Integer inti = slot-1;
+                                    Integer inti = slot - 1;
 
                                     al.get(i).getAvailableShifts().put(hour, inti);
 
@@ -177,7 +181,7 @@ public class Shifts_map {
     public void consultAvailableShifts() {
 
         this.days.forEach(
-                (day , activities) ->
+                (day, activities) ->
                 {
                     System.out.println(day);
 
@@ -186,33 +190,38 @@ public class Shifts_map {
                     for (int i = 0; i < aux.size(); i++) {
                         System.out.println(aux.get(i).getName());
                         aux.get(i).getAvailableShifts().forEach(
-                                (hour , slot) ->
+                                (hour, slot) ->
                                 {
-                                    System.out.println("hour:"+ hour);
-                                    System.out.println("slot:"+ slot);
+                                    System.out.println("hour:" + hour);
+                                    System.out.println("slot:" + slot);
                                 }
                         );
                     }
-
-
                 });
     }
 
-    public void addActivity (Activity activity){
+    public void consultActivities() {
+        this.days.forEach(
+                (day, activities) ->
+                {
+                    System.out.println(day);
 
-        Activity_list aux  = new Activity_list();
-        AtomicBoolean flag = new AtomicBoolean(false);
-        days.forEach(
-                (day, act)->{
+                    List<Activity> aux = activities.getActivity_list();
 
-                    if (!flag.get()){
-                        for (int j = 0; j < act.getActivity_list().size(); j++) {
-                            aux.add(act.getActivity_list().get(j));
-                            flag.set(true);
-                        }
+                    for (int i = 0; i < aux.size(); i++) {
+                        System.out.println(aux.get(i).getName() + "\n");
                     }
                 }
-    );
-       // hardcodeShifts(aux);
+        );
+    }
+
+    public void addActivity(Activity activity, Instructor_list instructor_list) {
+        days.forEach(
+                (day, act) -> {
+                    activity.getInstructors().add(instructor_list.getInstructors().get(6));
+                    activity.getInstructors().add(instructor_list.getInstructors().get(7));
+                    act.add(activity);
+                }
+        );
     }
 }

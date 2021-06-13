@@ -2,8 +2,8 @@ import Classes.Abstract.Activity;
 import Classes.Abstract.Training_plan;
 import Classes.*;
 import Collections.*;
+import Classes.Admin;
 import Utils.Password;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -15,15 +15,12 @@ public final class Gym {
     private Shifts_map shifts_map;
     private Customer_list customers_list;
     private TrainingPlan_list training_plan_list;
-    private Activity_list activities_list;
     private Instructor_list instructor_list;
-
 
     public Gym() {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
-        this.activities_list = new Activity_list();
         this.instructor_list = new Instructor_list();
     }
 
@@ -34,7 +31,6 @@ public final class Gym {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
-        this.activities_list = new Activity_list();
         this.instructor_list = new Instructor_list();
     }
 
@@ -51,17 +47,9 @@ public final class Gym {
 
     public void setCuit(String cuit) { this.cuit = cuit; }
 
-    public Activity_list getActivities_list() {
-        return activities_list;
-    }
-
-    public void setActivities_list(Activity_list activities_list) {
-        this.activities_list = activities_list;
-    }
+    public Customer_list getCustomers_list() { return customers_list; }
 
     public void setCustomers_list(Customer_list customers_list) { this.customers_list = customers_list; }
-
-    public Customer_list getCustomers_list() { return customers_list; }
 
     public Shifts_map getShifts_map() { return shifts_map; }
 
@@ -126,12 +114,6 @@ public final class Gym {
         addToTrainingPlanList(premiumPan);
     }
 
-    public void harcodeShifts()
-    {
-        harcodeActivityList();
-        //shifts_map.hardcodeShifts(activities_list);
-    }
-
     public void consultTrainingPlanList()
     {
         training_plan_list.consultList();
@@ -160,6 +142,26 @@ public final class Gym {
         return customer = customers_list.findCustomer(str,pw);
     }
 
+    public Admin checkAdmin (Admin administrator){
+        Scanner scanner = new Scanner(System.in);
+        String adm, pw;
+        Admin admin = null;
+        System.out.println("User Admin");
+        adm = scanner.nextLine();
+
+        scanner.reset();
+        System.out.println("Password Admin");
+        pw = scanner.nextLine();
+
+        if (administrator.getEmail().equals(adm)){
+            if(administrator.getPassword().equals(pw)){
+                admin = administrator;
+            }
+        }
+
+        return admin;
+    }
+
     public void signUp(Customer cust, int trainingPlan)
     {
         training_plan_list.buyTrainingPlan(cust, trainingPlan);
@@ -169,24 +171,6 @@ public final class Gym {
 
     public void checkAvailableShifts(){shifts_map.consultAvailableShifts();}
 
-    public void harcodeActivityList()
-    {
-        Activity crossfit = new Crossfit("Crossfit");
-        Activity funcional = new Funcional("Funcional");
-        Activity aerobic = new Crossfit("Aerobic");
-
-        crossfit.getInstructors().add(instructor_list.getInstructors().get(0));
-        crossfit.getInstructors().add(instructor_list.getInstructors().get(1));
-        funcional.getInstructors().add(instructor_list.getInstructors().get(2));
-        funcional.getInstructors().add(instructor_list.getInstructors().get(3));
-        aerobic.getInstructors().add(instructor_list.getInstructors().get(4));
-        aerobic.getInstructors().add(instructor_list.getInstructors().get(5));
-
-        activities_list.add(crossfit);
-        activities_list.add(funcional);
-        activities_list.add(aerobic);
-    }
-
     public void hardcodeInstructor (){
         Instructor instructor1 = new Instructor("Esteban", "38932329", "Ortenzi", "esteban@asd.com");
         Instructor instructor2 = new Instructor("Felipe", "37895114", "Sarten", "felipe@asd.com" );
@@ -194,6 +178,8 @@ public final class Gym {
         Instructor instructor4 = new Instructor("Juan", "23961588", "Juarez", "juan@asd.com");
         Instructor instructor5 = new Instructor("Franco", "33258968", "Boni", "franco@asd.com");
         Instructor instructor6 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
+        Instructor instructor7 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
+        Instructor instructor8 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
 
         instructor_list.add(instructor1);
         instructor_list.add(instructor2);
@@ -201,6 +187,8 @@ public final class Gym {
         instructor_list.add(instructor4);
         instructor_list.add(instructor5);
         instructor_list.add(instructor6);
+        instructor_list.add(instructor7);
+        instructor_list.add(instructor8);
     }
 
     public String expired (Customer cust){
@@ -224,10 +212,7 @@ public final class Gym {
     }
 
     public void addActivityToList (Activity activity){
-        activity.hardcodeAvailableShifts();
-        activities_list.add(activity);
-        shifts_map.addActivity(activity);
-        activities_list.consultList();
+        shifts_map.addActivity(activity, instructor_list);
     }
 
     public void resetShiftsInClients()
