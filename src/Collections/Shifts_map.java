@@ -128,7 +128,7 @@ public class Shifts_map {
                             if (mapHour.equals(hour) && (slot != 0)) {
 
                                 if ((cust.getTraining_Plan() == 1) && (cust.getShifts().shift_list.size() < 3)) {
-                                    cust.getShifts().addShiftToClient(shift);
+                                    cust.getShifts().add(shift);
 
                                     Integer inti = slot-1;
                                     al.get(i).getAvailableShifts().put(hour, inti);
@@ -143,7 +143,7 @@ public class Shifts_map {
                                     days.put(today, acts);
 
                                 } else if (cust.getTraining_Plan() == 2) {
-                                    cust.getShifts().addShiftToClient(shift);
+                                    cust.getShifts().add(shift);
 
                                     Integer inti = slot-1;
 

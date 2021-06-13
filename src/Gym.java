@@ -89,9 +89,9 @@ public final class Gym {
         return new Customer(dni, firstname, lastname, email, password, salt);
     }
 
-    public String consultShiftsOnClient(Customer cust)
+    public void consultShiftsOnClient(Customer cust)
     {
-        return cust.getShifts().listAllSfhits();
+        cust.getShifts().consultList();
     }
 
     public void reserveShift(Customer cust, String day , String activity, String hour)
@@ -134,7 +134,7 @@ public final class Gym {
 
     public void consultTrainingPlanList()
     {
-        training_plan_list.consultTrainingPlan();
+        training_plan_list.consultList();
     }
 
     public void consultStatusOfUser(Customer cust)
@@ -144,7 +144,7 @@ public final class Gym {
 
     public void addToTrainingPlanList(Training_plan tp)
     {
-        training_plan_list.addTrainingPlan(tp);
+        training_plan_list.add(tp);
     }
 
     public Customer checkClient(){
@@ -211,7 +211,7 @@ public final class Gym {
         if(cust.getPlanFinalDate() != null){
             finalDate = cust.getPlanFinalDate();
 
-                if (finalDate.equals(date)){
+                if (!(finalDate.equals(date))){
                     builder.append(" la fecha de caducidad de su plan es el: " + finalDate);
                 }else{
                     builder.append(" se le ha terminado su plan");

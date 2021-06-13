@@ -182,7 +182,7 @@ public class Main {
                             System.out.println(client.getWallet().getTotal_Amount());
                             break;
                         case 5:
-                            System.out.println(gym.consultShiftsOnClient(client));
+                            gym.consultShiftsOnClient(client);
                             break;
                         case 6:
                             gym.consultStatusOfUser(client);
