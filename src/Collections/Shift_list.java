@@ -1,11 +1,13 @@
 package Collections;
 
+import Classes.Instructor;
 import Classes.Shift;
+import Interfaces.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shift_list {
+public class Shift_list implements Controller {
 
     List<Shift> shift_list;
 
@@ -13,16 +15,27 @@ public class Shift_list {
         this.shift_list = new ArrayList<>();
     }
 
-    public void addShiftToClient(Shift shift)
-    {
-        boolean found = false;
-        if(shift_list.size() <= 0) shift_list.add(shift);
-        else
-        {
-            for (int i = 0; i < shift_list.size(); i++) {
-                if(shift_list.get(i).equals(shift)) found = true;
+    @Override
+    public void add(Object name) {
+        boolean createdShift = false;
+        name = (Shift) name;
+        for (Shift i : shift_list) {
+            if (((Shift) name).equals(i)) {
+                createdShift=true;
+                break;
             }
-            if (!found) shift_list.add(shift);
+        }
+        if (!createdShift) {
+            shift_list.add((Shift) name);
+        } else {
+            System.out.println("Este turno ya existe !!");
+        }
+    }
+
+    @Override
+    public void consultList() {
+        for (Shift i : shift_list) {
+            System.out.println(i.toString());
         }
     }
 
@@ -36,5 +49,18 @@ public class Shift_list {
 
         return builder.toString();
     }
+
+    @Override
+    public Object findById(int id) {  // NO SE PUEDE USAR PORQUE LOS TURNOS NO TIENEN ID
+        return null;
+    }
+
+    @Override
+    public void delete(int id) {      // NO SE PUEDE USAR PORQUE LOS TURNOS NO TIENEN ID
+
+    }
+
+
+
 
 }

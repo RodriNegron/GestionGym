@@ -11,8 +11,7 @@ public class Main {
 
         Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
         gym.hardcodeInstructor();
-        //gym.harcodeShifts();
-        //gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
+        gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
         String salt = Password.getSalt(30);
@@ -24,13 +23,13 @@ public class Main {
         Shifts_map persistedMap;
 
         persistedList = toFiles.readFile(Customer_file);
-        persistedMap = toFiles.readMapFile(Shift_file);
+        //persistedMap = toFiles.readMapFile(Shift_file);
 
-        gym.setShifts_map(persistedMap);
+        //gym.setShifts_map(persistedMap);
         gym.setCustomers_list(persistedList);
 
         loggin(gym, salt);
-        //Fiiles.writeFile(gym.getShifts_map().getDays(),Shift_file);
+        toFiles.writeFile(gym.getShifts_map().getDays(),Shift_file);
         toFiles.writeFile(gym.getCustomers_list(),Customer_file);
         //
 
@@ -159,7 +158,7 @@ public class Main {
                             System.out.println(client.getWallet().getTotal_Amount());
                             break;
                         case 5:
-                            System.out.println(gym.consultShiftsOnClient(client));
+                            gym.consultShiftsOnClient(client);
                             break;
                         case 6:
                             gym.consultStatusOfUser(client);

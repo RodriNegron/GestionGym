@@ -2,11 +2,13 @@ package Collections;
 
 import Classes.Abstract.Training_plan;
 import Classes.Customer;
+import Classes.Instructor;
+import Interfaces.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainingPlan_list{
+public class TrainingPlan_list implements Controller {
     List<Training_plan> plan_list;
 
     public TrainingPlan_list()
@@ -14,48 +16,57 @@ public class TrainingPlan_list{
         plan_list = new ArrayList<>();
     }
 
-    public void addTrainingPlan(Training_plan tp) {
-        boolean found = false;
-        if(plan_list.size() <= 0) plan_list.add(tp);
-        else
-        {
-            for (int i = 0; i < plan_list.size(); i++) {
-                if(plan_list.get(i).getId() == tp.getId()) found = true;
-            }
-            if (!found) plan_list.add(tp);
-        }
-    }
-
-    public void deleteTrainingPlan(Training_plan tp) {
-        for (int i = 0; i < plan_list.size(); i++) {
-            if(plan_list.get(i).getId() == tp.getId()) plan_list.remove(tp);
-        }
-    }
-
-
-    public void consultTrainingPlan() {
-        for (Training_plan tp : plan_list) {
-            System.out.println(tp);
-        }
-    }
-
-    public Training_plan findTrainingPlanById(int trainingPlan)
-    {
-        Training_plan aux = null;
-
-        for (Training_plan tp : plan_list) {
-            if(tp.getId() == trainingPlan)
-            {
-                aux = tp;
+    @Override
+    public void add(Object name) {
+        boolean createdTrainingPlan = false;
+        name = (Training_plan) name;
+        for (Training_plan i : plan_list) {
+            if (((Training_plan) name).equals(i)) {
+                createdTrainingPlan=true;
+                break;
             }
         }
+        if (!createdTrainingPlan) {
+            plan_list.add((Training_plan) name);
+        } else {
+            System.out.println("Este Plan de Entrenamiento ya existe !!");
+        }
+    }
 
-        return aux;
+    @Override
+    public void delete(int id) {
+        Training_plan tpDelete = (Training_plan) findById(id);
+        if (tpDelete!=null){
+            plan_list.remove(tpDelete);
+        }else{
+            System.out.println("Plan de Entrenamiento no encontrado. ");
+        }
+    }
+
+    @Override
+    public void consultList() {
+        for (Training_plan i : plan_list) {
+            System.out.println(i.toString());
+        }
+    }
+
+    @Override
+    public Object findById(int id) {
+        Training_plan tp = null;
+        if (plan_list.size() > 0){
+            for (Training_plan i : plan_list) {
+                if (i.getId() == id) {
+                    tp = i;
+                    break;
+                }
+            }
+        }
+        return tp;
     }
 
     public void buyTrainingPlan(Customer customer, int trainingPlan)
     {
-        Training_plan tp = findTrainingPlanById(trainingPlan);
+        Training_plan tp = (Training_plan) findById(trainingPlan);
 
         if (tp != null) {
             if (customer.getTraining_Plan() == 0) {
@@ -71,5 +82,6 @@ public class TrainingPlan_list{
         else System.out.println("Opcion invalida!");
 
     }
+
 
 }
