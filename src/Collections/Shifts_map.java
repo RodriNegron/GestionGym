@@ -1,10 +1,8 @@
 package Collections;
 
+import Classes.*;
 import Classes.Abstract.Activity;
-import Classes.Crossfit;
-import Classes.Customer;
-import Classes.Funcional;
-import Classes.Shift;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -46,20 +44,9 @@ public class Shifts_map {
         Calendar aux = Calendar.getInstance();
         c.set(Calendar.DATE, day - 1);
 
-        int dia = 0;
-
-        if (aux.get(Calendar.DAY_OF_WEEK) == 2) dia = 1;
-        else if (aux.get(Calendar.DAY_OF_WEEK) == 3) dia = 2;
-        else if (aux.get(Calendar.DAY_OF_WEEK) == 4) dia = 3;
-        else if (aux.get(Calendar.DAY_OF_WEEK) == 5) dia = 4;
-        else if (aux.get(Calendar.DAY_OF_WEEK) == 6) dia = 5;
-        else if (aux.get(Calendar.DAY_OF_WEEK) == 7) dia = 6;
-        else if (aux.get(Calendar.DAY_OF_WEEK) == 1) dia = 1; //en caso de que sea domingo, muestra toda la semana siguiente
-
-        int dayToAdd = 7 - dia;
 
         //we keep the days of the week, from current to Saturday inclusive
-        for (int i = 0; i < dayToAdd; i++) {
+        for (int i = 0; i < 6; i++) {
             c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
 
             String dayToPut = df.format(c.getTimeInMillis());
@@ -71,28 +58,41 @@ public class Shifts_map {
     }
 
 
-    public String chooseDay() {
+    public String chooseDay(Sunday persistedSunday) {
         AtomicInteger i = new AtomicInteger();
-        int day;
+        i.set(0);
+        String[] dates = new String [7];
+        dates[0] = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
 
 
-        String[] aux = new String[7];
-        //String today =LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
+        int day = Integer.valueOf(dates[0].substring(5,7));
+        int nextSund = Integer.valueOf(persistedSunday.getNextSunday().substring(0,2));
 
-        this.days.forEach(
-                (k, v) ->
-                {
-                   // if(today.equals(k)) {
-                        System.out.println(i + " " + k);
-                        aux[i.get()] = k;
-                        i.getAndIncrement();
-                  //  }
-                });
+        int daysToShow = nextSund - day;
+
+        for (int j = 1; j < daysToShow; j++) {
+            dates[j] =  LocalDate.now().plusDays(j).format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
+        }
+
+        String[] toShow = new String[7];
+
+        for ( int j = 0; j < dates.length && dates[j] != null; j++) {
+            int finalJ = j;
+            this.days.forEach(
+                    (k, v) ->
+                    {
+                        if (dates[finalJ].equals((k))) {
+                            System.out.println(i + " " + k);
+                            toShow[i.get()] = k;
+                            i.getAndIncrement();
+                        }
+                    });
+        }
 
         System.out.println("En que dia de la corriente semana desea anotarse?");
         day = scann.nextInt();
 
-        return aux[day];
+        return toShow[day];
     }
 
     public void reserveShift(Customer cust, String day, String activity, String hour) {

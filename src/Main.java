@@ -32,8 +32,8 @@ public class Main {
             gym.hardcodeTrainingPlans();
             String salt = Password.getSalt(30);
 
-           persistedSundays = toFiles.readSundayFile(sunday);
-           String day = LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u"));
+            persistedSundays = toFiles.readSundayFile(sunday);
+            String day = LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u"));
 
             if ((LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) && (persistedSundays.getAux() == 0)) {
 
@@ -47,7 +47,7 @@ public class Main {
             gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
             gym.resetShiftsInClients();
 
-            loggin(gym, salt);
+            loggin(gym, salt, persistedSundays);
 
             toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
             toFiles.writeFile(gym.getCustomers_list(), Customer_file);
@@ -68,14 +68,14 @@ public class Main {
             gym.getShifts_map().setDays(persistedMap);
 
 
-            loggin(gym, salt);
+            loggin(gym, salt, persistedSundays);
 
             toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
             toFiles.writeFile(gym.getCustomers_list(), Customer_file);
         }
     }
 
-    public static void loggin(Gym gym, String salt) {
+    public static void loggin(Gym gym, String salt, Sunday persistedSunday) {
 
         Scanner scann = new Scanner(System.in);
         Customer cust;
@@ -97,10 +97,10 @@ public class Main {
 
             switch (number) {
                 case 1:
-                    menuUsuario(gym, salt);
+                    menuUsuario(gym, salt, persistedSunday);
                     break;
                 case 2:
-                    menuAdmin(gym, administrator, salt);
+                    menuAdmin(gym, administrator, salt, persistedSunday);
                     break;
                 case 3:
                     scann.reset();
@@ -118,7 +118,7 @@ public class Main {
 
     }
 
-    public static void menuUsuario(Gym gym, String salt) {
+    public static void menuUsuario(Gym gym, String salt, Sunday persistedSunday) {
         Scanner scann = new Scanner(System.in);
         int number;
         char var = 's';
@@ -154,10 +154,10 @@ public class Main {
                         if (client.getTraining_Plan() != 0) {
 
                             if (client.getTraining_Plan() == 2){
-                                scannReserveShift(gym, scann, client);
+                                scannReserveShift(gym, scann, client, persistedSunday);
                             }
-                            if ((client.getTraining_Plan() == 1) && (client.getShifts().getShift_list().size() < 3))
-                               scannReserveShift(gym, scann, client);
+                            else if ((client.getTraining_Plan() == 1) && (client.getShifts().getShift_list().size() < 3))
+                               scannReserveShift(gym, scann, client,persistedSunday);
                            else{
                                 System.out.println("Ya tiene 3 turnos reservados. ");
                             }
@@ -185,7 +185,7 @@ public class Main {
                         gym.checkAvailableShifts();
                         break;
                     case 0:
-                        loggin(gym, salt);
+                        loggin(gym, salt,persistedSunday);
                     default:
                         System.out.println("Usted ha intentado consultar un valor erroneo");
                 }
@@ -198,7 +198,7 @@ public class Main {
 
     }
 
-    public static void menuAdmin(Gym gym, Admin administrator, String salt) {
+    public static void menuAdmin(Gym gym, Admin administrator, String salt, Sunday persistedSunday) {
         Scanner scann = new Scanner(System.in);
         int number;
         char var = 's';
@@ -211,12 +211,12 @@ public class Main {
                 System.out.println("Menu Administrador");
                 System.out.println("1-Consultar actividades");
                 System.out.println("2-Agregar actividad");
-                //ELIMINAR ACTIVIDAD
+                //ELIMINAR ACTIVIDAD 1
                 System.out.println("3-Consultar clientes");
-                //DAR DE BAJA(PLAN) CLIENTE
+                //DAR DE BAJA(PLAN) CLIENTE 2
                 System.out.println("4-Ganancia total");
-                //GANANCIA TOTAL
-                //CONSULTAR ISNTRUCTORES -- AGREGAR
+                //GANANCIA TOTAL 3
+                //CONSULTAR ISNTRUCTORES -- AGREGAR 4
 
                 System.out.println("0-Regresar");
                 System.out.println("Elija una opcion: ");
@@ -238,7 +238,7 @@ public class Main {
 
                         break;
                     case 0:
-                        loggin(gym, salt);
+                        loggin(gym, salt, persistedSunday);
                     default:
                         System.out.println("Usted ha intentado consultar un valor erroneo");
                 }
@@ -249,13 +249,13 @@ public class Main {
         } else System.out.println("Credenciales invalidas");
     }
 
-    public static void scannReserveShift (Gym gym, Scanner scann, Customer client){
+    public static void scannReserveShift (Gym gym, Scanner scann, Customer client, Sunday persistedSundays){
         int num = 0;
         int time;
         String hour;
         String activity;
         String day;
-        day = gym.chooseDay();
+        day = gym.chooseDay(persistedSundays);
 
         System.out.println("En que actividad desea anotarse?");
         System.out.println("1- Funcional");
@@ -286,7 +286,6 @@ public class Main {
 
         gym.reserveShift(client, day, activity, hour);
     }
-
 
 }
 

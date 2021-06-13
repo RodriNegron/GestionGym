@@ -169,7 +169,7 @@ public final class Gym {
         training_plan_list.buyTrainingPlan(cust, trainingPlan);
     }
 
-    public String chooseDay(){return shifts_map.chooseDay();}
+    public String chooseDay(Sunday persistedSunday){return shifts_map.chooseDay(persistedSunday);}
 
     public void checkAvailableShifts(){shifts_map.consultAvailableShifts();}
 
