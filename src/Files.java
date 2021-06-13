@@ -1,9 +1,10 @@
+import Collections.Activity_list;
 import Collections.Customer_list;
-import Collections.Shifts_map;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
+import java.util.HashMap;
 
 class toFiles {
 
@@ -39,15 +40,15 @@ class toFiles {
         return customers;
     }
 
-    public static Shifts_map readMapFile (String fileName) {
-        Shifts_map shifts = null;
+    public static HashMap<String, Activity_list> readMapFile (String fileName) {
+        HashMap<String, Activity_list> shifts = null;
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new BufferedReader(new FileReader(fileName)));
-            shifts = getGson().fromJson(reader, (new TypeToken<Shifts_map>() {
+            shifts = getGson().fromJson(reader, (new TypeToken<HashMap<String, Activity_list>>() {
             }.getType()));
         } catch (IOException e) {
-            shifts = new Shifts_map();
+            shifts = new HashMap<String, Activity_list>();
         } finally {
             try {
                 if (reader != null) {

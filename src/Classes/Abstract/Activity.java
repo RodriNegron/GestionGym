@@ -3,7 +3,7 @@ import Collections.Instructor_list;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Activity{
+public class Activity{
 
     private static int count  = 0;
     private  int idActivity = 0;  //autoincremental

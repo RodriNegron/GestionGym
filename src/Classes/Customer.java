@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Customer extends Person {
     private int training_Plan;
-    protected LocalDate planStartDate;
-    protected LocalDate planFinalDate;
+    protected String planStartDate;
+    protected String planFinalDate;
     private Shift_list shifts;
     private Wallet wallet;
     private String salt;
@@ -41,11 +41,11 @@ public class Customer extends Person {
         return wallet;
     }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return planStartDate;
     }
 
-    public LocalDate getPlanFinalDate() {
+    public String getPlanFinalDate() {
         return planFinalDate;
     }
 
@@ -55,8 +55,9 @@ public class Customer extends Person {
 
     public void setDatesTrainingPlan()
     {
-        this.planStartDate = LocalDate.now();
-        this.planFinalDate = planStartDate.plusDays(30);
+        LocalDate aux = LocalDate.now().plusDays(30);
+        this.planStartDate = LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u"));
+        this.planFinalDate = aux.format(DateTimeFormatter.ofPattern("d/M/u"));
     }
 
     public String consultDatesTrainingPlan()
@@ -65,9 +66,9 @@ public class Customer extends Person {
 
         if ((planStartDate != null ) && ( planFinalDate != null))
         {
-            builder.append(planStartDate.format(DateTimeFormatter.ofPattern("d/M/u")));
+            builder.append(planStartDate);
             builder.append("\n");
-            builder.append(planFinalDate.format(DateTimeFormatter.ofPattern("d/M/u")));
+            builder.append(planFinalDate);
         }
 
         return builder.toString();

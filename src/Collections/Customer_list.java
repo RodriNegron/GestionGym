@@ -15,6 +15,14 @@ public class Customer_list implements Controller {
         this.customers_list = new ArrayList<>();
     }
 
+    public List<Customer> getCustomers_list() {
+        return customers_list;
+    }
+
+    public void setCustomers_list(List<Customer> customers_list) {
+        this.customers_list = customers_list;
+    }
+
     @Override
     public void add(Object name) {
         boolean createdUser = false;

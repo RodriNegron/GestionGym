@@ -1,38 +1,61 @@
 import Classes.Abstract.Activity;
 import Classes.Customer;
 import Classes.Funcional;
+import Collections.Activity_list;
 import Collections.Customer_list;
 import Collections.Shifts_map;
 import Utils.Password;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
         Gym gym = new Gym ("Forza", "La 39-Mar del Plata", "3120492");
+        //region files
+        String Customer_file = "customers.json";
+        String Shift_file = "shifts.json";
+        Customer_list persistedList;
+        HashMap<String, Activity_list> persistedMap;
+        //endregion
+
         gym.hardcodeInstructor();
-        //gym.harcodeShifts();
-        //gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
         gym.hardcodeUsers();
         gym.hardcodeTrainingPlans();
         String salt = Password.getSalt(30);
 
-        //prueba archivos
-        String Customer_file = "customers.json";
-        String Shift_file = "shifts.json";
-        Customer_list persistedList;
-        Shifts_map persistedMap;
 
-        persistedList = toFiles.readFile(Customer_file);
-        persistedMap = toFiles.readMapFile(Shift_file);
+        if (LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0 ) {
 
-        gym.setShifts_map(persistedMap);
-        gym.setCustomers_list(persistedList);
+            gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
 
-        loggin(gym, salt);
-        //Fiiles.writeFile(gym.getShifts_map().getDays(),Shift_file);
-        toFiles.writeFile(gym.getCustomers_list(),Customer_file);
-        //
+            persistedList = toFiles.readFile(Customer_file);
+
+            gym.setCustomers_list(persistedList);
+
+            gym.resetShiftsInClients();
+
+            loggin(gym, salt);
+            toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
+            toFiles.writeFile(gym.getCustomers_list(), Customer_file);
+
+        }
+        else {
+
+
+            persistedList = toFiles.readFile(Customer_file);
+            persistedMap = toFiles.readMapFile(Shift_file);
+
+            gym.getShifts_map().setDays(persistedMap);
+            gym.setCustomers_list(persistedList);
+
+            loggin(gym, salt);
+            toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
+            toFiles.writeFile(gym.getCustomers_list(), Customer_file);
+        }
 
     }
 

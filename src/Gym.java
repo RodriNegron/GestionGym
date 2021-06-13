@@ -209,9 +209,9 @@ public final class Gym {
         StringBuilder builder = new StringBuilder();
 
         if(cust.getPlanFinalDate() != null){
-            finalDate = cust.getPlanFinalDate().format(DateTimeFormatter.ofPattern("d/M/u"));
+            finalDate = cust.getPlanFinalDate();
 
-                if (finalDate.compareTo(date)!=0){
+                if (finalDate.equals(date)){
                     builder.append(" la fecha de caducidad de su plan es el: " + finalDate);
                 }else{
                     builder.append(" se le ha terminado su plan");
@@ -229,5 +229,13 @@ public final class Gym {
         shifts_map.addActivity(activity);
         activities_list.consultList();
     }
+
+    public void resetShiftsInClients()
+    {
+        for (Customer aux : getCustomers_list().getCustomers_list() ) {
+            aux.getShifts().getShift_list().clear();
+        }
+    }
+
 }
 

@@ -1,5 +1,6 @@
 package Collections;
 
+import Classes.Instructor;
 import Classes.Shift;
 
 import java.util.ArrayList;
@@ -11,6 +12,21 @@ public class Shift_list {
 
     public Shift_list() {
         this.shift_list = new ArrayList<>();
+    }
+
+    public List<Shift> getShift_list() {
+        return shift_list;
+    }
+
+    public void setShift_list(List<Shift> shift_list) {
+        this.shift_list = shift_list;
+    }
+
+    public void delete(Shift shift) {
+
+        if (shift!=null){
+            shift_list.remove(shift);
+        }
     }
 
     public void addShiftToClient(Shift shift)

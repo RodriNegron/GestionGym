@@ -8,6 +8,7 @@ import Classes.Shift;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -35,6 +36,9 @@ public class Shifts_map {
         // Set the calendar to monday of the current week
 
         int day = LocalDate.now().getDayOfMonth();
+
+        if(LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) day++;
+
         DateFormat df = new SimpleDateFormat("EEE dd/MM/yyyy");
         Calendar aux = Calendar.getInstance();
         c.set(Calendar.DATE, day - 1);
