@@ -5,7 +5,13 @@
       "planStartDate": "16/6/2021",
       "planFinalDate": "16/7/2021",
       "shifts": {
-        "shift_list": []
+        "shift_list": [
+          {
+            "shift_date": "mar. 15/06/2021",
+            "shift_hour": "8-9:30",
+            "activity": "Crossfit"
+          }
+        ]
       },
       "wallet": {
         "id": 46,

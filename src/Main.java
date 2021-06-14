@@ -313,7 +313,7 @@ public class Main {
             if (found.get()) {
                 String[] hours = new String[6];
                 int auxi = 0;
-                hours[0] = "08-9:30";
+                hours[0] = "8-9:30";
                 hours[1] = "10-11:30";
                 hours[2] = "12-13:30";
                 hours[3] = "14-15:30";
@@ -329,8 +329,9 @@ public class Main {
                     int aux = LocalDateTime.now().getHour();
 
                     for (int i = 0, j = 0; i < hours.length; i++) {
-                        int hooooour = Integer.valueOf(hours[i].substring(0, 2));
+                        if(hours[i] == "8-9:30") hours[i] = "08-9:30";
 
+                        int hooooour = Integer.valueOf(hours[i].substring(0, 2));
                         if (hooooour >= aux) {
                             newHours[j] = hours[i];
                             j++;
