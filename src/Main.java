@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import Classes.Admin;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -74,6 +76,28 @@ public class Main {
             toFiles.writeFile(gym.getCustomers_list(), Customer_file);
         }
     }
+    public static int optionEntry(int number){
+        Scanner scanner = new Scanner(System.in);
+        int op = 0;
+        try{
+            op = scanner.nextInt();
+        }
+        catch (InputMismatchException e){
+            System.out.println("Dato ingresado no valido");
+        }
+        while (number < op && op <= 0){
+            scanner.reset();
+            System.out.print("Ingrese una opcion valida: ");
+            try{
+                op = scanner.nextInt();
+            }
+            catch (InputMismatchException e){
+                System.out.println("Datos incorrectos");
+                break;
+            }
+        }
+        return op;
+    }
 
     public static void loggin(Gym gym, String salt, Sunday persistedSunday) {
 
@@ -81,8 +105,7 @@ public class Main {
         Customer cust;
         Admin administrator = new Admin("admin@admin", "admin123");
 
-        int number;
-        char var = 's';
+        int option = 0;
         String string;
 
         System.out.println("\nBienvenido a |" + gym.getName() + " Gym|:");
@@ -92,10 +115,9 @@ public class Main {
             System.out.println("\t3- Registrarse");
 
 
-            number = scann.nextInt();
-            scann.nextLine();
+            option = optionEntry(3);
 
-            switch (number) {
+            switch (option) {
                 case 1:
                     menuUsuario(gym, salt, persistedSunday);
                     break;
@@ -111,10 +133,7 @@ public class Main {
                     System.out.println("Datos incorrectos!");
             }
 
-            System.out.println("¿Desea continuar? | Opciones:s/n");
-            var = scann.nextLine().charAt(0);
-
-        } while (var == 's');
+        } while (option != 3);
 
     }
 
