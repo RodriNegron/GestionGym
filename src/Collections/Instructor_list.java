@@ -52,7 +52,7 @@ public class Instructor_list implements Controller {
         if (instructorDelete!=null){
             instructors_list.remove(instructorDelete);
         }else{
-            System.out.println("Instructor not found");
+            System.out.println("Instructor no encontrado");
         }
     }
 

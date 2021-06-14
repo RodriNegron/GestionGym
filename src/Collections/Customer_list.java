@@ -37,7 +37,7 @@ public class Customer_list implements Controller {
         if (!createdUser) {
             customers_list.add((Customer) name);
         } else {
-            System.out.println("This user already exists");
+            System.out.println("Ya hay un usuario registrado con este email");
         }
     }
 
@@ -61,7 +61,7 @@ public class Customer_list implements Controller {
             if (userDelete!=null){
                 userDelete.setTraining_Plan(0);
             }else{
-                System.out.println("User not found");
+                System.out.println("Usuario no encontrado");
             }
         }
 

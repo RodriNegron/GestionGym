@@ -130,7 +130,7 @@ public class Shifts_map {
                                     Integer inti = slot - 1;
                                     al.get(i).getAvailableShifts().put(hour, inti);
 
-                                    System.out.println("Sucess");
+                                    System.out.println("Exito");
                                     System.out.println(shift);
 
                                     Activity_list acts = new Activity_list();
@@ -184,7 +184,7 @@ public class Shifts_map {
                     List<Activity> aux = activities.getActivity_list();
 
                     for (int i = 0; i < aux.size(); i++) {
-                        System.out.println("Name: " + aux.get(i).getName());
+                        System.out.println("Nombre: " + aux.get(i).getName());
                     }
                 }
         );
