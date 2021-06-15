@@ -216,9 +216,7 @@ public class Main {
     }
 
     public static void menuAdmin(Scanner scann, Gym gym, Admin administrator, String salt, Sunday persistedSunday, HashMap<String, Double> monthlyGain) {
-        int number;
-        char var = 's';
-
+        int option =0;
         Admin admin = null;
         admin = gym.checkAdmin(administrator);
 
@@ -239,9 +237,8 @@ public class Main {
 
                 System.out.println("0-Regresar");
                 System.out.println("Elija una opcion: ");
-                number = scann.nextInt();
-
-                switch (number) {
+                option = optionEntry(8);
+                switch (option) {
                     case 1:
                         gym.getShifts_map().consultActivities();
                         break;
@@ -277,16 +274,10 @@ public class Main {
                     case 7:
                         gym.consultInstructors();
                         break;
-                    case 0:
+                    case 8:
                         loggin(gym, salt, persistedSunday, monthlyGain);
-                    default:
-                        System.out.println("Usted ha intentado consultar un valor erroneo");
                 }
-                System.out.println("¿Desea continuar operando? | Opciones: s/n");
-                scann.nextLine();
-                var = scann.nextLine().charAt(0);
-                System.out.println(var);
-            } while (var == 's');
+            } while (option != 8);
         } else System.out.println("Credenciales invalidas");
     }
 
