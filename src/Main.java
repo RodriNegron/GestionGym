@@ -145,8 +145,7 @@ public class Main {
     }
 
     public static void menuUsuario(Scanner scann, Gym gym, String salt, Sunday persistedSunday, HashMap<String, Double> monthlyGain) {
-        int number;
-        char var = 's';
+        int option = 0 ;
 
         Customer client;
         client = gym.checkClient();
@@ -161,11 +160,10 @@ public class Main {
                 System.out.println("5-Consultar turnos reservados");
                 System.out.println("6-Consultar estado de cuenta");
                 System.out.println("7-Consultar turnos disponibles");
-                System.out.println("0-Regresar");
+                System.out.println("8-Regresar");
 
-                number = scann.nextInt();
-
-                switch (number) {
+                option = optionEntry(8);
+                switch (option) {
                     case 1:
                         if (client.getTraining_Plan() == 0) {
                             gym.consultTrainingPlanList();
@@ -208,15 +206,10 @@ public class Main {
                     case 7:
                         gym.checkAvailableShifts();
                         break;
-                    case 0:
+                    case 8:
                         loggin(gym, salt, persistedSunday, monthlyGain);
-                    default:
-                        System.out.println("Usted ha intentado consultar un valor erroneo");
                 }
-                System.out.println("¿Desea continuar operando? | Usuario: " + client.getFirstName() + " | Opciones: s/n");
-                scann.nextLine();
-                var = scann.nextLine().charAt(0);
-            } while (var == 's');
+            } while (option != 8);
 
         } else System.out.println("Credenciales invalidas.");
 
