@@ -230,13 +230,12 @@ public class Main {
                 System.out.println("Menu Administrador");
                 System.out.println("1-Consultar actividades");
                 System.out.println("2-Agregar actividad");
-                //ELIMINAR ACTIVIDAD 1
-                System.out.println("3-Consultar clientes");
-                //DAR DE BAJA(PLAN) CLIENTE 2
-                System.out.println("4-Ganancia total");
-                //GANANCIA TOTAL 3
-                //CONSULTAR ISNTRUCTORES -- AGREGAR 4
 
+                System.out.println("3-Eliminar actividad");
+                System.out.println("4-Ganancia total");
+
+                System.out.println("5-Consultar clientes");
+                System.out.println("6-Consultar instructores");
                 System.out.println("0-Regresar");
                 System.out.println("Elija una opcion: ");
                 number = scann.nextInt();
@@ -251,10 +250,16 @@ public class Main {
                         gym.getShifts_map().consultActivities();
                         break;
                     case 3:
-                        gym.consultClients();
+
                         break;
                     case 4:
 
+                        break;
+                    case 5:
+                        gym.consultClients();
+                        break;
+                    case 6:
+                        gym.consultInstructors();
                         break;
                     case 0:
                         loggin(gym, salt, persistedSunday);

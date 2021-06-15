@@ -224,5 +224,11 @@ public final class Gym {
         }
     }
 
+    public void consultInstructors()
+    {
+        instructor_list.consultList();
+
+    }
+
 }
 
