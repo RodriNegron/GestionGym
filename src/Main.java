@@ -219,7 +219,7 @@ public class Main {
                 System.out.println("1-Consultar actividades");
                 System.out.println("2-Agregar actividad");
                 System.out.println("3-Consultar clientes");
-                System.out.println("0 - Regresar");
+                System.out.println("0-Regresar");
                 System.out.println("Elija una opcion: ");
                 number = scann.nextInt();
 

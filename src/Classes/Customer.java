@@ -66,9 +66,11 @@ public class Customer extends Person {
 
         if ((planStartDate != null ) && ( planFinalDate != null))
         {
+            builder.append("[ Inicio: ");
             builder.append(planStartDate);
-            builder.append("\n");
+            builder.append(" - Fin: ");
             builder.append(planFinalDate);
+            builder.append(" ]");
         }
 
         return builder.toString();
@@ -93,11 +95,9 @@ public class Customer extends Person {
     @Override
     public String toString() {
         return super.toString() + "\n" +
-                "Class.Customer{" +
-                "training_Plan=" + training_Plan +
-                "stard && final date plan=" + consultDatesTrainingPlan() +
-                ", shifts=" + consultShiftList() +
-                ", wallet=" + consultWalletStatus()  +
-                '}';
+                "Plan de entrnamiento= " + training_Plan +
+                ", inicio y finalizacion de plan " + consultDatesTrainingPlan() +
+                ", turnos reservados=" + getShifts().listAllSfhits() +
+                ", " + consultWalletStatus();
     }
 }

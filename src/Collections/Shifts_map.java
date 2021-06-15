@@ -209,7 +209,7 @@ public class Shifts_map {
                     List<Activity> aux = activities.getActivity_list();
 
                     for (int i = 0; i < aux.size(); i++) {
-                        System.out.println(aux.get(i).getName() + "\n");
+                        System.out.println(aux.get(i).getName());
                     }
                 }
         );

@@ -70,11 +70,10 @@ public class Shift {
 
     @Override
     public String toString() {
-        return "Shift{" +
-                "shift_date='" + shift_date + '\'' +
-                ", shift_hour='" + shift_hour + '\'' +
-                ", Activity=" + activity +
-                '}';
+        return  "Fecha='" + shift_date + '\'' +
+                ", horario='" + shift_hour + '\'' +
+                ", actividad=" + activity +
+                ' ';
     }
 
 }

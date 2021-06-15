@@ -28,8 +28,6 @@ public class Instructor_list implements Controller {
         }
         if (!createdInstructor) {
             instructors_list.add((Instructor) name);
-        } else {
-            System.out.println("This instructor already exists");
         }
     }
 

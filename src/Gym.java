@@ -146,11 +146,11 @@ public final class Gym {
         Scanner scanner = new Scanner(System.in);
         String adm, pw;
         Admin admin = null;
-        System.out.println("User Admin");
+        System.out.println("Ingresar usuario");
         adm = scanner.nextLine();
 
         scanner.reset();
-        System.out.println("Password Admin");
+        System.out.println("Contraseña administrador");
         pw = scanner.nextLine();
 
         if (administrator.getEmail().equals(adm)){
@@ -178,8 +178,8 @@ public final class Gym {
         Instructor instructor4 = new Instructor("Juan", "23961588", "Juarez", "juan@asd.com");
         Instructor instructor5 = new Instructor("Franco", "33258968", "Boni", "franco@asd.com");
         Instructor instructor6 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
-        Instructor instructor7 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
-        Instructor instructor8 = new Instructor("Gonzalo", "37432329", "Yuyo", "gonzalo@asd.com");
+        Instructor instructor7 = new Instructor("Carlos", "3244629", "Gomez", "carlitos@asd.com");
+        Instructor instructor8 = new Instructor("Jorge", "27436919", "Rodriguez", "jorgito@asd.com");
 
         instructor_list.add(instructor1);
         instructor_list.add(instructor2);

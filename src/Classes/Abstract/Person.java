@@ -119,14 +119,12 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return "Persona{" +
+        return "Persona: " +
                 "id=" + this.id +
+                ", nombre='" + this.firstName + '\'' +
                 ", D.N.I='" + this.dni + '\'' +
-                ", Nombre='" + this.firstName + '\'' +
-                ", Apellido='" + this.lastName + '\'' +
-                ", Email='" + this.email + '\'' +
-                ", contraseña='" + this.password + '\'' +
-                '}';
+                ", apellido='" + this.lastName + '\'' +
+                ", email='" + this.email + '\'';
     }
 }
 

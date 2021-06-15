@@ -40,8 +40,8 @@ public abstract class Training_plan {
 
     @Override
     public String toString() {
-        return  id + " " + "Training_plan->" +
-                "name='" + getTp() + '\'' +
-                ", price=" + price ;
+        return  id + " " + "Plan de entrnamiento->" +
+                "nombre='" + getTp() + '\'' +
+                ", precio=" + price ;
     }
 }

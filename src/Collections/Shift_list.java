@@ -47,6 +47,7 @@ public class Shift_list implements Controller {
         }
     }
 
+
     public String listAllSfhits() {
         StringBuilder builder = new StringBuilder();
         for (Shift c : shift_list) {

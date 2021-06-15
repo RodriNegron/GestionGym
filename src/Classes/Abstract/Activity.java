@@ -60,7 +60,7 @@ public class Activity{
         availableShifts.forEach(
                 ( hour , slot)->
                 {
-                    builder.append("[hour: " + hour + " ");
+                    builder.append("[Hora: " + hour + " ");
                     builder.append("slot: " + slot + " ]");
                 }
         );
@@ -98,8 +98,8 @@ public class Activity{
     public String toString() {
         return "Actividad{" +
                 " Nombre='" + name + '\'' +
-                ", Turnos disponibles=" + consultShifts() +
-                ", Instructores asignados=" + consultInstructorList() +
+                ", turnos disponibles=" + consultShifts() +
+                ", instructores asignados=" + consultInstructorList() +
                 '}';
     }
 }
