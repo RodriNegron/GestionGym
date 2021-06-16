@@ -8,11 +8,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
     public static void main(String[] args) {
@@ -294,13 +294,23 @@ public class Main {
         String hour = " ";
         String activity;
         String day;
-
+        AtomicBoolean found = new AtomicBoolean(false);
         System.out.println("En que actividad desea anotarse?");
         gym.getShifts_map().consultActivities();
         activity = scann.nextLine();
 
         if ((activity.compareTo("Crossfit") == 0 )|| (activity.compareTo("Aerobic") == 0) || (activity.compareTo("Funcional") == 0) || (activity.compareTo("Fitness") == 0)) {
-            if (gym.getShifts_map().getDays().containsValue(activity)) {
+            gym.getShifts_map().getDays().forEach(
+                    (k, v)->{
+                        for (int i = 0; i < v.getActivity_list().size(); i++) {
+                            if (v.getActivity_list().get(i).getName().equals(activity))
+                            {
+                                found.set(true);
+                            }
+                        }
+                    }
+            );
+            if (found.get()) {
                 String[] hours = new String[6];
 
                 hours[0] = "08-9:30";
