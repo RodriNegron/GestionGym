@@ -7,8 +7,8 @@ public class Instructor extends Person {
     public Instructor() {
     }
 
-    public Instructor(String firstName, String dni, String lastName, String email) {
-        super(firstName, dni, lastName, email);
+    public Instructor(String dni,String firstName,  String lastName, String email) {
+        super(dni, firstName, lastName, email);
     }
 
 }
