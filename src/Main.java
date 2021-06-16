@@ -8,7 +8,9 @@ import Utils.Password;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import Classes.Admin;
@@ -137,6 +139,7 @@ public class Main {
                     gym.addToCustomerList(cust);
                     break;
                 case 4:
+                    System.out.println("Gracias por utilizar el sistema, Vuelva prontos.");
                     break;
             }
 
@@ -152,6 +155,7 @@ public class Main {
 
         if (client != null) {
             do {
+                System.out.println("-------------------");
                 System.out.println("Bienvenido " + client.getFirstName() + "," + gym.expired(client));
                 System.out.println("1-Inscribirse");
                 System.out.println("2-Reservar turno");
@@ -161,6 +165,7 @@ public class Main {
                 System.out.println("6-Consultar estado de cuenta");
                 System.out.println("7-Consultar turnos disponibles");
                 System.out.println("8-Regresar");
+                System.out.println("-------------------");
 
                 option = optionEntry(8);
                 switch (option) {
@@ -222,6 +227,7 @@ public class Main {
 
         if (admin != null) {
             do {
+                System.out.println("-------------------");
                 System.out.println("Menu Administrador");
                 System.out.println("1-Consultar actividades");
                 System.out.println("2-Agregar actividad");
@@ -232,6 +238,8 @@ public class Main {
                 System.out.println("7-Consultar instructores");
                 System.out.println("8-Regresar");
                 System.out.println("Elija una opcion: ");
+                System.out.println("-------------------");
+
                 option = optionEntry(8);
                 switch (option) {
                     case 1:
@@ -282,7 +290,7 @@ public class Main {
 
     public static void scannReserveShift(Gym gym, Scanner scann, Customer client, Sunday persistedSundays) {
         int time;
-        String hour;
+        String hour = " ";
         String activity;
         String day;
 
@@ -290,31 +298,65 @@ public class Main {
         gym.getShifts_map().consultActivities();
         activity = scann.nextLine();
 
+        String[] hours = new String[6];
+        hours[0] = "08-9:30";
+        hours[1] = "10-11:30";
+        hours[2] = "12-13:30";
+        hours[3] = "14-15:30";
+        hours[4] = "16-17:30";
+        hours[5] = "18-19:30";
+
+
         day = gym.chooseDay(persistedSundays);
 
-        //if day == dayoftoday)
+        String dateAux = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
 
+        String[] newHours = new String[6];
+        if(day.equals(dateAux)){
+            int aux = LocalDateTime.now().getHour();
+            for (int i = 0, j = 0; i < hours.length; i++) {
+                int hooooour = Integer.valueOf(hours[i].substring(0,2));
+                 if(hooooour >= aux) {
+                    newHours[j] = hours[i];
+                    j++;
+                }
+            }
+            System.out.println("Dentro de que rango horario?");
+            for (int j = 0 ; j < newHours.length && newHours[j] != null; j++) {
+                    System.out.println(  j + " " + newHours[j]);
+            }
+            if (newHours[5] != null){
+                time = scann.nextInt();
+                scann.nextLine();
 
+                hour = newHours[time];
+            }
+            else if (newHours[5] == null) System.out.println("No hay turnos disponibles para el dia de la fecha");
 
-        System.out.println("Dentro de que rango horario?");
-        System.out.println("1 - 8-9:30");
-        System.out.println("2 - 10-11:30");
-        System.out.println("3 - 12-13:30");
-        System.out.println("4 - 14-15:30");
-        System.out.println("5 - 16-17:30");
-        System.out.println("6 - 18-19:30");
-        time = scann.nextInt();
-        scann.nextLine();
+            gym.reserveShift(client, day, activity, hour);
 
-        if (time == 1) hour = "8-9:30";
-        else if (time == 2) hour = "10-11:30";
-        else if (time == 3) hour = "12-13:30";
-        else if (time == 4) hour = "14-15:30";
-        else if (time == 5) hour = "16-17:30";
-        else hour = "18-19:30";
+        }else {
 
+            System.out.println("Dentro de que rango horario?");
+            System.out.println("1 - " + hours[0]);
+            System.out.println("2 - " + hours[1]);
+            System.out.println("3 - " + hours[2]);
+            System.out.println("4 - " + hours[3]);
+            System.out.println("5 - " + hours[4]);
+            System.out.println("6 - " + hours[5]);
+            time = scann.nextInt();
+            scann.nextLine();
 
-        gym.reserveShift(client, day, activity, hour);
+            if (time == 1) hour = hours[0];
+            else if (time == 2) hour = hours[1];
+            else if (time == 3) hour = hours[2];
+            else if (time == 4) hour = hours[3];
+            else if (time == 5) hour = hours[4];
+            else hour = hours[5];
+            gym.reserveShift(client, day, activity, hour);
+
+        }
+
     }
 
 }
