@@ -312,7 +312,7 @@ public class Main {
             );
             if (found.get()) {
                 String[] hours = new String[6];
-
+                int auxi = 0;
                 hours[0] = "08-9:30";
                 hours[1] = "10-11:30";
                 hours[2] = "12-13:30";
@@ -327,18 +327,23 @@ public class Main {
                 String[] newHours = new String[6];
                 if (day.equals(dateAux)) {
                     int aux = LocalDateTime.now().getHour();
+
                     for (int i = 0, j = 0; i < hours.length; i++) {
                         int hooooour = Integer.valueOf(hours[i].substring(0, 2));
+
                         if (hooooour >= aux) {
                             newHours[j] = hours[i];
                             j++;
+                            auxi++;
                         }
                     }
                     System.out.println("Dentro de que rango horario?");
                     for (int j = 0; j < newHours.length && newHours[j] != null; j++) {
                         System.out.println(j + " " + newHours[j]);
                     }
-                    if (newHours[5] != null) {
+
+                    if (newHours[0] == null) System.out.println("No hay turnos disponibles para el dia de la fecha");
+                    else if (newHours[auxi-1] != null) {
                         try {
                             time = scann.nextInt();
                             scann.nextLine();
@@ -351,8 +356,7 @@ public class Main {
                             System.out.println("Dato ingresado no valido");
                             scann.nextLine();
                         }
-                    } else if (newHours[5] == null)
-                        System.out.println("No hay turnos disponibles para el dia de la fecha");
+                    }
 
                     gym.reserveShift(client, day, activity, hour);
 

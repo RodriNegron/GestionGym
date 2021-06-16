@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static java.lang.Integer.parseInt;
+
 public class Shifts_map {
 
     private final Scanner scann = new Scanner(System.in);
@@ -59,24 +61,25 @@ public class Shifts_map {
 
 
     public String chooseDay(Sunday persistedSunday) {
+        scann.reset();
         AtomicInteger i = new AtomicInteger();
         i.set(0);
         String[] dates = new String[7];
         dates[0] = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
-
+        int aux = 0;
 
         int day = Integer.valueOf(dates[0].substring(5, 7));
         int nextSund = Integer.valueOf(persistedSunday.getNextSunday().substring(0, 2));
 
         int daysToShow = nextSund - day;
 
-        for (int j = 1; j < daysToShow; j++) {
+        for (int j = 1; j < daysToShow && aux == 0; j++) {
             dates[j] = LocalDate.now().plusDays(j).format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
         }
 
         String[] toShow = new String[7];
 
-        for (int j = 0; j < dates.length && dates[j] != null; j++) {
+        for (int j = 0; j < dates.length && dates[j] != null && aux == 0; j++) {
             int finalJ = j;
             this.days.forEach(
                     (k, v) ->
@@ -88,17 +91,24 @@ public class Shifts_map {
                         }
                     });
         }
-        do {
-            System.out.println("En que dia de la corriente semana desea anotarse?");
-            try{
-                day = scann.nextInt();
-                scann.nextLine();
-            }catch (InputMismatchException e){
-                System.out.println("erroooor");
-            }catch (IndexOutOfBoundsException e){
-                System.out.println(e.getMessage());
+
+        aux++;
+
+        try {
+            do {
+
+                System.out.println("En que dia de la corriente semana desea anotarse?");
+                day = Integer.valueOf(scann.nextLine());
             }
-        }while (toShow[day]!=null);
+            while (day >= i.get());
+        }
+        catch (NumberFormatException e){
+            System.out.println("datos erroneos");
+            String returnAux = chooseDay(persistedSunday);
+            if (day!= 0) return returnAux;
+
+        }
+        scann.reset();
         return toShow[day];
     }
 
