@@ -4,13 +4,17 @@ import Classes.Funcional;
 import Collections.Activity_list;
 import Collections.Customer_list;
 import Utils.Password;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.*;
+
 import Classes.Admin;
-import java.util.Scanner;
 
 public class Main {
+    private static int aux = 1;
     public static void main(String[] args) {
 
         Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
@@ -27,7 +31,7 @@ public class Main {
         String salt = Password.getSalt(30);
 
 
-        if (LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) {
+        if ((LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) && aux == 1) {
 
             gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
 
@@ -40,9 +44,8 @@ public class Main {
             loggin(gym, salt);
             toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
             toFiles.writeFile(gym.getCustomers_list(), Customer_file);
-
+            aux++;
         } else {
-
 
             persistedList = toFiles.readFile(Customer_file);
             persistedMap = toFiles.readMapFile(Shift_file);
@@ -53,8 +56,12 @@ public class Main {
             loggin(gym, salt);
             toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
             toFiles.writeFile(gym.getCustomers_list(), Customer_file);
-        }
+            Calendar g = Calendar.getInstance();
 
+            if ((LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SATURDAY) == 0)&& (g.getTime().toString().compareTo(timer().toString())==1)){
+                aux--;
+            }
+        }
     }
 
     public static void loggin(Gym gym, String salt) {
@@ -65,7 +72,6 @@ public class Main {
 
         int number;
         char var = 's';
-        String string;
 
         System.out.println("\nBienvenido a |" + gym.getName() + " Gym|:");
         do {
@@ -132,43 +138,18 @@ public class Main {
                         } else System.out.println("Ya te encuentras inscripto al sistema!");
                         break;
                     case 2:
-                        int num = 0;
-                        int time;
-                        String hour;
-                        String activity;
-                        String day;
 
                         if (client.getTraining_Plan() != 0) {
-                            day = gym.chooseDay();
 
-                            System.out.println("En que actividad desea anotarse?");
-                            System.out.println("1- Funcional");
-                            System.out.println("2- Aerobic");
-                            System.out.println("3- Crossfit");
+                            if (client.getTraining_Plan() == 2){
+                                scannReserveShift(gym, scann, client);
+                            }
+                            if ((client.getTraining_Plan() == 1) && (client.getShifts().getShift_list().size() < 3))
+                               scannReserveShift(gym, scann, client);
+                           else{
+                                System.out.println("Ya tiene 3 turnos reservados. ");
+                            }
 
-                            num = scann.nextInt();
-
-                            if (num == 1) activity = "Funcional";
-                            else if (num == 2) activity = "Aerobic";
-                            else activity = "Crossfit";
-
-                            System.out.println("Dentro de que rango horario?");
-                            System.out.println("1 - 8-9:30");
-                            System.out.println("2 - 10-11:30");
-                            System.out.println("3 - 12-13:30");
-                            System.out.println("4 - 14-15:30");
-                            System.out.println("5 - 16-17:30");
-                            System.out.println("6 - 18-19:30");
-                            time = scann.nextInt();
-
-                            if (time == 1) hour = "8-9:30";
-                            else if (time == 2) hour = "10-11:30";
-                            else if (time == 3) hour = "12-13:30";
-                            else if (time == 4) hour = "14-15:30";
-                            else if (time == 5) hour = "16-17:30";
-                            else hour = "18-19:30";
-
-                            gym.reserveShift(client, day, activity, hour);
                         } else
                             System.out.println("Usted no se encuentra en ningun plan de entrenamiento por el momento");
 
@@ -245,6 +226,63 @@ public class Main {
                 var = scann.nextLine().charAt(0);
             } while (var == 's');
         } else System.out.println("Credenciales invalidas");
+    }
+
+    public static void scannReserveShift (Gym gym, Scanner scann, Customer client){
+        int num = 0;
+        int time;
+        String hour;
+        String activity;
+        String day;
+        day = gym.chooseDay();
+
+        System.out.println("En que actividad desea anotarse?");
+        System.out.println("1- Funcional");
+        System.out.println("2- Aerobic");
+        System.out.println("3- Crossfit");
+
+        num = scann.nextInt();
+
+        if (num == 1) activity = "Funcional";
+        else if (num == 2) activity = "Aerobic";
+        else activity = "Crossfit";
+
+        System.out.println("Dentro de que rango horario?");
+        System.out.println("1 - 8-9:30");
+        System.out.println("2 - 10-11:30");
+        System.out.println("3 - 12-13:30");
+        System.out.println("4 - 14-15:30");
+        System.out.println("5 - 16-17:30");
+        System.out.println("6 - 18-19:30");
+        time = scann.nextInt();
+
+        if (time == 1) hour = "8-9:30";
+        else if (time == 2) hour = "10-11:30";
+        else if (time == 3) hour = "12-13:30";
+        else if (time == 4) hour = "14-15:30";
+        else if (time == 5) hour = "16-17:30";
+        else hour = "18-19:30";
+
+        gym.reserveShift(client, day, activity, hour);
+    }
+
+
+    public static Date timer () {
+
+
+        Date horaDespertar = new Date(System.currentTimeMillis());
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(horaDespertar);
+
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+
+        //DateFormat df = new SimpleDateFormat("hh/mm");
+        //String timeOff = df.format(c.getTime());
+
+        return c.getTime();
     }
 
 }

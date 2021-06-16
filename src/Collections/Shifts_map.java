@@ -5,13 +5,11 @@ import Classes.Crossfit;
 import Classes.Customer;
 import Classes.Funcional;
 import Classes.Shift;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Shifts_map {
@@ -20,7 +18,7 @@ public class Shifts_map {
 
     Map<String, Activity_list> days;
 
-    //region constructor, setter & getter
+    //region Constructor, setter & getter
     public Shifts_map() {
         days = new HashMap<String, Activity_list>();
     }
@@ -56,7 +54,7 @@ public class Shifts_map {
         else if (aux.get(Calendar.DAY_OF_WEEK) == 6) dia = 5;
         else if (aux.get(Calendar.DAY_OF_WEEK) == 7) dia = 6;
         else if (aux.get(Calendar.DAY_OF_WEEK) == 1)
-            dia = 1; //en caso de que sea domingo, muestra toda la semana siguiente
+            dia = 1;    //in case of sunday, list all next week
 
         int dayToAdd = 7 - dia;
 
@@ -64,27 +62,9 @@ public class Shifts_map {
         for (int i = 0; i < dayToAdd; i++) {
             c.add(Calendar.DATE, 1);  //amount is an incremental to move between the dates to add on the map
 
-            Activity_list aux1 = new Activity_list();
-
-            Activity crossfit = new Crossfit("Crossfit");
-            Activity funcional = new Funcional("Funcional");
-            Activity aerobic = new Crossfit("Aerobic");
-
-            crossfit.getInstructors().add(instructors.getInstructors().get(0));
-            crossfit.getInstructors().add(instructors.getInstructors().get(1));
-            funcional.getInstructors().add(instructors.getInstructors().get(2));
-            funcional.getInstructors().add(instructors.getInstructors().get(3));
-            aerobic.getInstructors().add(instructors.getInstructors().get(4));
-            aerobic.getInstructors().add(instructors.getInstructors().get(5));
-
-
-            aux1.add(crossfit);
-            aux1.add(funcional);
-            aux1.add(aerobic);
-
-
             String dayToPut = df.format(c.getTimeInMillis());
-            days.put(dayToPut, aux1); //rest of the days in week to add
+
+            days.put(dayToPut, addInstructorsToActivityList(instructors)); //rest of the days in week to add
 
         }
 
@@ -131,12 +111,10 @@ public class Shifts_map {
                             Shift shift = new Shift(day, hour, activity);
                             if (mapHour.equals(hour) && (slot != 0)) {
 
-                                if ((cust.getTraining_Plan() == 1) && (cust.getShifts().shift_list.size() < 3)) {
                                     cust.getShifts().add(shift);
 
                                     Integer inti = slot - 1;
                                     al.get(i).getAvailableShifts().put(hour, inti);
-
 
                                     System.out.println("Sucess");
                                     System.out.println(shift);
@@ -145,30 +123,10 @@ public class Shifts_map {
                                     acts.setActivity_list(al);
 
                                     days.put(today, acts);
-
-                                } else if (cust.getTraining_Plan() == 2) {
-                                    cust.getShifts().add(shift);
-
-                                    Integer inti = slot - 1;
-
-                                    al.get(i).getAvailableShifts().put(hour, inti);
-
-
-                                    System.out.println("Sucess");
-                                    System.out.println(shift);
-
-
-                                    Activity_list acts = new Activity_list();
-                                    acts.setActivity_list(al);
-
-                                    days.put(today, acts);
-
-                                } else System.out.println("Wrong case");
                             }
                         }
                     }
                 }
-
             }
         }
     }
@@ -192,8 +150,8 @@ public class Shifts_map {
                         aux.get(i).getAvailableShifts().forEach(
                                 (hour, slot) ->
                                 {
-                                    System.out.println("hour:" + hour);
-                                    System.out.println("slot:" + slot);
+                                    System.out.println("Hora:" + hour);
+                                    System.out.println("Slot:" + slot);
                                 }
                         );
                     }
@@ -223,5 +181,28 @@ public class Shifts_map {
                     act.add(activity);
                 }
         );
+    }
+
+    public Activity_list addInstructorsToActivityList (Instructor_list instructors){
+
+        Activity_list aux1 = new Activity_list();
+
+        Activity crossfit = new Crossfit("Crossfit");
+        Activity funcional = new Funcional("Funcional");
+        Activity aerobic = new Crossfit("Aerobic");
+
+        crossfit.getInstructors().add(instructors.getInstructors().get(0));
+        crossfit.getInstructors().add(instructors.getInstructors().get(1));
+        funcional.getInstructors().add(instructors.getInstructors().get(2));
+        funcional.getInstructors().add(instructors.getInstructors().get(3));
+        aerobic.getInstructors().add(instructors.getInstructors().get(4));
+        aerobic.getInstructors().add(instructors.getInstructors().get(5));
+
+        aux1.add(crossfit);
+        aux1.add(funcional);
+        aux1.add(aerobic);
+
+        return aux1;
+
     }
 }

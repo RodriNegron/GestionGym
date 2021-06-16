@@ -17,6 +17,9 @@ public final class Gym {
     private TrainingPlan_list training_plan_list;
     private Instructor_list instructor_list;
 
+
+    //region Constructors, getters & setters
+
     public Gym() {
         this.shifts_map = new Shifts_map();
         this.customers_list = new Customer_list();
@@ -34,7 +37,6 @@ public final class Gym {
         this.instructor_list = new Instructor_list();
     }
 
-    //region setter & getters
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }

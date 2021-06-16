@@ -9,6 +9,8 @@ public class Activity_list implements Controller {
 
     private List<Activity> acts;
 
+    //region Constructors, setters & setters
+
     public Activity_list() { this.acts = new ArrayList<>(); }
 
     public List<Activity> getActivity_list() { return acts; }
@@ -16,6 +18,8 @@ public class Activity_list implements Controller {
     public void setActivity_list(List<Activity> activity_list) {
         this.acts = activity_list;
     }
+
+    //endregion
 
     @Override
     public void add(Object name) {

@@ -14,7 +14,7 @@ public class Customer extends Person {
     private Wallet wallet;
     private String salt;
 
-    //region constructor
+    //region Constructor, getters & setters
 
     public Customer(String dni, String firstName, String lastName, String email, String password, String salt) {
         super(dni,firstName, lastName, email, password);
@@ -22,9 +22,7 @@ public class Customer extends Person {
         this.wallet =  new Wallet(this.getId());
         this.salt = salt;
     }
-    //endregion
 
-    //region gett&&sett
     public int getTraining_Plan() {
         return training_Plan;
     }
@@ -74,11 +72,6 @@ public class Customer extends Person {
         }
 
         return builder.toString();
-    }
-
-    public String consultShiftList()
-    {
-        return shifts.listAllSfhits();
     }
 
     public String consultWalletStatus()

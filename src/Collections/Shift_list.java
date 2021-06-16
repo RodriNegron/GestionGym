@@ -1,15 +1,15 @@
 package Collections;
 
-import Classes.Instructor;
 import Classes.Shift;
 import Interfaces.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Shift_list implements Controller {
 
     List<Shift> shift_list;
+
+   //region Constructor, getters & setters
 
     public Shift_list() {
         this.shift_list = new ArrayList<>();
@@ -22,6 +22,8 @@ public class Shift_list implements Controller {
     public void setShift_list(List<Shift> shift_list) {
         this.shift_list = shift_list;
     }
+
+    //endregion
 
     @Override
     public void add(Object name) {
@@ -65,11 +67,8 @@ public class Shift_list implements Controller {
     }
 
     @Override
-    public void delete(int id) {      // NO SE PUEDE USAR PORQUE LOS TURNOS NO TIENEN ID
+    public void delete(int id) {
 
     }
-
-
-
 
 }
