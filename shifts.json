@@ -1,0 +1,566 @@
+{
+  "mié. 16/06/2021": {
+    "acts": [
+      {
+        "idActivity": 6,
+        "name": "Crossfit",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 0,
+              "dni": "Esteban",
+              "firstName": "38932329",
+              "lastName": "Ortenzi",
+              "email": "esteban@asd.com"
+            },
+            {
+              "id": 1,
+              "dni": "Felipe",
+              "firstName": "37895114",
+              "lastName": "Sarten",
+              "email": "felipe@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 7,
+        "name": "Funcional",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 2,
+              "dni": "Marcos",
+              "firstName": "31587786",
+              "lastName": "Piero",
+              "email": "marcos@asd.com"
+            },
+            {
+              "id": 3,
+              "dni": "Juan",
+              "firstName": "23961588",
+              "lastName": "Juarez",
+              "email": "juan@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 8,
+        "name": "Aerobic",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 4,
+              "dni": "Franco",
+              "firstName": "33258968",
+              "lastName": "Boni",
+              "email": "franco@asd.com"
+            },
+            {
+              "id": 5,
+              "dni": "Gonzalo",
+              "firstName": "37432329",
+              "lastName": "Yuyo",
+              "email": "gonzalo@asd.com"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "lun. 14/06/2021": {
+    "acts": [
+      {
+        "idActivity": 0,
+        "name": "Crossfit",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 0,
+              "dni": "Esteban",
+              "firstName": "38932329",
+              "lastName": "Ortenzi",
+              "email": "esteban@asd.com"
+            },
+            {
+              "id": 1,
+              "dni": "Felipe",
+              "firstName": "37895114",
+              "lastName": "Sarten",
+              "email": "felipe@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 1,
+        "name": "Funcional",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 2,
+              "dni": "Marcos",
+              "firstName": "31587786",
+              "lastName": "Piero",
+              "email": "marcos@asd.com"
+            },
+            {
+              "id": 3,
+              "dni": "Juan",
+              "firstName": "23961588",
+              "lastName": "Juarez",
+              "email": "juan@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 2,
+        "name": "Aerobic",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 4,
+              "dni": "Franco",
+              "firstName": "33258968",
+              "lastName": "Boni",
+              "email": "franco@asd.com"
+            },
+            {
+              "id": 5,
+              "dni": "Gonzalo",
+              "firstName": "37432329",
+              "lastName": "Yuyo",
+              "email": "gonzalo@asd.com"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "vie. 18/06/2021": {
+    "acts": [
+      {
+        "idActivity": 12,
+        "name": "Crossfit",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 0,
+              "dni": "Esteban",
+              "firstName": "38932329",
+              "lastName": "Ortenzi",
+              "email": "esteban@asd.com"
+            },
+            {
+              "id": 1,
+              "dni": "Felipe",
+              "firstName": "37895114",
+              "lastName": "Sarten",
+              "email": "felipe@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 13,
+        "name": "Funcional",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 2,
+              "dni": "Marcos",
+              "firstName": "31587786",
+              "lastName": "Piero",
+              "email": "marcos@asd.com"
+            },
+            {
+              "id": 3,
+              "dni": "Juan",
+              "firstName": "23961588",
+              "lastName": "Juarez",
+              "email": "juan@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 14,
+        "name": "Aerobic",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 4,
+              "dni": "Franco",
+              "firstName": "33258968",
+              "lastName": "Boni",
+              "email": "franco@asd.com"
+            },
+            {
+              "id": 5,
+              "dni": "Gonzalo",
+              "firstName": "37432329",
+              "lastName": "Yuyo",
+              "email": "gonzalo@asd.com"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "jue. 17/06/2021": {
+    "acts": [
+      {
+        "idActivity": 9,
+        "name": "Crossfit",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 0,
+              "dni": "Esteban",
+              "firstName": "38932329",
+              "lastName": "Ortenzi",
+              "email": "esteban@asd.com"
+            },
+            {
+              "id": 1,
+              "dni": "Felipe",
+              "firstName": "37895114",
+              "lastName": "Sarten",
+              "email": "felipe@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 10,
+        "name": "Funcional",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 2,
+              "dni": "Marcos",
+              "firstName": "31587786",
+              "lastName": "Piero",
+              "email": "marcos@asd.com"
+            },
+            {
+              "id": 3,
+              "dni": "Juan",
+              "firstName": "23961588",
+              "lastName": "Juarez",
+              "email": "juan@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 11,
+        "name": "Aerobic",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 4,
+              "dni": "Franco",
+              "firstName": "33258968",
+              "lastName": "Boni",
+              "email": "franco@asd.com"
+            },
+            {
+              "id": 5,
+              "dni": "Gonzalo",
+              "firstName": "37432329",
+              "lastName": "Yuyo",
+              "email": "gonzalo@asd.com"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "mar. 15/06/2021": {
+    "acts": [
+      {
+        "idActivity": 3,
+        "name": "Crossfit",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 0,
+              "dni": "Esteban",
+              "firstName": "38932329",
+              "lastName": "Ortenzi",
+              "email": "esteban@asd.com"
+            },
+            {
+              "id": 1,
+              "dni": "Felipe",
+              "firstName": "37895114",
+              "lastName": "Sarten",
+              "email": "felipe@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 4,
+        "name": "Funcional",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 2,
+              "dni": "Marcos",
+              "firstName": "31587786",
+              "lastName": "Piero",
+              "email": "marcos@asd.com"
+            },
+            {
+              "id": 3,
+              "dni": "Juan",
+              "firstName": "23961588",
+              "lastName": "Juarez",
+              "email": "juan@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 5,
+        "name": "Aerobic",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 4,
+              "dni": "Franco",
+              "firstName": "33258968",
+              "lastName": "Boni",
+              "email": "franco@asd.com"
+            },
+            {
+              "id": 5,
+              "dni": "Gonzalo",
+              "firstName": "37432329",
+              "lastName": "Yuyo",
+              "email": "gonzalo@asd.com"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "sáb. 19/06/2021": {
+    "acts": [
+      {
+        "idActivity": 15,
+        "name": "Crossfit",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 0,
+              "dni": "Esteban",
+              "firstName": "38932329",
+              "lastName": "Ortenzi",
+              "email": "esteban@asd.com"
+            },
+            {
+              "id": 1,
+              "dni": "Felipe",
+              "firstName": "37895114",
+              "lastName": "Sarten",
+              "email": "felipe@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 16,
+        "name": "Funcional",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 2,
+              "dni": "Marcos",
+              "firstName": "31587786",
+              "lastName": "Piero",
+              "email": "marcos@asd.com"
+            },
+            {
+              "id": 3,
+              "dni": "Juan",
+              "firstName": "23961588",
+              "lastName": "Juarez",
+              "email": "juan@asd.com"
+            }
+          ]
+        }
+      },
+      {
+        "idActivity": 17,
+        "name": "Aerobic",
+        "availableShifts": {
+          "10-11:30": 10,
+          "18-19:30": 10,
+          "8-9:30": 10,
+          "16-17:30": 10,
+          "14-15:30": 10,
+          "12-13:30": 10
+        },
+        "instructors": {
+          "instructors_list": [
+            {
+              "id": 4,
+              "dni": "Franco",
+              "firstName": "33258968",
+              "lastName": "Boni",
+              "email": "franco@asd.com"
+            },
+            {
+              "id": 5,
+              "dni": "Gonzalo",
+              "firstName": "37432329",
+              "lastName": "Yuyo",
+              "email": "gonzalo@asd.com"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

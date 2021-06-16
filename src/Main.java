@@ -1,60 +1,83 @@
 import Classes.Abstract.Activity;
 import Classes.Customer;
 import Classes.Funcional;
+import Classes.Sunday;
 import Collections.Activity_list;
 import Collections.Customer_list;
+import Collections.Shifts_map;
 import Utils.Password;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import Classes.Admin;
+import sun.security.provider.Sun;
+
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
-        Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
-        //region files
-        String Customer_file = "customers.json";
-        String Shift_file = "shifts.json";
-        Customer_list persistedList;
-        HashMap<String, Activity_list> persistedMap;
-        //endregion
+            Gym gym = new Gym("Forza", "La 39-Mar del Plata", "3120492");
+            //region files
+            String Customer_file = "customers.json";
+            String Shift_file = "shifts.json";
+            String sunday = "sundays.json";
 
-        gym.hardcodeInstructor();
-        gym.hardcodeUsers();
-        gym.hardcodeTrainingPlans();
-        String salt = Password.getSalt(30);
+            Customer_list persistedList;
+            HashMap<String, Activity_list> persistedMap;
+            Sunday persistedSundays;
+
+            //endregion
+
+            gym.hardcodeInstructor();
+            gym.hardcodeUsers();
+            gym.hardcodeTrainingPlans();
+            String salt = Password.getSalt(30);
+
+            persistedSundays = toFiles.readSundayFile(sunday);
+
+            String day = LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u"));
+
+            if ((LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) && (persistedSundays.getAux() == 0)) {
+
+                persistedSundays.setAux(1);
+                persistedSundays.setSunday(LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u")));
+                persistedSundays.setNextSunday(LocalDate.now().plusDays(7).format(DateTimeFormatter.ofPattern("d/M/u")));
+
+                persistedList = toFiles.readFile(Customer_file);
+                gym.setCustomers_list(persistedList);
+
+                gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
+                gym.resetShiftsInClients();
+
+                loggin(gym, salt);
+
+                toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
+                toFiles.writeFile(gym.getCustomers_list(), Customer_file);
+                toFiles.writeFile(persistedSundays, sunday);
+
+            } else if(day.equals(persistedSundays.getNextSunday())){
+                System.out.println("Al ser domingo, al volver a ingresar se resetearan los turnos semanales");
+                persistedSundays.setAux(0);
+                toFiles.writeFile(persistedSundays, sunday);
+            }else
+            {
+
+                persistedList = toFiles.readFile(Customer_file);
+                persistedMap = toFiles.readMapFile(Shift_file);
+
+                gym.setCustomers_list(persistedList);
+
+                gym.getShifts_map().setDays(persistedMap);
 
 
-        if (LocalDate.now().getDayOfWeek().compareTo(DayOfWeek.SUNDAY) == 0) {
+                loggin(gym, salt);
 
-            gym.getShifts_map().hardcodeShifts(gym.getInstructor_list());
-
-            persistedList = toFiles.readFile(Customer_file);
-
-            gym.setCustomers_list(persistedList);
-
-            gym.resetShiftsInClients();
-
-            loggin(gym, salt);
-            toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
-            toFiles.writeFile(gym.getCustomers_list(), Customer_file);
-
-        } else {
-
-
-            persistedList = toFiles.readFile(Customer_file);
-            persistedMap = toFiles.readMapFile(Shift_file);
-
-            gym.getShifts_map().setDays(persistedMap);
-            gym.setCustomers_list(persistedList);
-
-            loggin(gym, salt);
-            toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
-            toFiles.writeFile(gym.getCustomers_list(), Customer_file);
+                toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
+                toFiles.writeFile(gym.getCustomers_list(), Customer_file);
         }
-
     }
 
     public static void loggin(Gym gym, String salt) {
@@ -218,7 +241,13 @@ public class Main {
                 System.out.println("Menu Administrador");
                 System.out.println("1-Consultar actividades");
                 System.out.println("2-Agregar actividad");
+                //ELIMINAR ACTIVIDAD
                 System.out.println("3-Consultar clientes");
+                //DAR DE BAJA(PLAN) CLIENTE
+                System.out.println("4-Ganancia total");
+                //GANANCIA TOTAL
+                //CONSULTAR ISNTRUCTORES -- AGREGAR
+
                 System.out.println("0-Regresar");
                 System.out.println("Elija una opcion: ");
                 number = scann.nextInt();
@@ -234,6 +263,9 @@ public class Main {
                         break;
                     case 3:
                         gym.consultClients();
+                        break;
+                    case 4:
+
                         break;
                     case 0:
                         loggin(gym, salt);

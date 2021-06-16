@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,6 +18,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Shifts_map {
 
     private final Scanner scann = new Scanner(System.in);
+
+    private static int aux = 1;
+    private static LocalDate Sunday;
+    private static LocalDate nextSunday;
 
     Map<String, Activity_list> days;
 
@@ -31,6 +36,14 @@ public class Shifts_map {
 
     public void setDays(Map<String, Activity_list> days) {
         this.days = days;
+    }
+
+    public static int getAux() {
+        return aux;
+    }
+
+    public static void setAux(int aux) {
+        Shifts_map.aux = aux;
     }
     //endregion
 
@@ -55,8 +68,7 @@ public class Shifts_map {
         else if (aux.get(Calendar.DAY_OF_WEEK) == 5) dia = 4;
         else if (aux.get(Calendar.DAY_OF_WEEK) == 6) dia = 5;
         else if (aux.get(Calendar.DAY_OF_WEEK) == 7) dia = 6;
-        else if (aux.get(Calendar.DAY_OF_WEEK) == 1)
-            dia = 1; //en caso de que sea domingo, muestra toda la semana siguiente
+        else if (aux.get(Calendar.DAY_OF_WEEK) == 1) dia = 1; //en caso de que sea domingo, muestra toda la semana siguiente
 
         int dayToAdd = 7 - dia;
 
@@ -95,14 +107,18 @@ public class Shifts_map {
         AtomicInteger i = new AtomicInteger();
         int day;
 
+
         String[] aux = new String[7];
+        //String today =LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
 
         this.days.forEach(
                 (k, v) ->
                 {
-                    System.out.println(i + " " + k);
-                    aux[i.get()] = k;
-                    i.getAndIncrement();
+                   // if(today.equals(k)) {
+                        System.out.println(i + " " + k);
+                        aux[i.get()] = k;
+                        i.getAndIncrement();
+                  //  }
                 });
 
         System.out.println("En que dia de la corriente semana desea anotarse?");

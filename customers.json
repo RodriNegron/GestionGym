@@ -1,0 +1,23 @@
+{
+  "customers_list": [
+    {
+      "training_Plan": 1,
+      "planStartDate": "20/6/2021",
+      "planFinalDate": "20/7/2021",
+      "shifts": {
+        "shift_list": []
+      },
+      "wallet": {
+        "id": 10,
+        "total_Amount": 1500.0
+      },
+      "salt": "tCPA5DWcjvXQNJXuQALr87QLo61pek",
+      "id": 10,
+      "dni": "asd",
+      "firstName": "asd",
+      "lastName": "asd",
+      "email": "asd",
+      "password": "dDaTZoFMsm3lY+qz/LU6F7VLMydu6WOwQ7R5NxfdjNM\u003d"
+    }
+  ]
+}

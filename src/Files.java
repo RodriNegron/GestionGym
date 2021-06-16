@@ -1,5 +1,7 @@
+import Classes.Sunday;
 import Collections.Activity_list;
 import Collections.Customer_list;
+import Collections.Shifts_map;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -45,10 +47,10 @@ class toFiles {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new BufferedReader(new FileReader(fileName)));
-            shifts = getGson().fromJson(reader, (new TypeToken<HashMap<String, Activity_list>>() {
+            shifts = getGson().fromJson(reader, (new TypeToken< HashMap<String, Activity_list>>() {
             }.getType()));
         } catch (IOException e) {
-            shifts = new HashMap<String, Activity_list>();
+            shifts = new  HashMap<String, Activity_list>();
         } finally {
             try {
                 if (reader != null) {
@@ -59,6 +61,27 @@ class toFiles {
             }
         }
         return shifts;
+    }
+
+    public static Sunday readSundayFile (String fileName) {
+        Sunday sunday = null;
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new BufferedReader(new FileReader(fileName)));
+            sunday = getGson().fromJson(reader, (new TypeToken<Sunday>() {
+            }.getType()));
+        } catch (IOException e) {
+            sunday = new Sunday();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sunday;
     }
 
     public static void writeFile(Object name, String fileName){
@@ -78,4 +101,5 @@ class toFiles {
             }
         }
     }
+
 }
