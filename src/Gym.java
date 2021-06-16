@@ -208,14 +208,14 @@ public final class Gym {
     }
 
     public void hardcodeInstructor() {
-        Instructor instructor1 = new Instructor( "38932329","Esteban","Ortenzi", "esteban@asd.com");
-        Instructor instructor2 = new Instructor( "37895114","Felipe", "Sarten", "felipe@asd.com");
-        Instructor instructor3 = new Instructor( "31587786","Marcos", "Piero", "marcos@asd.com");
-        Instructor instructor4 = new Instructor( "23961588","Juan", "Juarez", "juan@asd.com");
-        Instructor instructor5 = new Instructor( "33258968","Franco", "Boni", "franco@asd.com");
-        Instructor instructor6 = new Instructor( "37432329","Gonzalo", "Yuyo", "gonzalo@asd.com");
-        Instructor instructor7 = new Instructor( "3244629","Carlos", "Gomez", "carlitos@asd.com");
-        Instructor instructor8 = new Instructor( "27436919","Jorge", "Rodriguez", "jorgito@asd.com");
+        Instructor instructor1 = new Instructor("38932329", "Esteban", "Ortenzi", "esteban@asd.com");
+        Instructor instructor2 = new Instructor("37895114", "Felipe", "Sarten", "felipe@asd.com");
+        Instructor instructor3 = new Instructor("31587786", "Marcos", "Piero", "marcos@asd.com");
+        Instructor instructor4 = new Instructor("23961588", "Juan", "Juarez", "juan@asd.com");
+        Instructor instructor5 = new Instructor("33258968", "Franco", "Boni", "franco@asd.com");
+        Instructor instructor6 = new Instructor("37432329", "Gonzalo", "Yuyo", "gonzalo@asd.com");
+        Instructor instructor7 = new Instructor("3244629", "Carlos", "Gomez", "carlitos@asd.com");
+        Instructor instructor8 = new Instructor("27436919", "Jorge", "Rodriguez", "jorgito@asd.com");
 
         instructor_list.add(instructor1);
         instructor_list.add(instructor2);
@@ -268,22 +268,21 @@ public final class Gym {
 
     public void signUp(Customer cust, int trainingPlan, HashMap<String, Double> month) {
         Training_plan aux = (Training_plan) training_plan_list.findById(trainingPlan);
+        boolean register = training_plan_list.buyTrainingPlan(cust, trainingPlan);
+        if (register) {
+            month.forEach(
+                    (mon, val) ->
+                    {
+                        if (mon.equals(LocalDate.now().getMonth().toString())) {
+                            Double money = month.get(mon);
 
-        training_plan_list.buyTrainingPlan(cust, trainingPlan);
+                            money = money + aux.getPrice();
 
-        month.forEach(
-                (mon, val) ->
-                {
-                    if (mon.equals(LocalDate.now().getMonth().toString())) {
-                        Double money = month.get(mon);
-
-                        money = money + aux.getPrice();
-
-
-                        month.put(mon, money);
+                            month.put(mon, money);
+                        }
                     }
-                }
-        );
+            );
+        }
     }
 
     public double chekMonthlyGain() {

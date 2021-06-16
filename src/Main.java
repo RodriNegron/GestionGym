@@ -259,14 +259,24 @@ public class Main {
                         String nameToDelete;
                         gym.getShifts_map().consultActivities();
                         System.out.println("A continuacion elija el nombre de la actividad que desea eliminar");
-
+                        AtomicBoolean found = new AtomicBoolean(false);
                         nameToDelete = scann.nextLine();
-                        if (nameToDelete.compareTo("Crossfit") == 0 || nameToDelete.compareTo("Aerobic") == 0 || nameToDelete.compareTo("Funcional") == 0 || nameToDelete.compareTo("Fitness") == 0) {
-                            if (gym.getShifts_map().getDays().containsValue(nameToDelete)) {
+                        if ((nameToDelete.compareTo("Crossfit") == 0) || (nameToDelete.compareTo("Aerobic") == 0) || (nameToDelete.compareTo("Funcional") == 0) || (nameToDelete.compareTo("Fitness") == 0)) {
+                            gym.getShifts_map().getDays().forEach(
+                                    (k, v) -> {
+                                        for (int i = 0; i < v.getActivity_list().size(); i++) {
+                                            if (v.getActivity_list().get(i).getName().equals(nameToDelete)) {
+                                                found.set(true);
+                                            }
+                                        }
+                                    }
+                            );
+                            if (found.get()) {
                                 Activity_list aux = gym.foundActivity(nameToDelete);
                                 gym.deleteActivity(aux, gym.getCustomers_list());
                             }
                         }
+
                         break;
                     case 4:
                         Double gainByMonth = gym.chekMonthlyGain();
@@ -299,12 +309,11 @@ public class Main {
         gym.getShifts_map().consultActivities();
         activity = scann.nextLine();
 
-        if ((activity.compareTo("Crossfit") == 0 )|| (activity.compareTo("Aerobic") == 0) || (activity.compareTo("Funcional") == 0) || (activity.compareTo("Fitness") == 0)) {
+        if ((activity.compareTo("Crossfit") == 0) || (activity.compareTo("Aerobic") == 0) || (activity.compareTo("Funcional") == 0) || (activity.compareTo("Fitness") == 0)) {
             gym.getShifts_map().getDays().forEach(
-                    (k, v)->{
+                    (k, v) -> {
                         for (int i = 0; i < v.getActivity_list().size(); i++) {
-                            if (v.getActivity_list().get(i).getName().equals(activity))
-                            {
+                            if (v.getActivity_list().get(i).getName().equals(activity)) {
                                 found.set(true);
                             }
                         }
@@ -329,7 +338,7 @@ public class Main {
                     int aux = LocalDateTime.now().getHour();
 
                     for (int i = 0, j = 0; i < hours.length; i++) {
-                        if(hours[i] == "8-9:30") hours[i] = "08-9:30";
+                        if (hours[i] == "8-9:30") hours[i] = "08-9:30";
 
                         int hooooour = Integer.valueOf(hours[i].substring(0, 2));
                         if (hooooour >= aux) {
@@ -344,7 +353,7 @@ public class Main {
                     }
 
                     if (newHours[0] == null) System.out.println("No hay turnos disponibles para el dia de la fecha");
-                    else if (newHours[auxi-1] != null) {
+                    else if (newHours[auxi - 1] != null) {
                         try {
                             time = scann.nextInt();
                             scann.nextLine();

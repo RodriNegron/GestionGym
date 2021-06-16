@@ -65,8 +65,9 @@ public class TrainingPlan_list implements Controller {
         return tp;
     }
 
-    public void buyTrainingPlan(Customer customer, int trainingPlan)
+    public boolean buyTrainingPlan(Customer customer, int trainingPlan)
     {
+        boolean register = false;
         Training_plan tp = (Training_plan) findById(trainingPlan);
 
         if (tp != null) {
@@ -75,13 +76,14 @@ public class TrainingPlan_list implements Controller {
                     customer.setTraining_Plan(tp.getId());
                     customer.setDatesTrainingPlan();
                     customer.getWallet().debit(tp.getPrice());
+                    register=true;
 
                     System.out.println("Registro completado");
                 } else System.out.println("Saldo insuficiente");
             } else System.out.println("Ya se encuentra inscripto a un plan");
         }
         else System.out.println("Opcion invalida!");
-
+        return register;
     }
 
 

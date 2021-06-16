@@ -1,14 +1,14 @@
 {
-  "JANUARY": 0.0,
+  "JANUARY": 5000.0,
   "JUNE": 0.0,
-  "MAY": 0.0,
+  "MAY": 20000.0,
   "OCTOBER": 0.0,
   "DECEMBER": 0.0,
-  "MARCH": 0.0,
-  "FEBRUARY": 0.0,
+  "MARCH": 25000.0,
+  "FEBRUARY": 11000.0,
   "AUGUST": 0.0,
   "JULY": 0.0,
   "SEPTEMBER": 0.0,
   "NOVEMBER": 0.0,
-  "APRIL": 0.0
+  "APRIL": 30000.0
 }
