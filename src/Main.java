@@ -1,17 +1,15 @@
+import Classes.*;
 import Classes.Abstract.Activity;
-import Classes.Customer;
-import Classes.Funcional;
-import Classes.Sunday;
 import Collections.Activity_list;
 import Collections.Customer_list;
 import Utils.Password;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.HashMap;
-
-import Classes.Admin;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -99,7 +97,7 @@ public class Main {
                 op = scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Datos incorrectos");
-                op=0;
+                op = 0;
                 break;
             }
         }
@@ -138,6 +136,7 @@ public class Main {
                     gym.addToCustomerList(cust);
                     break;
                 case 4:
+                    System.out.println("Gracias por utilizar el sistema, Vuelva prontos.");
                     break;
             }
 
@@ -153,6 +152,7 @@ public class Main {
 
         if (client != null) {
             do {
+                System.out.println("-------------------");
                 System.out.println("Bienvenido " + client.getFirstName() + "," + gym.expired(client));
                 System.out.println("1-Inscribirse");
                 System.out.println("2-Reservar turno");
@@ -162,6 +162,7 @@ public class Main {
                 System.out.println("6-Consultar estado de cuenta");
                 System.out.println("7-Consultar turnos disponibles");
                 System.out.println("8-Regresar");
+                System.out.println("-------------------");
 
                 option = optionEntry(8);
                 switch (option) {
@@ -170,7 +171,7 @@ public class Main {
                             gym.consultTrainingPlanList();
                             System.out.println("A que plan desea inscribirse?");
                             int op = optionEntry(2);
-                            if(op==0)break;
+                            if (op == 0) break;
                             gym.signUp(client, op, monthlyGain);
                             scann.nextLine();
                         } else System.out.println("Ya te encuentras inscripto al sistema!");
@@ -178,7 +179,6 @@ public class Main {
                     case 2:
 
                         if (client.getTraining_Plan() != 0) {
-
                             if (client.getTraining_Plan() == 2) {
                                 scannReserveShift(gym, scann, client, persistedSunday);
                             } else if ((client.getTraining_Plan() == 1) && (client.getShifts().getShift_list().size() < 3))
@@ -194,8 +194,14 @@ public class Main {
 
                     case 3:
                         System.out.println("Ingrese monto a depositar");
-                        int cash = scann.nextInt();
-                        client.getWallet().deposit(cash);
+                        int cash = 0;
+                        try {
+                            cash = scann.nextInt();
+                            client.getWallet().deposit(cash);
+                        } catch (InputMismatchException e) {
+                            System.out.println("Dato ingresado no valido");
+                            scann.nextLine();
+                        }
                         break;
                     case 4:
                         System.out.println(client.getWallet().getTotal_Amount());
@@ -225,6 +231,7 @@ public class Main {
 
         if (admin != null) {
             do {
+                System.out.println("-------------------");
                 System.out.println("Menu Administrador");
                 System.out.println("1-Consultar actividades");
                 System.out.println("2-Agregar actividad");
@@ -235,40 +242,39 @@ public class Main {
                 System.out.println("7-Consultar instructores");
                 System.out.println("8-Regresar");
                 System.out.println("Elija una opcion: ");
+                System.out.println("-------------------");
+
                 option = optionEntry(8);
                 switch (option) {
                     case 1:
                         gym.getShifts_map().consultActivities();
                         break;
                     case 2:
-
                         Activity fitness = new Funcional("Fitness");
                         gym.addActivityToList(fitness);
                         gym.getShifts_map().consultActivitiesByDays();
                         break;
                     case 3:
+                        scann.reset();
                         String nameToDelete;
                         gym.getShifts_map().consultActivities();
                         System.out.println("A continuacion elija el nombre de la actividad que desea eliminar");
+
                         nameToDelete = scann.nextLine();
-
-                        System.out.println(nameToDelete);
-
-                        Activity_list aux = gym.foundActivity(nameToDelete);
-
-                        for (int i = 0; i < aux.getActivity_list().size(); i++) {
-                            System.out.println(aux.getActivity_list().get(i).getIdActivity());
+                        if (nameToDelete.compareTo("Crossfit") == 0 || nameToDelete.compareTo("Aerobic") == 0 || nameToDelete.compareTo("Funcional") == 0 || nameToDelete.compareTo("Fitness") == 0) {
+                            if (gym.getShifts_map().getDays().containsValue(nameToDelete)) {
+                                Activity_list aux = gym.foundActivity(nameToDelete);
+                                gym.deleteActivity(aux, gym.getCustomers_list());
+                            }
                         }
-
-                        gym.deleteActivity(aux, gym.getCustomers_list());
                         break;
                     case 4:
                         Double gainByMonth = gym.chekMonthlyGain();
-                        System.out.println("Ganancia mensual hasta el momento: " +gainByMonth);
+                        System.out.println("Ganancia mensual hasta el momento: " + gainByMonth);
                         break;
                     case 5:
                         Double gainByYear = gym.checkGainsThisYear();
-                        System.out.println("Ganancia anual hasta el momento: " +gainByYear);
+                        System.out.println("Ganancia anual hasta el momento: " + gainByYear);
                         break;
                     case 6:
                         gym.consultClients();
@@ -285,7 +291,7 @@ public class Main {
 
     public static void scannReserveShift(Gym gym, Scanner scann, Customer client, Sunday persistedSundays) {
         int time;
-        String hour;
+        String hour = " ";
         String activity;
         String day;
 
@@ -293,31 +299,85 @@ public class Main {
         gym.getShifts_map().consultActivities();
         activity = scann.nextLine();
 
-        day = gym.chooseDay(persistedSundays);
+        if ((activity.compareTo("Crossfit") == 0 )|| (activity.compareTo("Aerobic") == 0) || (activity.compareTo("Funcional") == 0) || (activity.compareTo("Fitness") == 0)) {
+            if (gym.getShifts_map().getDays().containsValue(activity)) {
+                String[] hours = new String[6];
 
-        //if day == dayoftoday)
+                hours[0] = "08-9:30";
+                hours[1] = "10-11:30";
+                hours[2] = "12-13:30";
+                hours[3] = "14-15:30";
+                hours[4] = "16-17:30";
+                hours[5] = "18-19:30";
 
+                day = gym.chooseDay(persistedSundays);
 
+                String dateAux = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
 
-        System.out.println("Dentro de que rango horario?");
-        System.out.println("1 - 8-9:30");
-        System.out.println("2 - 10-11:30");
-        System.out.println("3 - 12-13:30");
-        System.out.println("4 - 14-15:30");
-        System.out.println("5 - 16-17:30");
-        System.out.println("6 - 18-19:30");
-        time = scann.nextInt();
-        scann.nextLine();
+                String[] newHours = new String[6];
+                if (day.equals(dateAux)) {
+                    int aux = LocalDateTime.now().getHour();
+                    for (int i = 0, j = 0; i < hours.length; i++) {
+                        int hooooour = Integer.valueOf(hours[i].substring(0, 2));
+                        if (hooooour >= aux) {
+                            newHours[j] = hours[i];
+                            j++;
+                        }
+                    }
+                    System.out.println("Dentro de que rango horario?");
+                    for (int j = 0; j < newHours.length && newHours[j] != null; j++) {
+                        System.out.println(j + " " + newHours[j]);
+                    }
+                    if (newHours[5] != null) {
+                        try {
+                            time = scann.nextInt();
+                            scann.nextLine();
 
-        if (time == 1) hour = "8-9:30";
-        else if (time == 2) hour = "10-11:30";
-        else if (time == 3) hour = "12-13:30";
-        else if (time == 4) hour = "14-15:30";
-        else if (time == 5) hour = "16-17:30";
-        else hour = "18-19:30";
+                            hour = newHours[time];
 
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println("Dato ingresado no valido");
+                        } catch (InputMismatchException e) {
+                            System.out.println("Dato ingresado no valido");
+                            scann.nextLine();
+                        }
+                    } else if (newHours[5] == null)
+                        System.out.println("No hay turnos disponibles para el dia de la fecha");
 
-        gym.reserveShift(client, day, activity, hour);
+                    gym.reserveShift(client, day, activity, hour);
+
+                } else {
+                    try {
+                        System.out.println("Dentro de que rango horario?");
+                        System.out.println("1 - " + hours[0]);
+                        System.out.println("2 - " + hours[1]);
+                        System.out.println("3 - " + hours[2]);
+                        System.out.println("4 - " + hours[3]);
+                        System.out.println("5 - " + hours[4]);
+                        System.out.println("6 - " + hours[5]);
+
+                        time = scann.nextInt();
+                        scann.nextLine();
+
+                        if (time == 1) hour = hours[0];
+                        if (time == 2) hour = hours[1];
+                        if (time == 3) hour = hours[2];
+                        if (time == 4) hour = hours[3];
+                        if (time == 5) hour = hours[4];
+                        if (time == 6) hour = hours[5];
+
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Dato ingresado no valido");
+                    } catch (InputMismatchException e) {
+                        System.out.println("Dato ingresado no valido");
+                        scann.nextLine();
+                    } finally {
+                        gym.reserveShift(client, day, activity, hour);
+                    }
+                }
+            }
+        }
+
     }
 
 }

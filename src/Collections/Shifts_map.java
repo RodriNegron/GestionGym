@@ -88,10 +88,17 @@ public class Shifts_map {
                         }
                     });
         }
-
-        System.out.println("En que dia de la corriente semana desea anotarse?");
-        day = scann.nextInt();
-        scann.nextLine();
+        do {
+            System.out.println("En que dia de la corriente semana desea anotarse?");
+            try{
+                day = scann.nextInt();
+                scann.nextLine();
+            }catch (InputMismatchException e){
+                System.out.println("erroooor");
+            }catch (IndexOutOfBoundsException e){
+                System.out.println(e.getMessage());
+            }
+        }while (toShow[day]!=null);
         return toShow[day];
     }
 

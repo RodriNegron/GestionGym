@@ -37,7 +37,7 @@ class toFiles {
                     reader.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error al cerrar el archivo" + e.getMessage());
             }
         }
         return customers;
@@ -58,7 +58,7 @@ class toFiles {
                     reader.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error al cerrar el archivo" + e.getMessage());
             }
         }
         return shifts;
@@ -79,7 +79,7 @@ class toFiles {
                     reader.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error al cerrar el archivo" + e.getMessage());
             }
         }
         return gains;
@@ -100,7 +100,7 @@ class toFiles {
                     reader.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error al cerrar el archivo" + e.getMessage());
             }
         }
         return sunday;
@@ -112,13 +112,13 @@ class toFiles {
             writer = new BufferedWriter(new FileWriter(fileName));
             getGson().toJson(name, name.getClass(), writer);
         } catch (IOException e){
-            e.printStackTrace();
+            System.out.println("Error al escribir el archivo" + e.getMessage());
         }finally {
             if(writer != null){
                 try{
                     writer.close();
                 }catch (IOException e){
-                    e.printStackTrace();
+                    System.out.println("Error al cerrar el archivo" + e.getMessage());
                 }
             }
         }
