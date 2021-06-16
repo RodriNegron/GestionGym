@@ -235,11 +235,11 @@ public final class Gym {
         if (cust.getPlanFinalDate() != null) {
             finalDate = cust.getPlanFinalDate();
 
-            if (!(finalDate.equals(date))) {
-                builder.append(" la fecha de caducidad de su plan es el: " + finalDate);
-            } else {
+            if (finalDate.compareTo(date) == -1) {
                 builder.append(" se le ha terminado su plan");
                 cust.setTraining_Plan(0);
+            } else if (!(finalDate.equals(date))) {
+                builder.append(" la fecha de caducidad de su plan es el: " + finalDate);
             }
         } else {
             builder.append(" usted no se encuentra asignado a ningun plan.");

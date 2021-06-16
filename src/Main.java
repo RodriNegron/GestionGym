@@ -251,6 +251,7 @@ public class Main {
                         break;
                     case 2:
                         Activity fitness = new Funcional("Fitness");
+
                         gym.addActivityToList(fitness);
                         gym.getShifts_map().consultActivitiesByDays();
                         break;
