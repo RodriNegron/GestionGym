@@ -148,7 +148,7 @@ public class Shifts_map {
                                     Integer inti = slot - 1;
                                     al.get(i).getAvailableShifts().put(hour, inti);
 
-                                    System.out.println("Exito");
+                                    System.out.println("Reserva realizada con éxito");
                                     System.out.println(shift);
 
                                     Activity_list acts = new Activity_list();
