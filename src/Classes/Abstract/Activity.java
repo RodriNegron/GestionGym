@@ -31,8 +31,6 @@ public class Activity{
     //region GETTERS  SETTERS
     public int getIdActivity() { return idActivity; }
 
-    public void setIdActivity(int id) { this.idActivity = id; }
-
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }

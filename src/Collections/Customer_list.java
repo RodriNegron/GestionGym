@@ -3,7 +3,6 @@ package Collections;
 import Classes.Customer;
 import Interfaces.Controller;
 import Utils.Password;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +10,7 @@ public class Customer_list implements Controller {
 
     private List<Customer> customers_list;
 
+    //region Constructor, getters & setters
     public Customer_list() {
         this.customers_list = new ArrayList<>();
     }
@@ -22,6 +22,7 @@ public class Customer_list implements Controller {
     public void setCustomers_list(List<Customer> customers_list) {
         this.customers_list = customers_list;
     }
+    //endregion
 
     @Override
     public void add(Object name) {
@@ -55,7 +56,7 @@ public class Customer_list implements Controller {
     }
 
     @Override
-    public void delete(int id) {        ////////// NO BORRARLO, SINO SETIAR PLAN = 0
+    public void delete(int id) {
             Customer userDelete = (Customer) findById(id);
             if (userDelete!=null){
                 userDelete.setTraining_Plan(0);
@@ -87,15 +88,6 @@ public class Customer_list implements Controller {
             }
         }
         return customer;
-    }
-
-    public void getUsersByPlan(int trainingPlanId){
-        for (Customer c : customers_list) {
-            if (c.getTraining_Plan() == trainingPlanId) {
-                System.out.println(c.toString());
-                break;
-            }
-        }
     }
 
 }

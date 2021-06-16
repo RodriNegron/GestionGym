@@ -1,9 +1,7 @@
 package Collections;
 
-import Classes.Abstract.Activity;
 import Classes.Instructor;
 import Interfaces.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +9,12 @@ public class Instructor_list implements Controller {
 
     private List<Instructor> instructors_list;
 
+
+    //region Constructor, getters & setters
     public  Instructor_list (){ instructors_list =  new ArrayList<>(); }
 
     public List<Instructor> getInstructors() { return instructors_list; }
+    //endregion
 
 
     @Override
@@ -60,19 +61,6 @@ public class Instructor_list implements Controller {
         for (Instructor i : instructors_list) {
             System.out.println(i.toString());
         }
-    }
-
-    public Instructor findInstructor (String name, String lastName){
-        Instructor instructor = null;
-
-        if (instructors_list.size()  > 0) {
-            for (Instructor inst : instructors_list) {
-                if ((inst.getFirstName().compareTo(name) ==0) && (inst.getLastName().compareTo(lastName))==0){
-                    instructor = inst;
-                }
-            }
-        }
-        return instructor;
     }
 
 }

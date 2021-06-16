@@ -2,19 +2,20 @@ package Collections;
 
 import Classes.Abstract.Training_plan;
 import Classes.Customer;
-import Classes.Instructor;
 import Interfaces.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingPlan_list implements Controller {
+
     List<Training_plan> plan_list;
+
 
     public TrainingPlan_list()
     {
         plan_list = new ArrayList<>();
     }
+
 
     @Override
     public void add(Object name) {

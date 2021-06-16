@@ -5,7 +5,7 @@ import Classes.TrainingPlans;
 import java.time.LocalDate;
 
 public abstract class Training_plan {
-    protected int id = 0; //1 for basic plan - 2 for premium plan
+    protected int id = 0;   //  1 for basic plan / 2 for premium plan
     private TrainingPlans tp;
     protected double price;
 

@@ -4,16 +4,15 @@ public class Wallet {
     private int id;
     private double total_Amount = 0;
 
-    //region contructor
+    //region Constructor, getters & setters
+
     public Wallet() {
     }
 
     public Wallet(int id) {
         this.id = id;
     }
-    //endregion
 
-    //region gett&&sett
     public int getId() {
         return id;
     }

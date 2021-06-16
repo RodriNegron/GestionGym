@@ -9,7 +9,8 @@ public abstract class Person {
     private String email;
     private String password;
 
-    //region constructor
+    //region Constructors, Getters & setters
+
     public Person() {
         incrementalId();
     }
@@ -35,9 +36,6 @@ public abstract class Person {
         this.email = email;
         this.password = password;
     }
-    //endregion
-
-    //region gett&&sett
 
     public int getId() {
         return id;
