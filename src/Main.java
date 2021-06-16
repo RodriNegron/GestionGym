@@ -99,6 +99,7 @@ public class Main {
                 op = scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Datos incorrectos");
+                op=0;
                 break;
             }
         }
@@ -168,8 +169,10 @@ public class Main {
                         if (client.getTraining_Plan() == 0) {
                             gym.consultTrainingPlanList();
                             System.out.println("A que plan desea inscribirse?");
-                            int aux = scann.nextInt();
-                            gym.signUp(client, aux, monthlyGain);
+                            int op = optionEntry(2);
+                            if(op==0)break;
+                            gym.signUp(client, op, monthlyGain);
+                            scann.nextLine();
                         } else System.out.println("Ya te encuentras inscripto al sistema!");
                         break;
                     case 2:
