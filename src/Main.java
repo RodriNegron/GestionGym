@@ -92,7 +92,7 @@ public class Main {
         } catch (InputMismatchException e) {
             System.out.println("Dato ingresado no valido");
         }
-        while (number < op && op <= 0) {
+        while (number < op || op <= 0) {
             scanner.reset();
             System.out.print("Ingrese una opcion valida: ");
             try {
@@ -140,7 +140,7 @@ public class Main {
                     break;
             }
 
-        } while (option < 4);
+        } while (option != 4);
 
     }
 
@@ -281,21 +281,20 @@ public class Main {
     }
 
     public static void scannReserveShift(Gym gym, Scanner scann, Customer client, Sunday persistedSundays) {
-        int num = 0;
         int time;
         String hour;
         String activity;
         String day;
-        day = gym.chooseDay(persistedSundays);
 
         System.out.println("En que actividad desea anotarse?");
         gym.getShifts_map().consultActivities();
+        activity = scann.nextLine();
 
-        num = scann.nextInt();
+        day = gym.chooseDay(persistedSundays);
 
-        if (num == 1) activity = "Funcional";
-        else if (num == 2) activity = "Aerobic";
-        else activity = "Crossfit";
+        //if day == dayoftoday)
+
+
 
         System.out.println("Dentro de que rango horario?");
         System.out.println("1 - 8-9:30");
@@ -305,6 +304,7 @@ public class Main {
         System.out.println("5 - 16-17:30");
         System.out.println("6 - 18-19:30");
         time = scann.nextInt();
+        scann.nextLine();
 
         if (time == 1) hour = "8-9:30";
         else if (time == 2) hour = "10-11:30";

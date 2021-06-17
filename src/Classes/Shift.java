@@ -1,7 +1,5 @@
 package Classes;
 
-import Classes.Abstract.Activity;
-
 public class Shift {
     private String shift_date;
     private String shift_hour;
@@ -48,8 +46,8 @@ public class Shift {
     @Override
     public int hashCode() {
         int result = shift_date.hashCode();
-        result += 31* shift_hour.hashCode();
-        result += 31* activity.hashCode();
+        result += 31 * shift_hour.hashCode();
+        result += 31 * activity.hashCode();
 
         return result;
     }

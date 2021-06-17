@@ -57,7 +57,7 @@ public class Shift_list implements Controller {
             builder.append(c);
             builder.append("\n");
         }
-        if (builder.length() ==  0) builder.append("Empty list");
+        if (builder.length() ==  0) builder.append("Lista vacia");
 
         return builder.toString();
     }
