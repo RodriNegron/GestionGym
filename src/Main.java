@@ -1,4 +1,3 @@
-import Classes.*;
 import Classes.Abstract.Activity;
 import Classes.Customer;
 import Classes.Funcional;
@@ -11,6 +10,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+
 import Classes.Admin;
 
 import java.util.InputMismatchException;
@@ -38,7 +38,7 @@ public class Main {
 
         persistedSundays = toFiles.readSundayFile(sunday);
         monthlyGain = toFiles.readMonthlyGains(gains);
-        gym.getMoth().setGains(monthlyGain);
+        gym.getMonthlyGain().setGains(monthlyGain);
 
         String day = LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u"));
 
@@ -59,7 +59,7 @@ public class Main {
             toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
             toFiles.writeFile(gym.getCustomers_list(), Customer_file);
             toFiles.writeFile(persistedSundays, sunday);
-            toFiles.writeFile(gym.getMoth().getGains(), gains);
+            toFiles.writeFile(gym.getMonthlyGain().getGains(), gains);
 
         } else if (day.equals(persistedSundays.getNextSunday())) {
             System.out.println("Al ser domingo, al volver a ingresar se resetearan los turnos semanales");
@@ -79,26 +79,25 @@ public class Main {
 
             toFiles.writeFile(gym.getShifts_map().getDays(), Shift_file);
             toFiles.writeFile(gym.getCustomers_list(), Customer_file);
-            toFiles.writeFile(gym.getMoth().getGains(), gains);
+            toFiles.writeFile(gym.getMonthlyGain().getGains(), gains);
 
         }
     }
-    public static int optionEntry(int number){
+
+    public static int optionEntry(int number) {
         Scanner scanner = new Scanner(System.in);
         int op = 0;
-        try{
+        try {
             op = scanner.nextInt();
-        }
-        catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.out.println("Dato ingresado no valido");
         }
-        while (number < op && op <= 0){
+        while (number < op && op <= 0) {
             scanner.reset();
             System.out.print("Ingrese una opcion valida: ");
-            try{
+            try {
                 op = scanner.nextInt();
-            }
-            catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Datos incorrectos");
                 break;
             }
@@ -146,7 +145,7 @@ public class Main {
     }
 
     public static void menuUsuario(Scanner scann, Gym gym, String salt, Sunday persistedSunday, HashMap<String, Double> monthlyGain) {
-        int option = 0 ;
+        int option = 0;
 
         Customer client;
         client = gym.checkClient();
@@ -217,7 +216,7 @@ public class Main {
     }
 
     public static void menuAdmin(Scanner scann, Gym gym, Admin administrator, String salt, Sunday persistedSunday, HashMap<String, Double> monthlyGain) {
-        int option =0;
+        int option = 0;
         Admin admin = null;
         admin = gym.checkAdmin(administrator);
 
@@ -227,12 +226,10 @@ public class Main {
                 System.out.println("1-Consultar actividades");
                 System.out.println("2-Agregar actividad");
                 System.out.println("3-Eliminar actividad");
-                System.out.println("4-Ganancia Mensual"); //->mensual //anual
-                System.out.println("5-Ganancia Anual"); //->mensual //anual
+                System.out.println("4-Ganancia Mensual");
+                System.out.println("5-Ganancia Anual");
                 System.out.println("6-Consultar clientes");
-                System.out.println("7-Consultar instructores"); //->Agregar y borrar
-
-                //cambiar precio training plan
+                System.out.println("7-Consultar instructores");
 
                 System.out.println("8-Regresar");
                 System.out.println("Elija una opcion: ");
@@ -264,9 +261,12 @@ public class Main {
                         gym.deleteActivity(aux, gym.getCustomers_list());
                         break;
                     case 4:
-
+                        Double gainByMonth = gym.chekMonthlyGain();
+                        System.out.println("Ganancia mensual hasta el momento: " +gainByMonth);
                         break;
                     case 5:
+                        Double gainByYear = gym.checkGainsThisYear();
+                        System.out.println("Ganancia anual hasta el momento: " +gainByYear);
                         break;
                     case 6:
                         gym.consultClients();
@@ -291,7 +291,6 @@ public class Main {
 
         System.out.println("En que actividad desea anotarse?");
         gym.getShifts_map().consultActivities();
-        //TODO corregir -> 0 - fNCIONAL 1 - cROSFIT <-
 
         num = scann.nextInt();
 

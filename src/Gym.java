@@ -4,9 +4,12 @@ import Classes.*;
 import Collections.*;
 import Classes.Admin;
 import Utils.Password;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public final class Gym {
@@ -17,7 +20,7 @@ public final class Gym {
     private Customer_list customers_list;
     private TrainingPlan_list training_plan_list;
     private Instructor_list instructor_list;
-    private MonthlyGain moth;
+    private MonthlyGain monthlyGain;
 
     //region Constructors, getters & setters
 
@@ -26,7 +29,7 @@ public final class Gym {
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
         this.instructor_list = new Instructor_list();
-        moth = new MonthlyGain();
+        monthlyGain = new MonthlyGain();
     }
 
     public Gym(String name, String location, String cuit) {
@@ -37,44 +40,66 @@ public final class Gym {
         this.customers_list = new Customer_list();
         this.training_plan_list = new TrainingPlan_list();
         this.instructor_list = new Instructor_list();
-        moth = new MonthlyGain();
+        monthlyGain = new MonthlyGain();
 
     }
 
-    public MonthlyGain getMoth() {
-        return moth;
+    public MonthlyGain getMonthlyGain() {
+        return monthlyGain;
     }
 
-    public void setMoth(MonthlyGain moth) {
-        this.moth = moth;
+    public void setMonthlyGain(MonthlyGain monthlyGain) {
+        this.monthlyGain = monthlyGain;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getLocation() { return location; }
+    public String getLocation() {
+        return location;
+    }
 
-    public void setLocation(String location) { this.location = location; }
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-    public String getCuit() { return cuit; }
+    public String getCuit() {
+        return cuit;
+    }
 
-    public void setCuit(String cuit) { this.cuit = cuit; }
+    public void setCuit(String cuit) {
+        this.cuit = cuit;
+    }
 
-    public Customer_list getCustomers_list() { return customers_list; }
+    public Customer_list getCustomers_list() {
+        return customers_list;
+    }
 
-    public void setCustomers_list(Customer_list customers_list) { this.customers_list = customers_list; }
+    public void setCustomers_list(Customer_list customers_list) {
+        this.customers_list = customers_list;
+    }
 
-    public Shifts_map getShifts_map() { return shifts_map; }
+    public Shifts_map getShifts_map() {
+        return shifts_map;
+    }
 
-    public Instructor_list getInstructor_list() { return instructor_list; }
+    public Instructor_list getInstructor_list() {
+        return instructor_list;
+    }
 
-    public void setShifts_map(Shifts_map shifts_map) { this.shifts_map = shifts_map; }
+    public void setShifts_map(Shifts_map shifts_map) {
+        this.shifts_map = shifts_map;
+    }
     //endregion
 
-    public Customer register(Scanner scann, String salt){
+    public Customer register(Scanner scann, String salt) {
 
-        String dni, firstname , lastname, email, password;
+        String dni, firstname, lastname, email, password;
 
         System.out.println("DNI: ");
         dni = scann.nextLine();
@@ -86,37 +111,33 @@ public final class Gym {
         email = scann.nextLine();
         System.out.println("Contraseña: ");
         password = scann.nextLine();
-        password = Password.generateSecurePassword(password,salt);
+        password = Password.generateSecurePassword(password, salt);
 
         return new Customer(dni, firstname, lastname, email, password, salt);
     }
 
-    public void consultShiftsOnClient(Customer cust)
-    {
+    public void consultShiftsOnClient(Customer cust) {
         cust.getShifts().consultList();
     }
 
-    public void reserveShift(Customer cust, String day , String activity, String hour)
-    {
+    public void reserveShift(Customer cust, String day, String activity, String hour) {
         shifts_map.reserveShift(cust, day, activity, hour);
     }
 
-    public void addToCustomerList(Customer customer)
-    {
+    public void addToCustomerList(Customer customer) {
         customers_list.add(customer);
     }
 
-    public void consultClients()
-    {
+    public void consultClients() {
         customers_list.consultList();
     }
 
-    public void consultInstructors()
-    {
+    public void consultInstructors() {
         instructor_list.consultList();
 
     }
-    public void hardcodeUsers(){
+
+    public void hardcodeUsers() {
         Customer admin = new Customer("000", "admin", "admin", "admin@admin", "admin", "salt");
         Customer user = new Customer("111", "user", "user", "user@user", "user", "salt");
 
@@ -124,33 +145,30 @@ public final class Gym {
         addToCustomerList(user);
     }
 
-    public void hardcodeTrainingPlans(){
+    public void hardcodeTrainingPlans() {
 
-        Training_plan basicPlan = new basicPlan(1, 2500 );
-        Training_plan premiumPan = new premiumPlan(2, 3000 );
+        Training_plan basicPlan = new basicPlan(1, 2500);
+        Training_plan premiumPan = new premiumPlan(2, 3000);
 
         addToTrainingPlanList(basicPlan);
         addToTrainingPlanList(premiumPan);
     }
 
-    public void consultTrainingPlanList()
-    {
+    public void consultTrainingPlanList() {
         training_plan_list.consultList();
     }
 
-    public void consultStatusOfUser(Customer cust)
-    {
+    public void consultStatusOfUser(Customer cust) {
         cust.consultStatus();
     }
 
-    public void addToTrainingPlanList(Training_plan tp)
-    {
+    public void addToTrainingPlanList(Training_plan tp) {
         training_plan_list.add(tp);
     }
 
-    public Customer checkClient(){
+    public Customer checkClient() {
         Scanner scanner = new Scanner(System.in);
-        String str,pw;
+        String str, pw;
         Customer customer;
         System.out.println("Escriba su email");
         str = scanner.nextLine();
@@ -158,10 +176,10 @@ public final class Gym {
         System.out.println("Escriba su contraseña");
         pw = scanner.nextLine();
 
-        return customer = customers_list.findCustomer(str,pw);
+        return customer = customers_list.findCustomer(str, pw);
     }
 
-    public Admin checkAdmin (Admin administrator){
+    public Admin checkAdmin(Admin administrator) {
         Scanner scanner = new Scanner(System.in);
         String adm, pw;
         Admin admin = null;
@@ -172,8 +190,8 @@ public final class Gym {
         System.out.println("Contraseña administrador");
         pw = scanner.nextLine();
 
-        if (administrator.getEmail().equals(adm)){
-            if(administrator.getPassword().equals(pw)){
+        if (administrator.getEmail().equals(adm)) {
+            if (administrator.getPassword().equals(pw)) {
                 admin = administrator;
             }
         }
@@ -181,15 +199,17 @@ public final class Gym {
         return admin;
     }
 
+    public String chooseDay(Sunday persistedSunday) {
+        return shifts_map.chooseDay(persistedSunday);
+    }
 
+    public void checkAvailableShifts() {
+        shifts_map.consultAvailableShifts();
+    }
 
-    public String chooseDay(Sunday persistedSunday){return shifts_map.chooseDay(persistedSunday);}
-
-    public void checkAvailableShifts(){shifts_map.consultAvailableShifts();}
-
-    public void hardcodeInstructor (){
+    public void hardcodeInstructor() {
         Instructor instructor1 = new Instructor("Esteban", "38932329", "Ortenzi", "esteban@asd.com");
-        Instructor instructor2 = new Instructor("Felipe", "37895114", "Sarten", "felipe@asd.com" );
+        Instructor instructor2 = new Instructor("Felipe", "37895114", "Sarten", "felipe@asd.com");
         Instructor instructor3 = new Instructor("Marcos", "31587786", "Piero", "marcos@asd.com");
         Instructor instructor4 = new Instructor("Juan", "23961588", "Juarez", "juan@asd.com");
         Instructor instructor5 = new Instructor("Franco", "33258968", "Boni", "franco@asd.com");
@@ -207,58 +227,54 @@ public final class Gym {
         instructor_list.add(instructor8);
     }
 
-    public String expired (Customer cust){
+    public String expired(Customer cust) {
         String finalDate;
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("d/M/u"));
         StringBuilder builder = new StringBuilder();
 
-        if(cust.getPlanFinalDate() != null){
+        if (cust.getPlanFinalDate() != null) {
             finalDate = cust.getPlanFinalDate();
 
-                if (!(finalDate.equals(date))){
-                    builder.append(" la fecha de caducidad de su plan es el: " + finalDate);
-                }else{
-                    builder.append(" se le ha terminado su plan");
-                    cust.setTraining_Plan(0);
-                }
-        }else{
+            if (!(finalDate.equals(date))) {
+                builder.append(" la fecha de caducidad de su plan es el: " + finalDate);
+            } else {
+                builder.append(" se le ha terminado su plan");
+                cust.setTraining_Plan(0);
+            }
+        } else {
             builder.append(" usted no se encuentra asignado a ningun plan.");
         }
         return builder.toString();
     }
 
-    public void addActivityToList (Activity activity){
+    public void addActivityToList(Activity activity) {
         shifts_map.addActivity(activity, instructor_list);
     }
 
-    public void resetShiftsInClients()
-    {
-        for (Customer aux : getCustomers_list().getCustomers_list() ) {
+    public void resetShiftsInClients() {
+        for (Customer aux : getCustomers_list().getCustomers_list()) {
             aux.getShifts().getShift_list().clear();
         }
     }
 
-    public void deleteActivity(Activity_list act, Customer_list cust)
-    {
-        shifts_map.deleteActivity(act , cust);
+    public void deleteActivity(Activity_list act, Customer_list cust) {
+        shifts_map.deleteActivity(act, cust);
     }
 
-    public Activity_list foundActivity(String activityName){
+    public Activity_list foundActivity(String activityName) {
         Activity_list aux = shifts_map.getActivityByName(activityName);
         return aux;
     }
 
-    public void signUp(Customer cust, int trainingPlan, HashMap<String, Double> month)
-    {
+    public void signUp(Customer cust, int trainingPlan, HashMap<String, Double> month) {
         Training_plan aux = (Training_plan) training_plan_list.findById(trainingPlan);
 
         training_plan_list.buyTrainingPlan(cust, trainingPlan);
 
         month.forEach(
-                (mon, val)->
+                (mon, val) ->
                 {
-                    if (mon.equals(LocalDate.now().getMonth().toString()))
-                    {
+                    if (mon.equals(LocalDate.now().getMonth().toString())) {
                         Double money = month.get(mon);
 
                         money = money + aux.getPrice();
@@ -270,6 +286,24 @@ public final class Gym {
         );
     }
 
+    public double chekMonthlyGain() {
+        String actualMonth = LocalDate.now().getMonth().toString();
+
+        return monthlyGain.getGains().get(actualMonth);
+    }
+
+
+    public double checkGainsThisYear() {
+        double money = 0;
+
+
+        for (Map.Entry<String, Double> e : this.monthlyGain.getGains().entrySet()) {
+
+            money += e.getValue();
+        }
+
+        return money;
+    }
 
 }
 
