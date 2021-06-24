@@ -230,7 +230,6 @@ public class Main {
                 System.out.println("5-Ganancia Anual");
                 System.out.println("6-Consultar clientes");
                 System.out.println("7-Consultar instructores");
-
                 System.out.println("8-Regresar");
                 System.out.println("Elija una opcion: ");
                 option = optionEntry(8);
@@ -313,6 +312,7 @@ public class Main {
         else if (time == 4) hour = "14-15:30";
         else if (time == 5) hour = "16-17:30";
         else hour = "18-19:30";
+
 
         gym.reserveShift(client, day, activity, hour);
     }

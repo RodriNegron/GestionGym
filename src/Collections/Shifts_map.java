@@ -61,22 +61,22 @@ public class Shifts_map {
     public String chooseDay(Sunday persistedSunday) {
         AtomicInteger i = new AtomicInteger();
         i.set(0);
-        String[] dates = new String [7];
+        String[] dates = new String[7];
         dates[0] = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
 
 
-        int day = Integer.valueOf(dates[0].substring(5,7));
-        int nextSund = Integer.valueOf(persistedSunday.getNextSunday().substring(0,2));
+        int day = Integer.valueOf(dates[0].substring(5, 7));
+        int nextSund = Integer.valueOf(persistedSunday.getNextSunday().substring(0, 2));
 
         int daysToShow = nextSund - day;
 
         for (int j = 1; j < daysToShow; j++) {
-            dates[j] =  LocalDate.now().plusDays(j).format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
+            dates[j] = LocalDate.now().plusDays(j).format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy"));
         }
 
         String[] toShow = new String[7];
 
-        for ( int j = 0; j < dates.length && dates[j] != null; j++) {
+        for (int j = 0; j < dates.length && dates[j] != null; j++) {
             int finalJ = j;
             this.days.forEach(
                     (k, v) ->
@@ -112,9 +112,19 @@ public class Shifts_map {
                         for (Map.Entry<String, Integer> entry : activityMap.entrySet()) {
                             String mapHour = entry.getKey();
                             Integer slot = entry.getValue();
-                            Shift shift = new Shift(day, hour, activity);
+
                             if (mapHour.equals(hour) && (slot != 0)) {
 
+                                Shift shift = new Shift(day, hour, activity);
+
+                                boolean found = false;
+                                for (int c = 0; c < (cust.getShifts().getShift_list().size()); c++) {
+                                    if (cust.getShifts().getShift_list().get(i).equals(shift)) {
+                                        found = true;
+                                    }
+                                }
+
+                                if (!found) {
                                     cust.getShifts().add(shift);
 
                                     Integer inti = slot - 1;
@@ -127,6 +137,8 @@ public class Shifts_map {
                                     acts.setActivity_list(al);
 
                                     days.put(today, acts);
+                                }
+                                else System.out.println("Usted ya posee este turno!");
                             }
                         }
                     }
@@ -182,13 +194,12 @@ public class Shifts_map {
         Activity_list aux = this.days.get(LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy")));
 
         for (int i = 0; i < aux.getActivity_list().size(); i++) {
-            System.out.println("id: "+ i + " " + "nombre: " + aux.getActivity_list().get(i).getName());
+            System.out.println("id: " + i + " " + "nombre: " + aux.getActivity_list().get(i).getName());
         }
     }
 
 
-    public Activity_list getActivityByName(String name)
-    {
+    public Activity_list getActivityByName(String name) {
         Activity_list aux = new Activity_list();
 
         for (Map.Entry<String, Activity_list> e : this.days.entrySet()) {
@@ -197,8 +208,7 @@ public class Shifts_map {
             List<Activity> al = activity_list.getActivity_list();
 
             for (int i = 0; i < al.size() && al.get(i) != null; i++) {
-                if(al.get(i).getName().compareTo(name) == 0)
-                {
+                if (al.get(i).getName().compareTo(name) == 0) {
                     aux.add(al.get(i));
                 }
             }
@@ -206,7 +216,7 @@ public class Shifts_map {
         return aux;
     }
 
-    public Activity_list addInstructorsToActivityList (Instructor_list instructors){
+    public Activity_list addInstructorsToActivityList(Instructor_list instructors) {
 
         Activity_list aux1 = new Activity_list();
 
@@ -239,13 +249,13 @@ public class Shifts_map {
         );
     }
 
-    public void deleteActivity(Activity_list activities, Customer_list customer_list){
+    public void deleteActivity(Activity_list activities, Customer_list customer_list) {
 
         days.forEach(
                 (day, act) -> {
                     for (int j = 0; j < activities.getActivity_list().size() && activities.getActivity_list().get(j) != null; j++) {
                         for (int i = 0; i < act.getActivity_list().size() && act.getActivity_list().get(i) != null; i++) {
-                            if ( act.getActivity_list().get(i).getIdActivity() == activities.getActivity_list().get(j).getIdActivity())
+                            if (act.getActivity_list().get(i).getIdActivity() == activities.getActivity_list().get(j).getIdActivity())
                                 act.getActivity_list().remove(act.getActivity_list().get(i));
 
                         }
