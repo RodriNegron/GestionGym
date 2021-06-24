@@ -120,9 +120,10 @@ public class Main {
             System.out.println("\t1- Ingreso Clientes");
             System.out.println("\t2- Ingreso Admin");
             System.out.println("\t3- Registrarse");
+            System.out.println("\t4- Salir");
 
 
-            option = optionEntry(3);
+            option = optionEntry(4);
 
             switch (option) {
                 case 1:
@@ -136,11 +137,11 @@ public class Main {
                     cust = gym.register(scann, salt);
                     gym.addToCustomerList(cust);
                     break;
-                default:
-                    System.out.println("Datos incorrectos!");
+                case 4:
+                    break;
             }
 
-        } while (option != 3);
+        } while (option < 4);
 
     }
 
@@ -207,7 +208,7 @@ public class Main {
                         gym.checkAvailableShifts();
                         break;
                     case 8:
-                        loggin(gym, salt, persistedSunday, monthlyGain);
+                        break;
                 }
             } while (option != 8);
 
@@ -225,9 +226,7 @@ public class Main {
                 System.out.println("Menu Administrador");
                 System.out.println("1-Consultar actividades");
                 System.out.println("2-Agregar actividad");
-
-                System.out.println("3-Eliminar actividad"); //->ETA
-
+                System.out.println("3-Eliminar actividad");
                 System.out.println("4-Ganancia Mensual"); //->mensual //anual
                 System.out.println("5-Ganancia Anual"); //->mensual //anual
                 System.out.println("6-Consultar clientes");
@@ -235,7 +234,7 @@ public class Main {
 
                 //cambiar precio training plan
 
-                System.out.println("0-Regresar");
+                System.out.println("8-Regresar");
                 System.out.println("Elija una opcion: ");
                 option = optionEntry(8);
                 switch (option) {
@@ -252,8 +251,9 @@ public class Main {
                         String nameToDelete;
                         gym.getShifts_map().consultActivities();
                         System.out.println("A continuacion elija el nombre de la actividad que desea eliminar");
-                        scann.nextLine();
                         nameToDelete = scann.nextLine();
+
+                        System.out.println(nameToDelete);
 
                         Activity_list aux = gym.foundActivity(nameToDelete);
 
@@ -275,7 +275,7 @@ public class Main {
                         gym.consultInstructors();
                         break;
                     case 8:
-                        loggin(gym, salt, persistedSunday, monthlyGain);
+                        break;
                 }
             } while (option != 8);
         } else System.out.println("Credenciales invalidas");
@@ -290,9 +290,8 @@ public class Main {
         day = gym.chooseDay(persistedSundays);
 
         System.out.println("En que actividad desea anotarse?");
-        System.out.println("1- Funcional");
-        System.out.println("2- Aerobic");
-        System.out.println("3- Crossfit");
+        gym.getShifts_map().consultActivities();
+        //TODO corregir -> 0 - fNCIONAL 1 - cROSFIT <-
 
         num = scann.nextInt();
 

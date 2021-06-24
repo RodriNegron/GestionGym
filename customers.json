@@ -2,91 +2,22 @@
   "customers_list": [
     {
       "training_Plan": 2,
-      "planStartDate": "13/6/2021",
-      "planFinalDate": "13/7/2021",
-      "shifts": {
-        "shift_list": [
-          {
-            "shift_date": "vie. 18/06/2021",
-            "shift_hour": "10-11:30",
-            "activity": "Crossfit"
-          }
-        ]
-      },
-      "wallet": {
-        "id": 10,
-        "total_Amount": 19222.0
-      },
-      "salt": "UPrtne1zDGH5i9gss85ESOCmexenBc",
-      "id": 10,
-      "dni": "a",
-      "firstName": "a",
-      "lastName": "a",
-      "email": "a",
-      "password": "PwN/OA0OcFo473EPwhEGB1yJ4L0ea9y5nztrNA5TN68\u003d"
-    },
-    {
-      "training_Plan": 1,
-      "planStartDate": "17/6/2021",
-      "planFinalDate": "17/7/2021",
-      "shifts": {
-        "shift_list": [
-          {
-            "shift_date": "jue. 17/06/2021",
-            "shift_hour": "8-9:30",
-            "activity": "Crossfit"
-          }
-        ]
-      },
-      "wallet": {
-        "id": 46,
-        "total_Amount": 7500.0
-      },
-      "salt": "A5Kya0aSoHOChMg4e8Ji38JJFDucnB",
-      "id": 46,
-      "dni": "s",
-      "firstName": "s",
-      "lastName": "s",
-      "email": "s",
-      "password": "mHnF05uYHxbOl+gq+X7XasrXpTZ76jFwUlwl1yjN8yM\u003d"
-    },
-    {
-      "training_Plan": 2,
-      "planStartDate": "17/6/2021",
-      "planFinalDate": "17/7/2021",
+      "planStartDate": "16/6/2021",
+      "planFinalDate": "16/7/2021",
       "shifts": {
         "shift_list": []
       },
       "wallet": {
         "id": 46,
-        "total_Amount": 17000.0
+        "total_Amount": 1000.0
       },
-      "salt": "o1BzuWYSXm4swZq4n2zH3V1rHSo2sF",
+      "salt": "KLryKGET18YLDpsNZv2od0JwTnt4Yw",
       "id": 46,
-      "dni": "d",
-      "firstName": "d",
-      "lastName": "d",
-      "email": "d",
-      "password": "QygsMKtmo7F3544zggtJSasUPrBg0aevWOdFWzNZlXI\u003d"
-    },
-    {
-      "training_Plan": 2,
-      "planStartDate": "1/7/2021",
-      "planFinalDate": "31/7/2021",
-      "shifts": {
-        "shift_list": []
-      },
-      "wallet": {
-        "id": 46,
-        "total_Amount": 37900.0
-      },
-      "salt": "KcICSDs0D7ysYnCfdoR9O7I0VczD7F",
-      "id": 46,
-      "dni": "ñ",
-      "firstName": "ñ",
-      "lastName": "ñ",
-      "email": "ñ",
-      "password": "e07WAShfqu2hAyLNocoVeC6UjzresKVc8aNVd2RohCQ\u003d"
+      "dni": "asd",
+      "firstName": "asd",
+      "lastName": "asd",
+      "email": "asd",
+      "password": "+wI7CCEEjZjq9dSjLDNlNOvW484kf15CsG0jBqJoJMo\u003d"
     }
   ]
 }

@@ -260,9 +260,9 @@ public final class Gym {
                     if (mon.equals(LocalDate.now().getMonth().toString()))
                     {
                         Double money = month.get(mon);
-                        System.out.println(money);
+
                         money = money + aux.getPrice();
-                        System.out.println(money);
+
 
                         month.put(mon, money);
                     }

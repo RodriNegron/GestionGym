@@ -182,7 +182,7 @@ public class Shifts_map {
         Activity_list aux = this.days.get(LocalDate.now().format(DateTimeFormatter.ofPattern("EEE dd/MM/yyyy")));
 
         for (int i = 0; i < aux.getActivity_list().size(); i++) {
-            System.out.println(aux.getActivity_list().get(i).getName());
+            System.out.println("id: "+ i + " " + "nombre: " + aux.getActivity_list().get(i).getName());
         }
     }
 
@@ -240,22 +240,21 @@ public class Shifts_map {
     }
 
     public void deleteActivity(Activity_list activities, Customer_list customer_list){
-        System.out.println("----");
+
         days.forEach(
                 (day, act) -> {
-                    for (int i = 0; i < act.getActivity_list().size(); i++) {
-                        for (int j = 0; j < activities.getActivity_list().size(); j++) {
-                            if (activities.getActivity_list().get(j).getIdActivity() == act.getActivity_list().get(i).getIdActivity())
-                                System.out.println(act.getActivity_list().get(i).getIdActivity());
+                    for (int i = 0; i < act.getActivity_list().size() && act.getActivity_list().get(i) != null; i++) {
+                        for (int j = 0; j < activities.getActivity_list().size() && activities.getActivity_list().get(j) != null; j++) {
+                            if ( act.getActivity_list().get(i).getIdActivity() == activities.getActivity_list().get(j).getIdActivity())
+                                act.getActivity_list().remove(act.getActivity_list().get(i));
                         }
                     }
 
                 }
         );
-        System.out.println("asd");
         for (int i = 0; i < customer_list.getCustomers_list().size(); i++) {
             customer_list.getCustomers_list().get(i).getShifts().deleteShiftsByActivity(activities.getActivity_list().get(i));
         }
-        System.out.println("asd2");
+        System.out.println("Se han eliminado con exito la actividad, y los turnos de los clientes reservados sobre la misma");
     }
 }
