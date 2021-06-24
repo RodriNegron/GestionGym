@@ -243,10 +243,11 @@ public class Shifts_map {
 
         days.forEach(
                 (day, act) -> {
-                    for (int i = 0; i < act.getActivity_list().size() && act.getActivity_list().get(i) != null; i++) {
-                        for (int j = 0; j < activities.getActivity_list().size() && activities.getActivity_list().get(j) != null; j++) {
+                    for (int j = 0; j < activities.getActivity_list().size() && activities.getActivity_list().get(j) != null; j++) {
+                        for (int i = 0; i < act.getActivity_list().size() && act.getActivity_list().get(i) != null; i++) {
                             if ( act.getActivity_list().get(i).getIdActivity() == activities.getActivity_list().get(j).getIdActivity())
                                 act.getActivity_list().remove(act.getActivity_list().get(i));
+
                         }
                     }
 

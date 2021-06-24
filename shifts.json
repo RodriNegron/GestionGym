@@ -2,36 +2,6 @@
   "mié. 23/06/2021": {
     "acts": [
       {
-        "idActivity": 6,
-        "name": "Crossfit",
-        "availableShifts": {
-          "10-11:30": 10,
-          "18-19:30": 10,
-          "8-9:30": 10,
-          "16-17:30": 10,
-          "14-15:30": 10,
-          "12-13:30": 10
-        },
-        "instructors": {
-          "instructors_list": [
-            {
-              "id": 0,
-              "dni": "Esteban",
-              "firstName": "38932329",
-              "lastName": "Ortenzi",
-              "email": "esteban@asd.com"
-            },
-            {
-              "id": 1,
-              "dni": "Felipe",
-              "firstName": "37895114",
-              "lastName": "Sarten",
-              "email": "felipe@asd.com"
-            }
-          ]
-        }
-      },
-      {
         "idActivity": 7,
         "name": "Funcional",
         "availableShifts": {
@@ -95,36 +65,6 @@
   },
   "sáb. 26/06/2021": {
     "acts": [
-      {
-        "idActivity": 15,
-        "name": "Crossfit",
-        "availableShifts": {
-          "10-11:30": 10,
-          "18-19:30": 10,
-          "8-9:30": 10,
-          "16-17:30": 10,
-          "14-15:30": 10,
-          "12-13:30": 10
-        },
-        "instructors": {
-          "instructors_list": [
-            {
-              "id": 0,
-              "dni": "Esteban",
-              "firstName": "38932329",
-              "lastName": "Ortenzi",
-              "email": "esteban@asd.com"
-            },
-            {
-              "id": 1,
-              "dni": "Felipe",
-              "firstName": "37895114",
-              "lastName": "Sarten",
-              "email": "felipe@asd.com"
-            }
-          ]
-        }
-      },
       {
         "idActivity": 16,
         "name": "Funcional",
@@ -190,36 +130,6 @@
   "vie. 25/06/2021": {
     "acts": [
       {
-        "idActivity": 12,
-        "name": "Crossfit",
-        "availableShifts": {
-          "10-11:30": 10,
-          "18-19:30": 10,
-          "8-9:30": 10,
-          "16-17:30": 10,
-          "14-15:30": 10,
-          "12-13:30": 10
-        },
-        "instructors": {
-          "instructors_list": [
-            {
-              "id": 0,
-              "dni": "Esteban",
-              "firstName": "38932329",
-              "lastName": "Ortenzi",
-              "email": "esteban@asd.com"
-            },
-            {
-              "id": 1,
-              "dni": "Felipe",
-              "firstName": "37895114",
-              "lastName": "Sarten",
-              "email": "felipe@asd.com"
-            }
-          ]
-        }
-      },
-      {
         "idActivity": 13,
         "name": "Funcional",
         "availableShifts": {
@@ -283,36 +193,6 @@
   },
   "jue. 24/06/2021": {
     "acts": [
-      {
-        "idActivity": 9,
-        "name": "Crossfit",
-        "availableShifts": {
-          "10-11:30": 10,
-          "18-19:30": 10,
-          "8-9:30": 10,
-          "16-17:30": 10,
-          "14-15:30": 10,
-          "12-13:30": 10
-        },
-        "instructors": {
-          "instructors_list": [
-            {
-              "id": 0,
-              "dni": "Esteban",
-              "firstName": "38932329",
-              "lastName": "Ortenzi",
-              "email": "esteban@asd.com"
-            },
-            {
-              "id": 1,
-              "dni": "Felipe",
-              "firstName": "37895114",
-              "lastName": "Sarten",
-              "email": "felipe@asd.com"
-            }
-          ]
-        }
-      },
       {
         "idActivity": 10,
         "name": "Funcional",
@@ -378,36 +258,6 @@
   "mar. 22/06/2021": {
     "acts": [
       {
-        "idActivity": 3,
-        "name": "Crossfit",
-        "availableShifts": {
-          "10-11:30": 10,
-          "18-19:30": 10,
-          "8-9:30": 10,
-          "16-17:30": 10,
-          "14-15:30": 10,
-          "12-13:30": 10
-        },
-        "instructors": {
-          "instructors_list": [
-            {
-              "id": 0,
-              "dni": "Esteban",
-              "firstName": "38932329",
-              "lastName": "Ortenzi",
-              "email": "esteban@asd.com"
-            },
-            {
-              "id": 1,
-              "dni": "Felipe",
-              "firstName": "37895114",
-              "lastName": "Sarten",
-              "email": "felipe@asd.com"
-            }
-          ]
-        }
-      },
-      {
         "idActivity": 4,
         "name": "Funcional",
         "availableShifts": {
@@ -471,36 +321,6 @@
   },
   "lun. 21/06/2021": {
     "acts": [
-      {
-        "idActivity": 0,
-        "name": "Crossfit",
-        "availableShifts": {
-          "10-11:30": 10,
-          "18-19:30": 10,
-          "8-9:30": 10,
-          "16-17:30": 10,
-          "14-15:30": 10,
-          "12-13:30": 10
-        },
-        "instructors": {
-          "instructors_list": [
-            {
-              "id": 0,
-              "dni": "Esteban",
-              "firstName": "38932329",
-              "lastName": "Ortenzi",
-              "email": "esteban@asd.com"
-            },
-            {
-              "id": 1,
-              "dni": "Felipe",
-              "firstName": "37895114",
-              "lastName": "Sarten",
-              "email": "felipe@asd.com"
-            }
-          ]
-        }
-      },
       {
         "idActivity": 1,
         "name": "Funcional",
